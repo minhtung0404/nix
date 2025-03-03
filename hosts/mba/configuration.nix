@@ -4,6 +4,10 @@
   users.users.minhtung0404 = {
     home = "/Users/minhtung0404/";
   };
+
+  users.users.entertainment = {
+    home = "/Users/entertainment/";
+  };
  
   nix.extraOptions = ''
     auto-optimise-store = true
@@ -20,9 +24,9 @@
   };
 
   services.sketchybar.enable = true;
-  services.sketchybar.extraPackages = [ 
-    pkgs.lua5_4_compat 
-    pkgs.aerospace 
+  services.sketchybar.extraPackages = [
+    pkgs.lua5_4_compat
+    pkgs.aerospace
     pkgs.nowplaying-cli
   ];
 

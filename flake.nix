@@ -33,7 +33,8 @@
  
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.minhtung0404 = import ./home/home.nix;
+            home-manager.users.minhtung0404 = import ./home/macair-minhtung0404.nix;
+            home-manager.users.entertainment = import ./home/macair-entertainment.nix;
           }
         ];
       };
