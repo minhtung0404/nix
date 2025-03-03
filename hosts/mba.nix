@@ -31,8 +31,8 @@
   ];
 
   launchd.user.agents.sketchybar.serviceConfig = {
-    StandardOutPath = "/Users/minhtung0404/sbar.log";
-    StandardErrorPath = "/Users/minhtung0404/sbar_err.log";
+    StandardOutPath = "/tmp/sbar.log";
+    StandardErrorPath = "/tmp/sbar_err.log";
   };
 
   system.stateVersion = 6;
