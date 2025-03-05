@@ -3,6 +3,7 @@
   programs.kitty.darwinLaunchOptions =
     [ "--single-instance" "-o allow_remote_control=socket" ];
   programs.kitty.font = {
+    package = pkgs.nerd-fonts.fira-code;
     name = "FiraCode Nerd Font Mono";
     size = 16;
   };

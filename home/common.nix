@@ -12,8 +12,6 @@
     coreutils
     curl
     discord
-    eza
-    fd
     hidden-bar
     htop
     jq
@@ -33,12 +31,17 @@
     fishPlugins.plugin-git
     grc
     nixfmt-classic
+    nerd-fonts.fira-code
   ];
 
-  imports = [ ../modules/shells/fish ];
+  imports = [ ../modules/shells/fish ../modules/misc/git ];
 
   programs.zoxide.enable = true;
   programs.zoxide.enableFishIntegration = true;
   programs.zoxide.options = [ "--cmd j" ];
+
+  programs.eza.enable = true;
+
+  programs.fd.enable = true;
 
 }
