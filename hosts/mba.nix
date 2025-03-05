@@ -1,9 +1,19 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
-  users.users.minhtung0404 = { home = "/Users/minhtung0404/"; };
+  users.users.minhtung0404 = {
+    name = "minhtung0404";
+    home = "/Users/minhtung0404/";
+    shell =
+      "${config.home-manager.users.minhtung0404.programs.fish.package}/bin/fish";
+  };
 
-  users.users.entertainment = { home = "/Users/entertainment/"; };
+  users.users.entertainment = {
+    name = "entertainment";
+    home = "/Users/entertainment/";
+    shell =
+      "${config.home-manager.users.entertainment.programs.fish.package}/bin/fish";
+  };
 
   nix.extraOptions = ''
     auto-optimise-store = true

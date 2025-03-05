@@ -1,0 +1,51 @@
+(defalias
+  cmd (multi lmet (layer-while-held command_ctrl))
+ 
+  Cw (multi (release-key lmet) C-w)
+  Cr (multi (release-key lmet) C-r)
+  Ct (multi (release-key lmet) C-t)
+  Ca (multi (release-key lmet) C-a)
+  Cs (multi (release-key lmet) C-s)
+  Cd (multi (release-key lmet) C-d)
+  Cf (multi (release-key lmet) C-f)
+  Cz (multi (release-key lmet) C-z)
+  Cx (multi (release-key lmet) C-x)
+  Cc (multi (release-key lmet) C-c)
+  Cv (multi (release-key lmet) C-v)
+
+  CS (multi lsft (layer-while-held command_normal))
+  CA (multi lalt (layer-while-held command_normal))
+  CC (multi lctl (layer-while-held command_normal))
+
+  CSt (multi (release-key lmet) C-S-t)
+  CSa (multi (release-key lmet) C-S-a)
+  MSf M-S-f
+  fn cmp
+)
+
+(defalias
+  open_web (cmd bash -c "hyprctl dispatch focuswindow LibreWolf")
+  open_discord XX
+  open_telegram XX
+  open_vscode XX
+  open_obsidian XX
+  open_kitty (cmd bash -c "hyprctl dispatch focuswindow kitty")
+)
+
+(deflayer command_ctrl
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    @Cw  _    @Cr  @Ct  _    _    _    _    _    _    _    _
+  _    @Ca  @Cs  @Cd  @Cf  _    _    _    _    _    _    _    _
+  @CS  @Cz  @Cx  @Cc  @Cv  _    _    _    _    _    _    _
+  @CC  @CA  @CA            _              _    _    _
+  @fn  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+)
+
+(deflayer command_normal
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    @CSt _    _    _    _    _    _    _    _
+  _    @CSa _    _    @MSf _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _    _
+  @fn  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+)

@@ -1,0 +1,96 @@
+(defalias
+  eoc (tap-hold-press 200 200 esc (layer-while-held hyper))
+  ho (layer-while-held hyper_open)
+  ht (layer-while-held hyper_term)
+  hs (layer-while-held hyper_system)
+  rl (tap-dance 200 (ralt ralt lrld))
+  rl1 (tap-dance 500 (rmet rmet lrld-next))
+  rl2 (tap-dance 500 (rmet rmet lrld-next))
+)
+
+;; hyper_open layer
+(defvar
+  hof @open_web
+  hod @open_discord
+  hot @open_telegram
+  hov @open_vscode
+  hon @open_obsidian
+  hok @open_kitty
+)
+
+;; hyper_term layer
+(defalias
+  term_split_down (macro C-b min)
+  term_split_right (macro C-b S-min)
+  term_maximize (macro C-b S-eql)
+)
+(defvar
+  htu @term_split_down
+  hti @term_split_right
+  htm @term_maximize
+)
+
+;; hyper_system layer
+(defvar
+  hsj mute
+  hsk vold
+  hsl volu
+  hsu lrld
+  hsi brdn
+  hso brup
+)
+
+(deflayer base
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @eoc a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lalt @cmd           spc            @rl1 @rl2 rctl
+  @fn  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+)
+
+(deflayer fn_layer
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX             XX             XX   XX   XX
+  XX   brdn brup XX   XX   XX   XX   prev pp   next mute vold volu
+)
+
+;; Hyper layer
+(deflayer hyper
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   @ht  XX   XX   XX   @ho  XX   XX   XX   XX
+  XX   XX   @hs  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX             XX             XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+)
+
+(deflayer hyper_open
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   $hot XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   $hod $hof XX   XX   XX   $hok XX   XX   XX   XX
+  XX   XX   XX   XX   $hov XX   $hon XX   XX   XX   XX   XX
+  XX   XX   XX             XX             XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+)
+
+(deflayer hyper_term
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   $htu $hti XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   $htm XX   XX   XX   XX
+  XX   XX   XX             XX             XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+)
+
+(deflayer hyper_system
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   $hsu $hsi $hso XX   XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   $hsj $hsk $hsl XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX   XX   XX             XX             XX   XX   XX
+  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+)

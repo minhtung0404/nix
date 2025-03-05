@@ -1,0 +1,10 @@
+(defalias
+  cmd lmet
+  open_web (cmd open -a LibreWolf.app)
+  open_discord (cmd open -a Discord.app)
+  open_telegram (cmd open -a Telegram.app)
+  open_vscode (cmd open -a "Visual Studio Code.app")
+  open_obsidian (cmd open -a Obsidian.app)
+  open_kitty (cmd open -a kitty.app)
+  fn (tap-hold-press 200 200 fn (layer-while-held fn_layer))
+)
