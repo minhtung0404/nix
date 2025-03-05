@@ -41,13 +41,21 @@
 
   programs.man.enable = true;
 
-  programs.thefuck.enable = true;
-  programs.thefuck.enableFishIntegration = true;
+  programs.thefuck = {
+    enable = true;
+    enableFishIntegration = true;
+  };
 
   programs.vscode.enable = true;
 
-  programs.zoxide.enable = true;
-  programs.zoxide.enableFishIntegration = true;
-  programs.zoxide.options = [ "--cmd j" ];
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+    options = [ "--cmd j" ];
+  };
 
+  programs.fzf = {
+    enable = true;
+    enableFishIntegration = true;
+  };
 }
