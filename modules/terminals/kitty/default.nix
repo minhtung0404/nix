@@ -34,6 +34,11 @@
 
     "cmd+q" = "close_os_window";
 
+    "ctrl+j" = "neighboring_window down";
+    "ctrl+k" = "neighboring_window up";
+    "ctrl+h" = "neighboring_window left";
+    "ctrl+l" = "neighboring_window right";
+
     "ctrl+b>minus" = "hsplit";
     "ctrl+b>kp_subtract" = "hsplit";
     "ctrl+b>shift+minus" = "vsplit";
