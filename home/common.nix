@@ -14,6 +14,7 @@
     discord
     fishPlugins.grc
     fishPlugins.plugin-git
+    fishPlugins.fzf-fish
     grc
     hidden-bar
     htop
