@@ -27,7 +27,11 @@
     casks = [ "librewolf" ];
   };
 
-  imports = [ ../modules/gui/aerospace ../modules/gui/sketchybar ];
+  imports = [
+    ../modules/gui/aerospace
+    ../modules/gui/sketchybar
+    ../modules/keyboards/kanata/darwin.nix
+  ];
 
   system.stateVersion = 6;
 }

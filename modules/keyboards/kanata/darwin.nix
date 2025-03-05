@@ -1,3 +1,57 @@
-{ ... }: {
-  xdg.configFile."kanata/os_specific.kbd".source = ./configs/macos.kbd;
+{ config, pkgs, lib, ... }:
+with lib;
+
+let
+  appleConfigFile = pkgs.writeTextFile {
+    name = "kanata_apple.kbd";
+    text = pkgs.lib.strings.concatStrings [
+      (builtins.readFile ./default_configs/apple.kbd)
+      (builtins.readFile ./default_configs/common.kbd)
+      (builtins.readFile ./os_configs/macos.kbd)
+    ];
+  };
+  gm610ConfigFile = pkgs.writeTextFile {
+    name = "kanata_gm610.kbd";
+    text = pkgs.lib.strings.concatStrings [
+      (builtins.readFile ./default_configs/gm610.kbd)
+      (builtins.readFile ./default_configs/common.kbd)
+      (builtins.readFile ./os_configs/macos.kbd)
+    ];
+  };
+in {
+  # xdg.configFile."kanata/apple.kbd".source =
+  #   (mkIf (pkgs.stdenv.isDarwin) appleConfigFile);
+  # xdg.configFile."kanata/gm610.kbd".source =
+  #   (mkIf (pkgs.stdenv.isDarwin) gm610ConfigFile);
+  environment.launchDaemons = {
+    "com.kanata.plist" = {
+      enable = true;
+      target = "com.nixos.kanata.plist";
+      text = ''
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+            <key>Label</key>
+            <string>com.nixos.kanata</string>
+            <key>ProgramArguments</key>
+            <array>
+              <string>${pkgs.kanata-with-cmd}/bin/kanata</string>
+              <string>-c</string>
+              <string>${appleConfigFile}</string>
+              <string>-c</string>
+              <string>${gm610ConfigFile}</string>
+            </array>
+            <key>RunAtLoad</key>
+            <true/>
+            <key>StandardOutPath</key>
+            <string>/tmp/kanata.out.log</string>
+            <key>StandardErrorPath</key>
+            <string>/tmp/kanata.err.log</string>
+            <key>ProcessType</key>
+            <string>Interactive</string>
+        </dict>
+        </plist>
+      '';
+    };
+  };
 }
