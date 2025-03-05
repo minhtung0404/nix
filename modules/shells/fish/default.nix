@@ -3,7 +3,7 @@
     enable = true;
     interactiveShellInit = ''
       set MANPATH "usr/local/man:$MANPATH"
-      set PATH "$HOME/.local/bin:/etc/profiles/per-user/minhtung0404/bin/:$PATH"
+      set PATH "$HOME/.local/bin:/run/current-system/sw/bin/:/etc/profiles/per-user/minhtung0404/bin/:$PATH"
 
       set fish_greeting # Disable greeting
 

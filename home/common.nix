@@ -18,7 +18,6 @@
     htop
     jq
     kanata-with-cmd
-    kitty
     neovim
     obsidian
     podman
