@@ -14,7 +14,6 @@
     discord
     hidden-bar
     htop
-    jq
     kanata-with-cmd
     neovim
     obsidian
@@ -44,4 +43,8 @@
 
   programs.fd.enable = true;
 
+  programs.jq.enable = true;
+  programs.jqp.enable = true;
+
+  programs.man.enable = true;
 }
