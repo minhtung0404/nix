@@ -7,11 +7,14 @@ local spaces = {}
 
 sbar.add("event", "aerospace_workspace_change")
 
-for i = 1, 7, 1 do
+local n_spaces = 6
+local space_icons = { "🌐", "💻", "📝", "📩", "💬", "🎮" }
+
+for i = 1, n_spaces, 1 do
 	local space = sbar.add("item", "space." .. i, {
 		icon = {
 			font = { family = settings.font.numbers },
-			string = i,
+			string = space_icons[i],
 			padding_left = 15,
 			padding_right = 8,
 			color = colors.black,
@@ -111,7 +114,7 @@ local function reload_icon()
 			end
 		end
 
-		for space = 1, 7, 1 do
+		for space = 1, n_spaces, 1 do
 			local apps = space_apps[tostring(space)]
 			local icon_line = ""
 			if apps then
