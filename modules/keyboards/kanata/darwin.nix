@@ -19,10 +19,6 @@ let
     ];
   };
 in {
-  # xdg.configFile."kanata/apple.kbd".source =
-  #   (mkIf (pkgs.stdenv.isDarwin) appleConfigFile);
-  # xdg.configFile."kanata/gm610.kbd".source =
-  #   (mkIf (pkgs.stdenv.isDarwin) gm610ConfigFile);
   environment.launchDaemons = {
     "com.kanata.plist" = {
       enable = true;

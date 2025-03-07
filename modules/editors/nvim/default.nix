@@ -1,3 +1,1 @@
-{ ... }: {
-  xdg.configFile.nvim.source = ./.;
-}
+{ ... }: { xdg.configFile.nvim.source = ./config; }
