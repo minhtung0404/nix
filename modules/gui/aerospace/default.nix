@@ -86,24 +86,34 @@
           "if" = { app-id = app; };
           "run" = action;
         });
+        web = "1";
+        work = "2";
+        notes = "3";
+        mail = "4";
+        chat = "5";
+        games = "6";
       in map (f [ "layout floating" ]) [ "com.apple.systempreferences" ]
-      ++ map (f [ "move-node-to-workspace 1" ]) [ "org.mozilla.librewolf" ]
-      ++ map (f [ "move-node-to-workspace 2" ]) [
+      ++ map (f [ "move-node-to-workspace ${web}" ]) [ "org.mozilla.librewolf" ]
+      ++ map (f [ "move-node-to-workspace ${work}" ]) [
         "org.microsolf.VSCode"
         "com.microsolf.VSCode"
-      ] ++ map (f [ "move-node-to-workspace 4" ]) [ "md.obsidian" ]
-      ++ map (f [ "move-node-to-workspace 5" ]) [ "com.apple.mail" ]
-      ++ map (f [ "move-node-to-workspace 6" ]) [
+        "com.microsoft.Powerpoint"
+      ] ++ map (f [ "move-node-to-workspace ${notes}" ]) [ "md.obsidian" ]
+      ++ map (f [ "move-node-to-workspace ${mail}" ]) [ "com.apple.mail" ]
+      ++ map (f [ "move-node-to-workspace ${chat}" ]) [
         "com.facebook.archon"
         "com.hnc.Discord"
         "ru.keepcoder.Telegram"
         "com.vng.zalo"
         "com.tdesktop.Telegram"
-      ] ++ map (f [ "move-node-to-workspace 7" ]) [
+      ] ++ map (f [ "move-node-to-workspace ${games}" ]) [
         "com.riotgames.RiotGames.RiotClient"
         "com.riotgames.LeagueofLegends.LeagueClientUx"
         "com.riotgames.LeagueofLegends.GameClient"
-      ];
+      ] ++ [{
+        "if"."app-name-regex-substring" = "^Code$";
+        "run" = [ "move-node-to-workspace ${work}" ];
+      }];
     };
   };
 }
