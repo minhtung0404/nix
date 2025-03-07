@@ -7,8 +7,6 @@
   programs.direnv.enable = true;
 
   home.packages = with pkgs; [
-    aerospace
-    aldente
     coreutils
     curl
     discord
@@ -16,22 +14,24 @@
     fishPlugins.plugin-git
     fishPlugins.fzf-fish
     grc
-    hidden-bar
     htop
-    kanata-with-cmd
     neovim
     nerd-fonts.fira-code
     nixfmt-classic
     obsidian
     podman
-    raycast
     ripgrep
-    sketchybar-app-font
     stylua
     telegram-desktop
   ];
 
-  imports = [ ../modules/shells/fish ../modules/misc/git ];
+  imports = [ 
+    ../modules/shells/fish 
+    ../modules/misc/git 
+    ../modules/terminals/kitty
+    ../modules/editors/nvim
+    ../modules/misc/ssh
+  ];
 
   programs.eza.enable = true;
 
