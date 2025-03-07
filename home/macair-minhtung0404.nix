@@ -1,8 +1,5 @@
 { ... }:
 
 {
-  imports = [
-    ./common.nix
-    ./common-darwin.nix
-  ];
+  imports = [ ./common.nix ./common-darwin.nix ];
 }

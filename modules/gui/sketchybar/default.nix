@@ -10,6 +10,8 @@ let
     mkdir $out
 
     cp -r ${./config}/* $out/
+    mkdir $out/images
+    cp ${../../../images/amira_squared.jpeg} $out/images/amira_squared.jpeg
     chmod -R 777 $out/helpers
 
     # helpers
@@ -17,24 +19,28 @@ let
 
     make
   '';
+  username = builtins.exec "whoami";
 in {
   options.minhtung0404.services.sketchybar = {
-    enable = mkEnableOption "sketchybar";
-
     package = mkPackageOption pkgs "sketchybar" { };
 
     extraPackages = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [ pkgs.lua5_4_compat pkgs.aerospace pkgs.nowplaying-cli ];
       example = literalExpression "[ pkgs.jq ]";
       description = ''
         Extra packages to add to PATH.
       '';
     };
-  };
 
-  config.minhtung0404.services.sketchybar = {
-    extraPackages = [ pkgs.lua5_4_compat pkgs.aerospace pkgs.nowplaying-cli ];
+    username = mkOption {
+      type = types.string;
+      default = "minhtung0404";
+      example = "abcxyz";
+      description = ''
+        Your username for logging
+      '';
+    };
   };
 
   config.launchd.user.agents.sketchybar = {
@@ -45,8 +51,8 @@ in {
         ++ [ "--config" "${sketchybarconf}/sketchybarrc" ];
       KeepAlive = true;
       RunAtLoad = true;
-      StandardOutPath = "/tmp/sbar.log";
-      StandardErrorPath = "/tmp/sbar_err.log";
+      # StandardOutPath = "/tmp/sbar_out_${username}.log";
+      # StandardErrorPath = "/tmp/sbar_err_${username}.log";
     };
   };
 }

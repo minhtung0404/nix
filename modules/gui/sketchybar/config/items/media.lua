@@ -8,7 +8,7 @@ local media_cover = sbar.add("item", {
 	position = "right",
 	background = {
 		image = {
-			string = "~/Pictures/amira_squared.jpeg",
+			string = "./images/amira_squared.jpeg",
 			scale = 0.04,
 		},
 		color = colors.transparent,
