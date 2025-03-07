@@ -5,6 +5,18 @@ let
     literalExpression maintainers mkEnableOption mkIf mkPackageOption mkOption
     optionals types;
   cfg = config.minhtung0404.services.sketchybar;
+  sketchybarconf = pkgs.runCommandCC "sketchybar-config" { } ''
+    echo Creating sketchybar config
+    mkdir $out
+
+    cp -r ${./config}/* $out/
+    chmod -R 777 $out/helpers
+
+    # helpers
+    cd $out/helpers
+
+    make
+  '';
 in {
   options.minhtung0404.services.sketchybar = {
     enable = mkEnableOption "sketchybar";
@@ -30,7 +42,7 @@ in {
       ++ [ config.environment.systemPath ];
     serviceConfig = {
       ProgramArguments = [ "${cfg.package}/bin/sketchybar" ]
-        ++ [ "--config" (builtins.toString ./config/sketchybarrc) ];
+        ++ [ "--config" "${sketchybarconf}/sketchybarrc" ];
       KeepAlive = true;
       RunAtLoad = true;
       StandardOutPath = "/tmp/sbar.log";
