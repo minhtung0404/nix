@@ -12,7 +12,5 @@
     hidden-bar
     kanata-with-cmd
     raycast
-    sketchybar
-    sketchybar-app-font
   ];
 }

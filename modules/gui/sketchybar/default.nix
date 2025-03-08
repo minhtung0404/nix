@@ -22,11 +22,13 @@ let
   username = builtins.exec "whoami";
 in {
   options.minhtung0404.services.sketchybar = {
+    enable = mkEnableOption "sketchybar";
+
     package = mkPackageOption pkgs "sketchybar" { };
 
     extraPackages = mkOption {
       type = types.listOf types.package;
-      default = [ pkgs.lua5_4_compat pkgs.aerospace pkgs.nowplaying-cli ];
+      default = [ ];
       example = literalExpression "[ pkgs.jq ]";
       description = ''
         Extra packages to add to PATH.
@@ -34,7 +36,7 @@ in {
     };
 
     username = mkOption {
-      type = types.string;
+      type = types.str;
       default = "minhtung0404";
       example = "abcxyz";
       description = ''
@@ -43,16 +45,21 @@ in {
     };
   };
 
-  config.launchd.user.agents.sketchybar = {
-    path = [ cfg.package ] ++ cfg.extraPackages
-      ++ [ config.environment.systemPath ];
-    serviceConfig = {
-      ProgramArguments = [ "${cfg.package}/bin/sketchybar" ]
-        ++ [ "--config" "${sketchybarconf}/sketchybarrc" ];
-      KeepAlive = true;
-      RunAtLoad = true;
-      # StandardOutPath = "/tmp/sbar_out_${username}.log";
-      # StandardErrorPath = "/tmp/sbar_err_${username}.log";
+  config = mkIf cfg.enable {
+    home.packages = [ cfg.package ];
+    launchd.agents.sketchybar = {
+      enable = true;
+      config = {
+        EnvironmentVariables = {
+          PATH = lib.concatStrings ((map (x: "${x}/bin/:") ([ cfg.package ] ++ cfg.extraPackages)) ++ ["$HOME/.nix-profile/bin:/etc/prifiles/per-user/$USER/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin/:/usr/local/bin/:/usr/bin/:/bin/:/usr/sbin/:/sbin" ]);
+        };
+        ProgramArguments = [ "${cfg.package}/bin/sketchybar" ]
+          ++ [ "--config" "${sketchybarconf}/sketchybarrc" ];
+        KeepAlive = true;
+        RunAtLoad = true;
+        StandardOutPath = "/tmp/sbar_out_${cfg.username}.log";
+        StandardErrorPath = "/tmp/sbar_err_${cfg.username}.log";
+      };
     };
   };
 }

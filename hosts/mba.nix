@@ -29,7 +29,7 @@
 
   imports = [
     ../modules/gui/aerospace
-    ../modules/gui/sketchybar
+    # ../modules/gui/sketchybar
     ../modules/keyboards/kanata/darwin.nix
   ];
 
