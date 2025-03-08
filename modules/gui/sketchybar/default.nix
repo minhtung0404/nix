@@ -10,8 +10,11 @@ let
     mkdir $out
 
     cp -r ${./config}/* $out/
+
+    # add images
     mkdir $out/images
     cp ${../../../images/amira_squared.jpeg} $out/images/amira_squared.jpeg
+
     chmod -R 777 $out/helpers
 
     # helpers
@@ -19,7 +22,6 @@ let
 
     make
   '';
-  username = builtins.exec "whoami";
 in {
   options.minhtung0404.services.sketchybar = {
     enable = mkEnableOption "sketchybar";
@@ -51,7 +53,11 @@ in {
       enable = true;
       config = {
         EnvironmentVariables = {
-          PATH = lib.concatStrings ((map (x: "${x}/bin/:") ([ cfg.package ] ++ cfg.extraPackages)) ++ ["$HOME/.nix-profile/bin:/etc/prifiles/per-user/$USER/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin/:/usr/local/bin/:/usr/bin/:/bin/:/usr/sbin/:/sbin" ]);
+          PATH = lib.concatStrings
+            ((map (x: "${x}/bin/:") ([ cfg.package ] ++ cfg.extraPackages)) ++ [
+              "$HOME/.nix-profile/bin:/etc/prifiles/per-user/$USER/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin/:/usr/local/bin/:/usr/bin/:/bin/:/usr/sbin/:/sbin"
+            ]);
+          LUA_CPATH = "$HOME/.local/share/sketchybar_lua/?.so";
         };
         ProgramArguments = [ "${cfg.package}/bin/sketchybar" ]
           ++ [ "--config" "${sketchybarconf}/sketchybarrc" ];
