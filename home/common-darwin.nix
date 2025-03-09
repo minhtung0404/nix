@@ -3,6 +3,8 @@
 {
   home.stateVersion = "24.11";
 
+  imports = [ ../modules/misc/hammerspoon ];
+
   programs.home-manager.enable = true;
   programs.direnv.enable = true;
 

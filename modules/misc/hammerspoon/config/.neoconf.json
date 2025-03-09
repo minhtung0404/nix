@@ -1,0 +1,27 @@
+{
+  "neodev": {
+    "library": {
+      "enabled": false,
+      "plugins": ["neoconf.nvim", "nvim-lspconfig"]
+    }
+  },  
+  "neoconf": {
+    "plugins": {
+      "lua_ls": {
+        "enabled": true
+      }
+    }
+  },
+  "lspconfig": {
+    "lua_ls": {
+      "Lua.workspace.library": [
+        "/Users/minhtung0404/.hammerspoon/Spoons/EmmyLua.spoon/annotations"
+      ],
+      "Lua.runtime": {
+        "path": ["?.lua", "?/init.lua"],
+        "pathStrict": true,
+        "version": "LuaJIT"
+      },
+    }
+  }
+}

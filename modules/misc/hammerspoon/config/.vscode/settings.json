@@ -1,0 +1,10 @@
+{
+    "Lua.diagnostics.disable": [
+        "inject-field",
+        "duplicate-set-field",
+        "missing-return",
+        "lowercase-global",
+        "undefined-doc-name",
+        "empty-block"
+    ]
+}
