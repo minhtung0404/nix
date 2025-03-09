@@ -15,4 +15,5 @@
     kanata-with-cmd
     raycast
   ];
+
 }

@@ -1,6 +1,8 @@
-{ pkgs, ... }:
-let
-  hs = pkgs.runCommand "hs" { } ''
-    defaults write org.hammerspoon.Hammerspoon MJConfigFile "~/.config/hammerspoon/init.lua";
-  '';
-in { xdg.configFile.hammerspoon.source = ./config; }
+{ pkgs, ... }: {
+  xdg.configFile.hammerspoon.source = ./config;
+  home.sessionPath = [ "/usr/bin" "/bin" "/usr/sbin" "/sbin" ];
+  home.activation = {
+    hammerspoon = ''
+      run /usr/bin/defaults write org.hammerspoon.Hammerspoon MJConfigFile "~/.config/hammerspoon/init.lua"'';
+  };
+}
