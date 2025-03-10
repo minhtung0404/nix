@@ -26,6 +26,8 @@
       }
     ];
     shellAliases = {
+      "..." = "cd ../..";
+      "...." = "cd ../../..";
       ls = "eza --hyperlink --group-directories-first --icons=auto";
       la = "ls -a";
       ll = "ls -lha";
@@ -33,7 +35,6 @@
       mkdir = "mkdir -p";
       c = "clear";
       v = "nvim";
-      vv = "v .";
       sv = "sudo nvim";
       mv = "mv -i";
       cp = "cp -i";
