@@ -9,7 +9,7 @@ local login_watcher = hs.caffeinate.watcher.new(function(event)
     or event == hs.caffeinate.watcher.screensDidUnlock
   then
     print("Login")
-    hs.execute("/opt/homebrew/bin/brew services restart sketchybar")
+    hs.execute("pkill sketchybar")
   end
 end)
 
