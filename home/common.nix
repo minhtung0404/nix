@@ -1,6 +1,4 @@
-{ config, pkgs, ... }:
-
-{
+{ config, pkgs, lib, ... }: {
   home.stateVersion = "24.11";
 
   programs.home-manager.enable = true;
@@ -25,12 +23,13 @@
     telegram-desktop
   ];
 
-  imports = [ 
-    ../modules/shells/fish 
-    ../modules/misc/git 
+  imports = [
+    ../modules/shells/fish
+    ../modules/misc/git
     ../modules/terminals/kitty
     ../modules/editors/nvim
     ../modules/misc/ssh
+    ../modules/config.nix
   ];
 
   programs.eza.enable = true;

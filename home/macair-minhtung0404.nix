@@ -11,6 +11,7 @@
       pkgs.nowplaying-cli
       pkgs.sketchybar-app-font
     ];
-    username = "minhtung0404";
   };
+
+  config.minhtung0404.username = "minhtung0404";
 }

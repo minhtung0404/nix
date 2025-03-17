@@ -22,6 +22,7 @@ let
 
     make
   '';
+  username = config.minhtung0404.username;
 in {
   options.minhtung0404.services.sketchybar = {
     enable = mkEnableOption "sketchybar";
@@ -55,16 +56,16 @@ in {
         EnvironmentVariables = {
           PATH = lib.concatStrings
             ((map (x: "${x}/bin/:") ([ cfg.package ] ++ cfg.extraPackages)) ++ [
-              "$HOME/.nix-profile/bin:/etc/prifiles/per-user/$USER/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin/:/usr/local/bin/:/usr/bin/:/bin/:/usr/sbin/:/sbin"
+              "/Users/${username}.nix-profile/bin:/etc/prifiles/per-user/$USER/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin/:/usr/local/bin/:/usr/bin/:/bin/:/usr/sbin/:/sbin"
             ]);
-          LUA_CPATH = "$HOME/.local/share/sketchybar_lua/?.so";
+          LUA_CPATH = "/Users/${username}/.local/share/sketchybar_lua/?.so";
         };
         ProgramArguments = [ "${cfg.package}/bin/sketchybar" ]
           ++ [ "--config" "${sketchybarconf}/sketchybarrc" ];
         KeepAlive = true;
         RunAtLoad = true;
-        StandardOutPath = "/tmp/sbar_out_${cfg.username}.log";
-        StandardErrorPath = "/tmp/sbar_err_${cfg.username}.log";
+        StandardOutPath = "/tmp/sbar_out_${username}.log";
+        StandardErrorPath = "/tmp/sbar_err_${username}.log";
       };
     };
   };
