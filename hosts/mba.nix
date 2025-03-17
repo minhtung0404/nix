@@ -24,7 +24,10 @@
   homebrew = {
     enable = true;
 
-    casks = [ "librewolf" ];
+    casks = [{
+      name = "librewolf";
+      greedy = true;
+    }];
   };
 
   imports = [
