@@ -20,7 +20,7 @@ let
   };
 in {
   environment.launchDaemons = {
-    "com.kanata.plist" = {
+    "com.nixos.kanata.plist" = {
       enable = true;
       target = "com.nixos.kanata.plist";
       text = ''
@@ -49,5 +49,27 @@ in {
         </plist>
       '';
     };
+    "com.nixos.karabiner.plist" = {
+      enable = true;
+      target = "com.nixos.karabiner.plist";
+      text = ''
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+            <key>Label</key>
+            <string>com.nixos.karabiner</string>
+            <key>ProgramArguments</key>
+            <array>
+              <string>/Library/Application Support/org.pqrs/Karabiner-DriverKit-VirtualHIDDevice/Applications/Karabiner-VirtualHIDDevice-Daemon.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Daemon</string>
+            </array>
+            <key>RunAtLoad</key>
+            <true/>
+            <key>ProcessType</key>
+            <string>Interactive</string>
+        </dict>
+        </plist>
+      '';
+    };
   };
+
 }
