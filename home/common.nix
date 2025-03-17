@@ -10,7 +10,7 @@
     discord
     fishPlugins.grc
     fishPlugins.plugin-git
-    fishPlugins.fzf-fish
+    # fishPlugins.fzf-fish
     grc
     htop
     neovim
@@ -42,10 +42,10 @@
 
   programs.man.enable = true;
 
-  programs.thefuck = {
-    enable = true;
-    enableFishIntegration = true;
-  };
+  # programs.thefuck = {
+  #   enable = true;
+  #   enableFishIntegration = true;
+  # };
 
   programs.vscode.enable = true;
 
