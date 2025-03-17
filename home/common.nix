@@ -21,6 +21,7 @@
     ripgrep
     stylua
     telegram-desktop
+    lazygit
   ];
 
   imports = [
