@@ -83,6 +83,8 @@
         cmd-shift-l = [ "join-with right" "mode main" ];
       };
 
+      workspace-to-monitor-force-assignment = { "7" = 2; };
+
       on-window-detected = let
         f = (action: app: {
           "if" = { app-id = app; };

@@ -8,7 +8,7 @@ local spaces = {}
 sbar.add("event", "aerospace_workspace_change")
 sbar.add("event", "aerospace_monitor_change")
 
-local space_icons = { "🌐", "💻", "📝", "📩", "💬", "🎮" }
+local space_icons = { "🌐", "💻", "📝", "📩", "💬", "🎮", "7" }
 
 for i, space_icon in ipairs(space_icons) do
 	local space = sbar.add("space", "space." .. i, {
@@ -36,7 +36,7 @@ for i, space_icon in ipairs(space_icons) do
 			border_color = colors.black,
 		},
 		popup = { background = { border_width = 5, border_color = colors.black } },
-		associated_display = 1,
+		associated_display = space_icon == "7" and 2 or 1,
 	})
 
 	spaces[i] = space
