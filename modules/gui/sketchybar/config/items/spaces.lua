@@ -88,10 +88,6 @@ for i, space_icon in ipairs(space_icons) do
 
 	space:subscribe("mouse.clicked", function(env)
 		sbar.exec("aerospace workspace " .. env.NAME:sub(7))
-		if env.BUTTON == "right" then
-			-- space_popup:set({ background = { image = "space." .. env.SID } })
-			-- space:set({ popup = { drawing = "toggle" } })
-		end
 	end)
 
 	space:subscribe("mouse.exited", function(_)
@@ -154,12 +150,10 @@ end
 
 space_window_observer:subscribe("aerospace_workspace_change", function()
 	reload_icon()
-	-- reload_space_monitor()
 end)
 
 space_window_observer:subscribe("space_windows_change", function()
 	reload_icon()
-	-- reload_space_monitor()
 end)
 
 space_window_observer:subscribe("aerospace_monitor_change", function()

@@ -1,5 +1,5 @@
 #!/usr/bin/env lua
 
 -- Load the sketchybar-package and prepare the helper binaries
--- require("helpers")
+-- package.cpath = package.cpath .. ";/Users/" .. os.getenv("USER") .. "/.local/share/sketchybar_lua/?.so"
 require("init")
