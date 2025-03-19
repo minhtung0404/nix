@@ -7,14 +7,13 @@ local spaces = {}
 
 sbar.add("event", "aerospace_workspace_change")
 
-local n_spaces = 6
 local space_icons = { "🌐", "💻", "📝", "📩", "💬", "🎮" }
 
-for i = 1, n_spaces, 1 do
-	local space = sbar.add("item", "space." .. i, {
+for i, space_icon in ipairs(space_icons) do
+	local space = sbar.add("space", "space." .. i, {
 		icon = {
 			font = { family = settings.font.numbers },
-			string = space_icons[i],
+			string = space_icon,
 			padding_left = 15,
 			padding_right = 8,
 			color = colors.black,
@@ -36,6 +35,7 @@ for i = 1, n_spaces, 1 do
 			border_color = colors.black,
 		},
 		popup = { background = { border_width = 5, border_color = colors.black } },
+		associated_display = 1,
 	})
 
 	spaces[i] = space
@@ -98,6 +98,8 @@ for i = 1, n_spaces, 1 do
 	end)
 end
 
+---------------------------------------------------
+
 local space_window_observer = sbar.add("item", {
 	drawing = false,
 	updates = true,
@@ -114,7 +116,7 @@ local function reload_icon()
 			end
 		end
 
-		for space = 1, n_spaces, 1 do
+		for space, _ in ipairs(space_icons) do
 			local apps = space_apps[tostring(space)]
 			local icon_line = ""
 			if apps then
@@ -133,13 +135,28 @@ local function reload_icon()
 	end)
 end
 
+local function reload_space_monitor()
+	-- move space to monitor
+	for i = 1, 2, 1 do
+		sbar.exec("aerospace list-workspaces --monitor " .. i, function(env)
+			for workspace in string.gmatch(env, "%S+") do
+				local id = tonumber(workspace)
+				if space_icons[id] ~= nil then
+					spaces[id]:set({
+						associated_display = i,
+					})
+				end
+			end
+		end)
+	end
+end
+
 space_window_observer:subscribe("aerospace_workspace_change", function()
 	reload_icon()
+	reload_space_monitor()
 end)
 
-space_window_observer:subscribe("space_windows_change", function()
-	reload_icon()
-end)
+---------------------------------------------------
 
 local spaces_indicator = sbar.add("item", {
 	padding_left = -3,
@@ -199,3 +216,18 @@ end)
 spaces_indicator:subscribe("mouse.clicked", function(env)
 	sbar.trigger("swap_menus_and_spaces")
 end)
+
+---------------------------------------------------
+-- start up
+reload_icon()
+
+-- highlight current workspace
+sbar.exec("aerospace list-workspaces --focused", function(env)
+	local space_id = tonumber(env)
+	sbar.trigger("aerospace_workspace_change", {
+		FOCUSED_WORKSPACE = space_id,
+	})
+end)
+
+-- move space to monitor
+reload_space_monitor()
