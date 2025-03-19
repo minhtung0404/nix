@@ -156,6 +156,11 @@ space_window_observer:subscribe("aerospace_workspace_change", function()
 	reload_space_monitor()
 end)
 
+space_window_observer:subscribe("space_windows_change", function()
+	reload_icon()
+	reload_space_monitor()
+end)
+
 ---------------------------------------------------
 
 local spaces_indicator = sbar.add("item", {

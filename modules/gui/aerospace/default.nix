@@ -7,7 +7,7 @@
         "-c"
         "${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE"
       ];
-      enable-normalization-flatten-containers = false;
+      enable-normalization-flatten-containers = true;
       enable-normalization-opposite-orientation-for-nested-containers = true;
 
       accordion-padding = 30;
@@ -34,8 +34,6 @@
 
         alt-slash = "layout tiles horizontal vertical";
         alt-comma = "layout accordion horizontal vertical";
-        alt-u = "split vertical";
-        alt-i = "split horizontal";
 
         cmd-h = "focus left";
         cmd-j = "focus down";
@@ -79,6 +77,7 @@
         cmd-shift-h = [ "join-with left" "mode main" ];
         cmd-shift-j = [ "join-with down" "mode main" ];
         cmd-shift-k = [ "join-with up" "mode main" ];
+        cmd-shift-l = [ "join-with right" "mode main" ];
       };
 
       on-window-detected = let
