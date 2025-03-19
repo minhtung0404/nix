@@ -51,7 +51,10 @@
         cmd-shift-equal = "resize smart +50";
 
         cmd-tab = "workspace-back-and-forth";
-        cmd-shift-0 = "move-workspace-to-monitor --wrap-around next";
+        cmd-shift-0 = [
+          "move-workspace-to-monitor --wrap-around next"
+          "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_monitor_change"
+        ];
 
         cmd-shift-semicolon = "mode service";
       } // (let

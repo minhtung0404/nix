@@ -6,6 +6,7 @@ local app_icons = require("helpers.app_icons")
 local spaces = {}
 
 sbar.add("event", "aerospace_workspace_change")
+sbar.add("event", "aerospace_monitor_change")
 
 local space_icons = { "🌐", "💻", "📝", "📩", "💬", "🎮" }
 
@@ -153,11 +154,15 @@ end
 
 space_window_observer:subscribe("aerospace_workspace_change", function()
 	reload_icon()
-	reload_space_monitor()
+	-- reload_space_monitor()
 end)
 
 space_window_observer:subscribe("space_windows_change", function()
 	reload_icon()
+	-- reload_space_monitor()
+end)
+
+space_window_observer:subscribe("aerospace_monitor_change", function()
 	reload_space_monitor()
 end)
 
