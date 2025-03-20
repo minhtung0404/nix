@@ -1,21 +1,23 @@
+(environment (LAPTOP macair)
+
+(defalias
+  cmd lmet
+  open_web (cmd open -a LibreWolf.app)
+  open_discord (cmd open -a Discord.app)
+  open_telegram (cmd open -a Telegram.app)
+  open_vscode (cmd open -a "Visual Studio Code.app")
+  open_obsidian (cmd open -a Obsidian.app)
+  open_kitty (cmd open -a kitty.app)
+  fn (tap-hold-press 200 200 fn (layer-while-held fn_layer))
+)
+
+)
+
 (defalias
   eoc (tap-hold-press 200 200 esc (layer-while-held hyper))
-  ho (layer-while-held hyper_open)
-  ht (layer-while-held hyper_term)
-  hs (layer-while-held hyper_system)
   rl (tap-dance 200 (ralt ralt lrld))
   rl1 (tap-dance 500 (rmet rmet lrld-next))
   rl2 (tap-dance 500 (rmet rmet lrld-next))
-)
-
-;; hyper_open layer
-(defvar
-  hof @open_web
-  hod @open_discord
-  hot @open_telegram
-  hov @open_vscode
-  hon @open_obsidian
-  hok @open_kitty
 )
 
 ;; hyper_term layer
@@ -23,21 +25,6 @@
   term_split_down (macro C-b min)
   term_split_right (macro C-b S-min)
   term_maximize (macro C-b S-eql)
-)
-(defvar
-  htu @term_split_down
-  hti @term_split_right
-  htm @term_maximize
-)
-
-;; hyper_system layer
-(defvar
-  hsj mute
-  hsk vold
-  hsl volu
-  hsu lrld
-  hsi brdn
-  hso brup
 )
 
 (deflayer base
@@ -49,48 +36,49 @@
   @fn  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
 )
 
-(deflayer fn_layer
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  XX   XX   XX             XX             XX   XX   XX
-  XX   brdn brup XX   XX   XX   XX   prev pp   next mute vold volu
+(deflayermap fn_layer
+  f1 brdn
+  f2 brup
+  f7 prev
+  f8 pp
+  f9 next
+  f10 mute
+  f11 vold
+  f12 volu
+  ___ XX
 )
 
 ;; Hyper layer
-(deflayer hyper
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  XX   XX   XX   XX   XX   @ht  XX   XX   XX   @ho  XX   XX   XX   XX
-  XX   XX   @hs  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  XX   XX   XX             XX             XX   XX   XX
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+(deflayermap hyper
+  o (layer-while-held hyper_open)
+  t (layer-while-held hyper_term)
+  s (layer-while-held hyper_system)
+  ___ XX
 )
 
-(deflayer hyper_open
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  XX   XX   XX   XX   XX   $hot XX   XX   XX   XX   XX   XX   XX   XX
-  XX   XX   XX   $hod $hof XX   XX   XX   $hok XX   XX   XX   XX
-  XX   XX   XX   XX   $hov XX   $hon XX   XX   XX   XX   XX
-  XX   XX   XX             XX             XX   XX   XX
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+(deflayermap hyper_open
+  f @open_web
+  d @open_discord
+  t @open_telegram
+  v @open_vscode
+  n @open_obsidian
+  k @open_kitty
+  ___ XX
 )
 
-(deflayer hyper_term
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  XX   XX   XX   XX   XX   XX   XX   $htu $hti XX   XX   XX   XX   XX
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  XX   XX   XX   XX   XX   XX   XX   $htm XX   XX   XX   XX
-  XX   XX   XX             XX             XX   XX   XX
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+(deflayermap hyper_term
+  u @term_split_down
+  i @term_split_right
+  m @term_maximize
+  ___ XX
 )
 
-(deflayer hyper_system
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  XX   XX   XX   XX   XX   XX   XX   $hsu $hsi $hso XX   XX   XX   XX
-  XX   XX   XX   XX   XX   XX   XX   $hsj $hsk $hsl XX   XX   XX
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
-  XX   XX   XX             XX             XX   XX   XX
-  XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+(deflayermap hyper_system
+  u lrld
+  i brdn
+  o brup
+  j mute
+  k vold
+  l volu
+  ___ XX
 )
