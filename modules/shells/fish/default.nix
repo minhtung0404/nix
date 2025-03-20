@@ -1,6 +1,21 @@
 { pkgs, ... }: {
   programs.fish = {
     enable = true;
+    functions = {
+      rebuild = {
+        body = ''
+          darwin-rebuild switch --flake ~/.config/nix/
+        '';
+        wraps = "darwin-rebuild";
+      };
+
+      repair = {
+        body = ''
+          sudo nix-store --repair --verify --check-contents
+        '';
+        wraps = "nix-store";
+      };
+    };
     interactiveShellInit = ''
       set MANPATH "usr/local/man:$MANPATH"
       set PATH "$HOME/.local/bin:/run/current-system/sw/bin/:/etc/profiles/per-user/minhtung0404/bin/:$PATH"
