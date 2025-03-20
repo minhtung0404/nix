@@ -9,7 +9,7 @@ local librewolf = Vim.new()
 librewolf.app_name = "LibreWolf"
 librewolf.in_pdf = 0
 librewolf.indicator = nil
-librewolf.icon = hs.image.imageFromPath("~/.hammerspoon/assets/neovim.png")
+librewolf.icon = hs.image.imageFromPath("~/.config/hammerspoon/assets/neovim.png")
 
 local log = hs.logger.new(librewolf.app_name, "info")
 
