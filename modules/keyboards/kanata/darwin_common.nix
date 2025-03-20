@@ -4,7 +4,6 @@ let
     mkIf mkEnableOption mkPackageOption mkOption listOf types literalExpression;
   cfg = config.minhtung0404.services.kanata;
 in {
-  imports = [ ./config.nix ];
   environment.launchDaemons = let
     config_file = lib.strings.concatMapStrings (file: ''
       <string>-c</string>
