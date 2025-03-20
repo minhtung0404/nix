@@ -2,10 +2,7 @@ local menu = require("menu")
 local wifi_changer = require("wifi_change")
 local keyboards = require("keyboards")
 local startup = require("startup")
-local stackline = require("stackline")
 local axbrowse = require("axbrowse")
-
-stackline:init()
 
 require("hs.hotkey").setLogLevel("warning")
 
@@ -28,5 +25,4 @@ Main_table = {
   wifi_changer = wifi_changer,
   keyboards = keyboards,
   startup = startup,
-  stackline = stackline,
 }

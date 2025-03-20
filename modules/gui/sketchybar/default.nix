@@ -47,7 +47,7 @@ in {
         EnvironmentVariables = {
           PATH = lib.concatStrings
             ((map (x: "${x}/bin/:") ([ cfg.package ] ++ cfg.extraPackages)) ++ [
-              "/Users/${username}.nix-profile/bin:/etc/prifiles/per-user/$USER/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin/:/usr/local/bin/:/usr/bin/:/bin/:/usr/sbin/:/sbin"
+              "/Users/${username}.nix-profile/bin:/etc/profiles/per-user/${username}/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin/:/usr/local/bin/:/usr/bin/:/bin/:/usr/sbin/:/sbin"
             ]);
           LUA_CPATH = "/Users/${username}/.local/share/sketchybar_lua/?.so";
         };
