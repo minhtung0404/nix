@@ -37,15 +37,6 @@ in {
         Extra packages to add to PATH.
       '';
     };
-
-    username = mkOption {
-      type = types.str;
-      default = "minhtung0404";
-      example = "abcxyz";
-      description = ''
-        Your username for logging
-      '';
-    };
   };
 
   config = mkIf cfg.enable {
