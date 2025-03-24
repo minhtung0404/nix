@@ -14,6 +14,7 @@
       "*.run.xml"
       "*.synctex.gz"
       ".envrc"
+      ".direnv"
     ];
     extraConfig = {
       init = { defaultBranch = "main"; };
