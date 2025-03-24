@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
-
-{
+let user = config.minhtung0404.username;
+in {
   home.stateVersion = "24.11";
 
   imports = [ ../../modules/misc/hammerspoon ../../modules/gui/sketchybar ];
@@ -15,5 +15,4 @@
     kanata-with-cmd
     raycast
   ];
-
 }
