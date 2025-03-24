@@ -2,7 +2,6 @@
   home.stateVersion = "24.11";
 
   programs.home-manager.enable = true;
-  programs.direnv.enable = true;
 
   home.packages = with pkgs; [
     coreutils
@@ -58,5 +57,11 @@
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    config.global.load_dotenv = true;
   };
 }
