@@ -4,6 +4,8 @@ local settings = require("settings")
 local app_icons = require("helpers.app_icons")
 
 local spaces = {}
+local space_brackets = {}
+local current_space = nil
 
 sbar.add("event", "aerospace_workspace_change")
 sbar.add("event", "aerospace_monitor_change")
@@ -39,8 +41,6 @@ for i, space_icon in ipairs(space_icons) do
 		associated_display = space_icon == "7" and 2 or 1,
 	})
 
-	spaces[i] = space
-
 	-- Single item bracket for space items to achieve double border on highlight
 	local space_bracket = sbar.add("bracket", { space.name }, {
 		background = {
@@ -50,6 +50,9 @@ for i, space_icon in ipairs(space_icons) do
 			border_width = 2,
 		},
 	})
+
+	spaces[i] = space
+	space_brackets[i] = space_bracket
 
 	-- Padding space
 	sbar.add("space", "space.padding." .. i, {
@@ -70,21 +73,6 @@ for i, space_icon in ipairs(space_icons) do
 			},
 		},
 	})
-
-	space:subscribe("aerospace_workspace_change", function(env)
-		local selected = ("space." .. env.FOCUSED_WORKSPACE) == space.name
-		space:set({
-			icon = { highlight = selected },
-			label = { highlight = selected },
-			background = {
-				border_color = selected and colors.black or colors.bg2,
-				color = selected and colors.red or colors.white,
-			},
-		})
-		space_bracket:set({
-			background = { border_color = selected and colors.grey or colors.bg2 },
-		})
-	end)
 
 	space:subscribe("mouse.clicked", function(env)
 		sbar.exec("aerospace workspace " .. env.NAME:sub(7))
@@ -148,7 +136,27 @@ local function reload_space_monitor()
 	end
 end
 
-space_window_observer:subscribe("aerospace_workspace_change", function()
+local function space_change(id, selected)
+	if id == nil then
+		return
+	end
+	spaces[id]:set({
+		icon = { highlight = selected },
+		label = { highlight = selected },
+		background = {
+			border_color = selected and colors.black or colors.bg2,
+			color = selected and colors.red or colors.white,
+		},
+	})
+	space_brackets[id]:set({
+		background = { border_color = selected and colors.grey or colors.bg2 },
+	})
+end
+
+space_window_observer:subscribe("aerospace_workspace_change", function(env)
+	space_change(current_space, false)
+	current_space = tonumber(env.FOCUSED_WORKSPACE)
+	space_change(current_space, true)
 	reload_icon()
 end)
 
@@ -227,10 +235,8 @@ reload_icon()
 
 -- highlight current workspace
 sbar.exec("aerospace list-workspaces --focused", function(env)
-	local space_id = tonumber(env)
-	sbar.trigger("aerospace_workspace_change", {
-		FOCUSED_WORKSPACE = space_id,
-	})
+	current_space = tonumber(env)
+	space_change(current_space, true)
 end)
 
 -- move space to monitor
