@@ -24,12 +24,12 @@
   ];
 
   imports = [
-    ../modules/shells/fish
-    ../modules/misc/git
-    ../modules/terminals/kitty
-    ../modules/editors/nvim
-    ../modules/misc/ssh
-    ../modules/config.nix
+    ../../modules/shells/fish
+    ../../modules/misc/git
+    ../../modules/terminals/kitty
+    ../../modules/editors/nvim
+    ../../modules/misc/ssh
+    ../../modules/config.nix
   ];
 
   programs.eza.enable = true;

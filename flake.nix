@@ -31,9 +31,9 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.minhtung0404 =
-                import ./home/macair-minhtung0404.nix;
+                import ./home/darwin/minhtung0404.nix;
               home-manager.users.entertainment =
-                import ./home/macair-entertainment.nix;
+                import ./home/darwin/entertainment.nix;
             }
           ];
         };

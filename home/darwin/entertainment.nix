@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./common.nix ./common-darwin.nix ../modules/gui/sketchybar ];
+  imports = [ ../shared/common.nix ./common.nix ];
 
   config.minhtung0404.services.sketchybar = {
     enable = true;

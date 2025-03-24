@@ -3,7 +3,7 @@
 {
   home.stateVersion = "24.11";
 
-  imports = [ ../modules/misc/hammerspoon ];
+  imports = [ ../../modules/misc/hammerspoon ../../modules/gui/sketchybar ];
 
   programs.home-manager.enable = true;
   programs.direnv.enable = true;
