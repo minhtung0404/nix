@@ -41,10 +41,10 @@
 
   programs.man.enable = true;
 
-  # programs.thefuck = {
-  #   enable = true;
-  #   enableFishIntegration = true;
-  # };
+  programs.thefuck = {
+    enable = true;
+    enableFishIntegration = true;
+  };
 
   programs.vscode.enable = true;
 
