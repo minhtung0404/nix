@@ -13,6 +13,7 @@
       "*.pdf"
       "*.run.xml"
       "*.synctex.gz"
+      ".envrc"
     ];
     extraConfig = {
       init = { defaultBranch = "main"; };
