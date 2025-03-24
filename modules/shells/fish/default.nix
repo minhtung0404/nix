@@ -15,6 +15,19 @@
         '';
         wraps = "nix-store";
       };
+      flakify = {
+        body = ''
+          if ! test -f flake.nix
+            echo "create flake.nix"
+            nix flake init -t github:hercules-ci/flake-parts
+          end
+          if ! test -f .envrc
+            echo "create .envrc"
+            echo "use flake" > .envrc
+            direnv allow
+          end
+        '';
+      };
     };
     interactiveShellInit = ''
       set MANPATH "usr/local/man:$MANPATH"
