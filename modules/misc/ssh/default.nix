@@ -8,7 +8,7 @@
         user = "mnguyen1";
       };
       "b313-* 3a401-*" = {
-        proxyJump = "ssh.imtbs-tsp.eu";
+        proxyJump = "telecom-sud";
         user = "mnguyen1";
       };
 
