@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
-
-{
+{ config, pkgs, ... }: {
   imports = [ ../shared/common.nix ./common.nix ];
+
+  config.home.packages = with pkgs; [ texlive.combined.scheme-full ];
 
   config.minhtung0404.services.sketchybar = {
     enable = true;
