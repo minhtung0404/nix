@@ -137,7 +137,7 @@ local function reload_space_monitor()
 end
 
 local function space_change(id, selected)
-	if id == nil then
+	if id == nil or spaces[id] == nil then
 		return
 	end
 	spaces[id]:set({
