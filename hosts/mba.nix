@@ -75,7 +75,7 @@
       #   "/Users/${config.minhtung0404.username}/"
       #   "/Users/${config.minhtung0404.username}/Downloads"
       # ];
-      wvous-br-corner = 4;
+      # wvous-br-corner = 4;
     };
 
     NSGlobalDomain = {
