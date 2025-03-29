@@ -91,6 +91,8 @@
     spaces.spans-displays = false;
   };
 
+  nixpkgs.flake.setNixPath = true;
+
   imports = [ ../modules/gui/aerospace ../modules/keyboards/kanata/darwin.nix ];
 
   system.stateVersion = 6;
