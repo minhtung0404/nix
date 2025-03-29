@@ -103,13 +103,13 @@
     # ../modules/misc/sops
   ];
 
-  sops.defaultSopsFile = ../secrets/secrets.yaml;
-  sops.defaultSopsFormat = "yaml";
+  # sops.defaultSopsFile = ../secrets/secrets.yaml;
+  # sops.defaultSopsFormat = "yaml";
 
-  sops.age.keyFile = "/Users/minhtung0404/.config/sops/age/keys.txt";
-  sops.secrets.veracrypt_drive = {
-    owner = config.users.users.minhtung0404.name;
-  };
+  # sops.age.keyFile = "/Users/minhtung0404/.config/sops/age/keys.txt";
+  # sops.secrets.veracrypt_drive = {
+  #   owner = config.users.users.minhtung0404.name;
+  # };
 
   system.stateVersion = 6;
 }

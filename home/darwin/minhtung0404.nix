@@ -24,7 +24,7 @@ in {
   programs.fish.functions = {
     drive_mount = {
       body = ''
-        /Applications/VeraCrypt.app/Contents/MacOS/VeraCrypt --text --mount /Users/minhtung0404/Library/CloudStorage/GoogleDrive-minhtung04042001@gmail.com/My\ Drive/encrypted/drive_encrypted /Volumes/DRIVE --password $(cat /run/secrets/veracrypt_drive) --pim 0 --keyfiles "" --protect-hidden no --slot 1 --verbose
+        /Applications/VeraCrypt.app/Contents/MacOS/VeraCrypt --text --mount /Users/minhtung0404/Library/CloudStorage/GoogleDrive-minhtung04042001@gmail.com/My\ Drive/encrypted/drive_encrypted /Volumes/DRIVE --password $(cat ${config.sops.secrets.veracrypt_drive.path}) --pim 0 --keyfiles "" --protect-hidden no --slot 1 --verbose
       '';
     };
 
@@ -35,12 +35,16 @@ in {
     };
   };
 
-  # sops.defaultSopsFile = ../../secrets/secrets.yaml;
-  # sops.defaultSopsFormat = "yaml";
+  sops = {
+    age.keyFile = "/Users/${user}/.config/sops/age/keys.txt";
 
-  # sops.age.keyFile = "/Users/${user}/.config/sops/age/keys.txt";
-  # sops.secrets.veracrypt_drive = {
-  #   mode = "0440";
-  #   owner = user;
-  # };
+    defaultSopsFile = ../../secrets/secrets.yaml;
+    defaultSopsFormat = "yaml";
+
+    secrets.veracrypt_drive = {
+      mode = "0440";
+      # path = "${config.sops.defaultSymlinkPath}/veracrypt_drive";
+    };
+  };
+
 }
