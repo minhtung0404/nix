@@ -9,8 +9,11 @@
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = inputs@{ self, home-manager, ... }:
+  outputs = inputs@{ self, home-manager, sops-nix, ... }:
     let nixpkgsConfig = { config.allowUnfree = true; };
     in {
       # Build darwin flake using:
@@ -34,7 +37,9 @@
                 import ./home/darwin/minhtung0404.nix;
               home-manager.users.entertainment =
                 import ./home/darwin/entertainment.nix;
+
             }
+            inputs.sops-nix.darwinModules.sops
           ];
         };
       };

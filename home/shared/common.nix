@@ -23,6 +23,8 @@
     lazygit
   ];
 
+  home.sessionVariables = { EDITOR = "nvim"; };
+
   imports = [
     ../../modules/shells/fish
     ../../modules/misc/git

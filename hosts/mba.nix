@@ -97,7 +97,17 @@
 
   nixpkgs.flake.setNixPath = true;
 
-  imports = [ ../modules/gui/aerospace ../modules/keyboards/kanata/darwin.nix ];
+  imports = [
+    ../modules/gui/aerospace
+    ../modules/keyboards/kanata/darwin.nix
+    # ../modules/misc/sops
+  ];
+
+  sops.defaultSopsFile = ../secrets/secrets.yaml;
+  sops.defaultSopsFormat = "yaml";
+
+  sops.age.keyFile = "/Users/minhtung0404/.config/sops/age/keys.txt";
+  sops.secrets.veracrypt_drive = { };
 
   system.stateVersion = 6;
 }

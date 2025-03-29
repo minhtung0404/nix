@@ -1,9 +1,9 @@
 { config, pkgs, ... }: {
   imports = [ ../shared/common.nix ./common.nix ];
 
-  config.home.packages = with pkgs; [ texlive.combined.scheme-full ];
+  home.packages = with pkgs; [ texlive.combined.scheme-full sops ];
 
-  config.minhtung0404.services.sketchybar = {
+  minhtung0404.services.sketchybar = {
     enable = true;
     extraPackages = [
       pkgs.lua5_4_compat
@@ -13,5 +13,5 @@
     ];
   };
 
-  config.minhtung0404.username = "minhtung0404";
+  minhtung0404.username = "minhtung0404";
 }

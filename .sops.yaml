@@ -1,0 +1,9 @@
+# .sops.yaml
+
+keys:
+  - &mba age13dtrv5nadfqvp43e97hh0d23vyzd3qgkqpzn7f0mtm4j5shkkg4swa85sh
+creation_rules:
+  - path_regex: secrets/secrets.yaml$
+    key_groups:
+    - age:
+      - *mba
