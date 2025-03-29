@@ -36,10 +36,13 @@
   homebrew = {
     enable = true;
 
-    casks = [{
-      name = "librewolf";
-      greedy = true;
-    }];
+    casks = [
+      {
+        name = "librewolf";
+        greedy = true;
+      }
+      "scroll-reverser"
+    ];
   };
 
   system.defaults = {
