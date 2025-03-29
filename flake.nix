@@ -37,6 +37,8 @@
                 import ./home/darwin/minhtung0404.nix;
               home-manager.users.entertainment =
                 import ./home/darwin/entertainment.nix;
+              home-manager.sharedModules =
+                [ inputs.sops-nix.homeManagerModules.sops ];
 
             }
             inputs.sops-nix.darwinModules.sops
