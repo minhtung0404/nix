@@ -1,18 +1,29 @@
-{ config, pkgs, ... }:
-let user = config.minhtung0404.username;
+{ config, pkgs, lib, ... }:
+let
+  user = config.minhtung0404.username;
+  cfg = config.mtn.hm;
 in {
-  home.stateVersion = "24.11";
-
-  imports = [ ../../modules/misc/hammerspoon ../../modules/gui/sketchybar ];
-
-  programs.home-manager.enable = true;
-  programs.direnv.enable = true;
-
-  home.packages = with pkgs; [
-    aerospace
-    aldente
-    hidden-bar
-    kanata-with-cmd
-    raycast
+  imports = [
+    ../../modules/misc/hammerspoon
+    ../../modules/gui/sketchybar
+    ../../modules/gui/aerospace
+    ../shared/common.nix
   ];
+
+  config = lib.mkIf cfg.darwin {
+    programs.home-manager.enable = true;
+    programs.direnv.enable = true;
+
+    home.packages = with pkgs; [
+      aerospace
+      aldente
+      hidden-bar
+      kanata-with-cmd
+      raycast
+    ];
+
+    mtn.services.my-sketchybar.enable = true;
+    mtn.services.my-aerospace.enable = true;
+    mtn.programs.my-nvim.enable = true;
+  };
 }

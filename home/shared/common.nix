@@ -1,30 +1,6 @@
-{ config, pkgs, lib, ... }: {
-  home.stateVersion = "24.11";
-
-  programs.home-manager.enable = true;
-
-  home.packages = with pkgs; [
-    coreutils
-    curl
-    discord
-    fishPlugins.grc
-    fishPlugins.plugin-git
-    # fishPlugins.fzf-fish
-    grc
-    htop
-    neovim
-    nerd-fonts.fira-code
-    nixfmt-classic
-    obsidian
-    podman
-    ripgrep
-    stylua
-    telegram-desktop
-    lazygit
-  ];
-
-  home.sessionVariables = { EDITOR = "nvim"; };
-
+{ config, pkgs, lib, ... }:
+let cfg = config.mtn.hm;
+in {
   imports = [
     ../../modules/shells/fish
     ../../modules/misc/git
@@ -34,36 +10,70 @@
     ../../modules/config.nix
   ];
 
-  programs.eza.enable = true;
-
-  programs.fd.enable = true;
-
-  programs.jq.enable = true;
-  programs.jqp.enable = true;
-
-  programs.man.enable = true;
-
-  programs.thefuck = {
-    enable = true;
-    enableFishIntegration = true;
+  options.mtn.hm = {
+    enable = lib.mkEnableOption "hm";
+    darwin = lib.mkEnableOption "hm-darwin";
   };
 
-  programs.vscode.enable = true;
+  config = lib.mkIf cfg.enable {
+    home.stateVersion = "24.11";
+    programs.home-manager.enable = true;
 
-  programs.zoxide = {
-    enable = true;
-    enableFishIntegration = true;
-    options = [ "--cmd j" ];
-  };
+    home.packages = with pkgs; [
+      coreutils
+      curl
+      discord
+      fishPlugins.grc
+      fishPlugins.plugin-git
+      # fishPlugins.fzf-fish
+      grc
+      htop
+      neovim
+      nerd-fonts.fira-code
+      nixfmt-classic
+      obsidian
+      podman
+      ripgrep
+      stylua
+      telegram-desktop
+      lazygit
+    ];
 
-  programs.fzf = {
-    enable = true;
-    enableFishIntegration = true;
-  };
+    home.sessionVariables = { EDITOR = "nvim"; };
 
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-    config.global.load_dotenv = true;
+    programs.eza.enable = true;
+
+    programs.fd.enable = true;
+
+    programs.jq.enable = true;
+    programs.jqp.enable = true;
+
+    programs.man.enable = true;
+
+    programs.thefuck = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+
+    programs.vscode.enable = true;
+
+    programs.zoxide = {
+      enable = true;
+      enableFishIntegration = true;
+      options = [ "--cmd j" ];
+    };
+
+    programs.fzf = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+
+    programs.direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      config.global.load_dotenv = true;
+    };
+
+    mtn.programs.my-nvim.enable = true;
   };
 }

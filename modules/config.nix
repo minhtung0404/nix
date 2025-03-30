@@ -1,7 +1,7 @@
 { lib, ... }:
 let inherit (lib) types mkOption;
 in {
-  options.minhtung0404 = {
+  options.mtn = {
     username = mkOption {
       type = types.str;
       default = "minhtung0404";

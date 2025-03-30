@@ -4,7 +4,7 @@ let
   inherit (lib)
     literalExpression maintainers mkEnableOption mkIf mkPackageOption mkOption
     optionals types;
-  cfg = config.minhtung0404.services.sketchybar;
+  cfg = config.mtn.services.my-sketchybar;
   sketchybarconf = pkgs.runCommandCC "sketchybar-config" { } ''
     echo Creating sketchybar config
     mkdir $out
@@ -22,16 +22,21 @@ let
 
     make
   '';
-  username = config.minhtung0404.username;
+  username = config.mtn.username;
 in {
-  options.minhtung0404.services.sketchybar = {
-    enable = mkEnableOption "sketchybar";
+  options.mtn.services.my-sketchybar = {
+    enable = mkEnableOption "my-sketchybar";
 
     package = mkPackageOption pkgs "sketchybar" { };
 
     extraPackages = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [
+        pkgs.lua5_4_compat
+        pkgs.aerospace
+        pkgs.nowplaying-cli
+        pkgs.sketchybar-app-font
+      ];
       example = literalExpression "[ pkgs.jq ]";
       description = ''
         Extra packages to add to PATH.
@@ -51,8 +56,11 @@ in {
             ]);
           LUA_CPATH = "/Users/${username}/.local/share/sketchybar_lua/?.so";
         };
-        ProgramArguments = [ "${cfg.package}/bin/sketchybar" ]
-          ++ [ "--config" "${sketchybarconf}/sketchybarrc" ];
+        ProgramArguments = [
+          "${cfg.package}/bin/sketchybar"
+          "--config"
+          "${sketchybarconf}/sketchybarrc"
+        ];
         KeepAlive = true;
         RunAtLoad = true;
         StandardOutPath = "/tmp/sbar_out_${username}.log";
