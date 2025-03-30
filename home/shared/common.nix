@@ -4,7 +4,6 @@ in {
   imports = [
     ../../modules/shells/fish
     ../../modules/misc/git
-    ../../modules/terminals/kitty
     ../../modules/editors/nvim
     ../../modules/misc/ssh
     ../../modules/config.nix

@@ -1,9 +1,9 @@
 { pkgs, config, lib, ... }:
 
 with lib;
-let cfg = config.minhtung0404.services.edns;
+let cfg = config.mtn.services.edns;
 in {
-  options.minhtung0404.services.edns = {
+  options.mtn.services.edns = {
     enable = mkEnableOption "Enable encrypted DNS";
     ipv6 = mkEnableOption "Enable ipv6";
     cloaking-rules = mkOption {

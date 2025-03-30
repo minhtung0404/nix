@@ -7,6 +7,7 @@ in {
     ../../modules/misc/hammerspoon
     ../../modules/gui/sketchybar
     ../../modules/gui/aerospace
+    ../../modules/terminals/kitty
     ../shared/common.nix
   ];
 
@@ -22,8 +23,19 @@ in {
       raycast
     ];
 
-    mtn.services.my-sketchybar.enable = true;
-    mtn.services.my-aerospace.enable = true;
-    mtn.programs.my-nvim.enable = true;
+    mtn = {
+      services = {
+        my-sketchybar.enable = true;
+        my-aerospace.enable = true;
+      };
+      programs = {
+        my-nvim.enable = true;
+        my-kitty = {
+          enable = true;
+          fontSize = 16;
+          cmd = "cmd";
+        };
+      };
+    };
   };
 }

@@ -102,11 +102,20 @@
     ../modules/network/edns
     # ../modules/misc/sops
   ];
+  mtn = {
+    services = {
+      my-kanata = {
+        enable = true;
+        configFile = [ "apple" "gm610" ];
+      };
 
-  minhtung0404.services.edns = {
-    enable = true;
-    ipv6 = true;
+      edns = {
+        enable = true;
+        ipv6 = true;
+      };
+    };
   };
+
   launchd.daemons.dnscrypt-proxy.serviceConfig.UserName = lib.mkForce "root";
 
   # sops.defaultSopsFile = ../secrets/secrets.yaml;
