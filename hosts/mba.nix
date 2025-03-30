@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 {
   users.users.minhtung0404 = {
@@ -100,8 +100,15 @@
   imports = [
     ../modules/gui/aerospace
     ../modules/keyboards/kanata/darwin.nix
+    ../modules/network/edns
     # ../modules/misc/sops
   ];
+
+  minhtung0404.services.edns = {
+    enable = true;
+    ipv6 = true;
+  };
+  launchd.daemons.dnscrypt-proxy.serviceConfig.UserName = lib.mkForce "root";
 
   # sops.defaultSopsFile = ../secrets/secrets.yaml;
   # sops.defaultSopsFormat = "yaml";
