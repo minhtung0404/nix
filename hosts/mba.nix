@@ -36,13 +36,23 @@
   homebrew = {
     enable = true;
 
+    brews = [ "mas" ];
+
     casks = [
       {
         name = "librewolf";
         greedy = true;
       }
       "scroll-reverser"
+      "hammerspoon"
     ];
+
+    masApps = {
+      "Messenger" = 1480068668;
+      "Bitwarden" = 1352778147;
+    };
+
+    onActivation.cleanup = "zap";
   };
 
   system.defaults = {
