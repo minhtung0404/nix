@@ -7,7 +7,6 @@ in {
     ../../modules/misc/hammerspoon
     ../../modules/gui/sketchybar
     ../../modules/gui/aerospace
-    ../../modules/terminals/kitty
     ../shared/common.nix
   ];
 
@@ -28,13 +27,6 @@ in {
       services = {
         my-sketchybar.enable = true;
         my-aerospace.enable = true;
-      };
-      programs = {
-        my-kitty = {
-          enable = true;
-          fontSize = 16;
-          cmd = "cmd";
-        };
       };
     };
   };

@@ -1,14 +1,8 @@
-{
-  config,
-  nixvim-conf,
-  pkgs,
-  ...
-}:
+{ config, nixvim-conf, pkgs, ... }:
 let
   user = "minhtung0404";
   home = "/Users/${user}/";
-in
-{
+in {
 
   imports = [ ./common.nix ];
 
@@ -18,13 +12,12 @@ in
       darwin = true;
     };
 
+    programs.my-kakoune.enable = true;
+
     username = user;
   };
 
-  home.packages = with pkgs; [
-    texlive.combined.scheme-full
-    sops
-  ];
+  home.packages = with pkgs; [ texlive.combined.scheme-full sops ];
 
   programs.fish.functions = {
     drive_mount = {

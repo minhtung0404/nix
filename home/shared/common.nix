@@ -1,20 +1,15 @@
-{
-  inputs,
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-let
-  cfg = config.mtn.hm;
-in
-{
+{ inputs, config, pkgs, lib, ... }:
+let cfg = config.mtn.hm;
+in {
   imports = [
-    ../../modules/shells/fish
-    ../../modules/misc/git
-    ../../modules/editors/nvim
-    ../../modules/misc/ssh
     ../../modules/config.nix
+
+    ../../modules/editors/nvim
+    ../../modules/editors/kakoune
+    ../../modules/misc/git
+    ../../modules/misc/ssh
+    ../../modules/shells/fish
+    ../../modules/terminals/kitty
   ];
 
   options.mtn.hm = {
@@ -46,9 +41,7 @@ in
       nodejs_23
     ];
 
-    home.sessionVariables = {
-      EDITOR = "nvim";
-    };
+    home.sessionVariables = { EDITOR = "nvim"; };
 
     programs.eza.enable = true;
 
@@ -83,6 +76,13 @@ in
       config.global.load_dotenv = true;
     };
 
-    mtn.programs.my-nvim.enable = true;
+    mtn.programs = {
+      my-nvim.enable = true;
+      my-kitty = {
+        enable = true;
+        fontSize = 16;
+        cmd = "cmd";
+      };
+    };
   };
 }
