@@ -59,7 +59,7 @@
     finder = {
       AppleShowAllExtensions = true;
       CreateDesktop = false;
-      FXPreferredViewStyle = "icnv";
+      FXPreferredViewStyle = "clmv";
       FXEnableExtensionChangeWarning = false;
       FXRemoveOldTrashItems = true;
       NewWindowTarget = "Home";
