@@ -122,6 +122,22 @@
         "type": "github"
       }
     },
+    "kak-lsp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1742889559,
+        "narHash": "sha256-0gnHqe7G3bfI+SbIv1BsmxMM2t3ttj3ONbyXzi0wX/c=",
+        "owner": "kakoune-lsp",
+        "repo": "kakoune-lsp",
+        "rev": "824251ba1d29f4109b6238cd1708f87a6d0aa6b5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kakoune-lsp",
+        "repo": "kakoune-lsp",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -247,6 +263,7 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
+        "kak-lsp": "kak-lsp",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",

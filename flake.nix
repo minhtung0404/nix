@@ -22,6 +22,9 @@
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
+    kak-lsp.url = "github:kakoune-lsp/kakoune-lsp";
+    kak-lsp.flake = false;
+
     # nixvim-conf.url = "github:dc-tec/nixvim";
     # nixvim-conf.inputs.nixpkgs.follows = "nixpkgs";
     # nixvim-conf.inputs.flake-parts.follows = "flake-parts";
