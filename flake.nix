@@ -16,6 +16,9 @@
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixvim.url = "github:nix-community/nixvim";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = inputs@{ self, home-manager, sops-nix, nix-homebrew, ... }:
     let nixpkgsConfig = { config.allowUnfree = true; };
@@ -53,8 +56,10 @@
                 import ./home/darwin/minhtung0404.nix;
               home-manager.users.entertainment =
                 import ./home/darwin/entertainment.nix;
-              home-manager.sharedModules =
-                [ inputs.sops-nix.homeManagerModules.sops ];
+              home-manager.sharedModules = [
+                inputs.sops-nix.homeManagerModules.sops
+                inputs.nixvim.homeManagerModules.nixvim
+              ];
 
             }
             inputs.sops-nix.darwinModules.sops
