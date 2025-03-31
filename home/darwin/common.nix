@@ -21,6 +21,7 @@ in {
       hidden-bar
       kanata-with-cmd
       raycast
+      skimpdf
     ];
 
     mtn = {
