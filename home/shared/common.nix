@@ -1,6 +1,14 @@
-{ config, pkgs, lib, ... }:
-let cfg = config.mtn.hm;
-in {
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  cfg = config.mtn.hm;
+in
+{
   imports = [
     ../../modules/shells/fish
     ../../modules/misc/git
@@ -27,7 +35,6 @@ in {
       # fishPlugins.fzf-fish
       grc
       htop
-      neovim
       nerd-fonts.fira-code
       nixfmt-classic
       obsidian
@@ -39,7 +46,9 @@ in {
       nodejs_23
     ];
 
-    home.sessionVariables = { EDITOR = "nvim"; };
+    home.sessionVariables = {
+      EDITOR = "nvim";
+    };
 
     programs.eza.enable = true;
 

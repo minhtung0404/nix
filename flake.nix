@@ -14,21 +14,30 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
+
+    # nixvim-conf.url = "github:dc-tec/nixvim";
+    # nixvim-conf.inputs.nixpkgs.follows = "nixpkgs";
+    # nixvim-conf.inputs.flake-parts.follows = "flake-parts";
+    # nixvim-conf.inputs.nixvim.follows = "nixvim";
   };
   outputs = inputs@{ self, home-manager, sops-nix, nix-homebrew, ... }:
     let nixpkgsConfig = { config.allowUnfree = true; };
     in {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#simple
-      darwinConfigurations = let inherit (inputs.nix-darwin.lib) darwinSystem;
+      darwinConfigurations = let
+        inherit (inputs.nix-darwin.lib) darwinSystem;
+        system = "aarch64-darwin";
       in {
         "MacAir-PirateKing" = darwinSystem {
-          system = "aarch64-darwin";
+          system = system;
 
           specialArgs = { inherit inputs; };
 
@@ -56,11 +65,10 @@
                 import ./home/darwin/minhtung0404.nix;
               home-manager.users.entertainment =
                 import ./home/darwin/entertainment.nix;
-              home-manager.sharedModules = [
-                inputs.sops-nix.homeManagerModules.sops
-                inputs.nixvim.homeManagerModules.nixvim
-              ];
+              home-manager.sharedModules =
+                [ inputs.sops-nix.homeManagerModules.sops ];
 
+              # home-manager.extraSpecialArgs = { inherit nixvim-conf; };
             }
             inputs.sops-nix.darwinModules.sops
           ];

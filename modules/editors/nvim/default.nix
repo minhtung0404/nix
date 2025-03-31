@@ -6,10 +6,16 @@ in {
 
     nixvim = lib.mkEnableOption "my-nixvim";
   };
-  config = {
-    xdg.configFile.nvim = lib.mkIf cfg.enable {
-      source = ./config;
-      recursive = true;
-    };
-  };
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable {
+      programs.neovim.enable = true;
+      xdg.configFile.nvim = {
+        source = ./config;
+        recursive = true;
+      };
+    })
+    (lib.mkIf cfg.nixvim {
+
+    })
+  ];
 }

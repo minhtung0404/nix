@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ inputs, config, pkgs, lib, ... }:
 let
   user = config.mtn.username;
   cfg = config.mtn.hm;
@@ -30,7 +30,6 @@ in {
         my-aerospace.enable = true;
       };
       programs = {
-        my-nvim.enable = true;
         my-kitty = {
           enable = true;
           fontSize = 16;

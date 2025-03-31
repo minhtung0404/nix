@@ -1,13 +1,16 @@
-{ config, inputs, pkgs, ... }:
+{
+  config,
+  nixvim-conf,
+  pkgs,
+  ...
+}:
 let
   user = "minhtung0404";
   home = "/Users/${user}/";
-in {
+in
+{
 
-  imports = [
-    # inputs.sops-nix.homeManagerModules.sops
-    ./common.nix
-  ];
+  imports = [ ./common.nix ];
 
   mtn = {
     hm = {
@@ -18,7 +21,10 @@ in {
     username = user;
   };
 
-  home.packages = with pkgs; [ texlive.combined.scheme-full sops ];
+  home.packages = with pkgs; [
+    texlive.combined.scheme-full
+    sops
+  ];
 
   programs.fish.functions = {
     drive_mount = {
