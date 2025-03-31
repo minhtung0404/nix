@@ -112,7 +112,7 @@
     services = {
       my-kanata = {
         enable = true;
-        configFile = [ "apple" "gm610" ];
+        configFile = [ "gm610" "apple" ];
       };
 
       edns = {
