@@ -15,7 +15,7 @@
   "lspconfig": {
     "lua_ls": {
       "Lua.workspace.library": [
-        "/Users/minhtung0404/.hammerspoon/Spoons/EmmyLua.spoon/annotations"
+        "/Users/minhtung0404/.config/hammerspoon/Spoons/EmmyLua.spoon/annotations"
       ],
       "Lua.runtime": {
         "path": ["?.lua", "?/init.lua"],
