@@ -5,7 +5,7 @@ in {
     ../../modules/config.nix
 
     ../../modules/editors/nvim
-    ../../modules/editors/kakoune
+    ../../modules/editors/kakoune/kak.nix
     ../../modules/misc/git
     ../../modules/misc/ssh
     ../../modules/shells/fish
