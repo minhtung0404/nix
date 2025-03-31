@@ -48,6 +48,7 @@
 
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "backup";
               home-manager.users.minhtung0404 =
                 import ./home/darwin/minhtung0404.nix;
               home-manager.users.entertainment =

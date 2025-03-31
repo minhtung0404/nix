@@ -1,5 +1,8 @@
 { pkgs, ... }: {
-  xdg.configFile.hammerspoon.source = ./config;
+  xdg.configFile.hammerspoon = {
+    source = ./config;
+    recursive = true;
+  };
   home.sessionPath = [ "/usr/bin" "/bin" "/usr/sbin" "/sbin" ];
   home.activation = {
     hammerspoon = ''

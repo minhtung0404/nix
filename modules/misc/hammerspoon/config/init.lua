@@ -1,3 +1,5 @@
+hs.loadSpoon("EmmyLua")
+
 local menu = require("menu")
 local wifi_changer = require("wifi_change")
 local keyboards = require("keyboards")

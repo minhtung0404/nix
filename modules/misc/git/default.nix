@@ -15,6 +15,7 @@
       "*.synctex.gz"
       ".envrc"
       ".direnv"
+      ".vscode"
     ];
     extraConfig = {
       init = { defaultBranch = "main"; };
