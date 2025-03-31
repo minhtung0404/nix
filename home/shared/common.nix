@@ -36,6 +36,7 @@ in {
       stylua
       telegram-desktop
       lazygit
+      nodejs_23
     ];
 
     home.sessionVariables = { EDITOR = "nvim"; };
