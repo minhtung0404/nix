@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  user = config.minhtung0404.username;
+  user = config.mtn.username;
   cfg = config.mtn.hm;
 in {
   imports = [

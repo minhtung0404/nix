@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }:
+let user = config.mtn.username;
+in {
   programs.fish = {
     enable = true;
     functions = {
@@ -31,7 +33,7 @@
     };
     interactiveShellInit = ''
       set MANPATH "usr/local/man:$MANPATH"
-      set PATH "$HOME/.local/bin:/run/current-system/sw/bin/:/etc/profiles/per-user/minhtung0404/bin/:$PATH"
+      set PATH "$HOME/.local/bin:/run/current-system/sw/bin/:/etc/profiles/per-user/${user}/bin/:$PATH"
 
       set fish_greeting # Disable greeting
 

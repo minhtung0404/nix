@@ -85,11 +85,6 @@
         "/System/Volumes/Data/Applications/VeraCrypt.app/"
         "${pkgs.obsidian}/Applications/Obsidian.app/"
       ];
-      # persistent-others = [
-      #   "/Users/${config.minhtung0404.username}/"
-      #   "/Users/${config.minhtung0404.username}/Downloads"
-      # ];
-      # wvous-br-corner = 4;
     };
 
     NSGlobalDomain = {
@@ -110,8 +105,9 @@
   imports = [
     ../modules/keyboards/kanata/darwin.nix
     ../modules/network/edns
-    # ../modules/misc/sops
+
   ];
+
   mtn = {
     services = {
       my-kanata = {
@@ -127,14 +123,6 @@
   };
 
   launchd.daemons.dnscrypt-proxy.serviceConfig.UserName = lib.mkForce "root";
-
-  # sops.defaultSopsFile = ../secrets/secrets.yaml;
-  # sops.defaultSopsFormat = "yaml";
-
-  # sops.age.keyFile = "/Users/minhtung0404/.config/sops/age/keys.txt";
-  # sops.secrets.veracrypt_drive = {
-  #   owner = config.users.users.minhtung0404.name;
-  # };
 
   system.stateVersion = 6;
 }
