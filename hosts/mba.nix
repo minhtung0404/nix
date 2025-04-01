@@ -87,6 +87,8 @@
       ];
     };
 
+    hitoolbox.AppleFnUsageType = "Change Input Source";
+
     NSGlobalDomain = {
       AppleICUForce24HourTime = true;
       AppleShowAllExtensions = true;
