@@ -192,21 +192,13 @@ in {
     };
 
     programs.my-kakoune.package = pkgs.kakoune;
-    programs.my-kakoune.rc = builtins.readFile ./kakrc + ''
-
-      # Source any settings in the current working directory,
-      # recursive upwards
-      evaluate-commands %sh{
-          ${pkgs.writeScript "source-pwd" (builtins.readFile ./source-pwd)}
-      }
-    '';
 
     programs.my-kakoune.extraFaces = {
-      Default = "%opt{text},%opt{base}";
-      BufferPadding = "%opt{base},%opt{base}";
-      MenuForeground = "%opt{blue},white+bF";
-      MenuBackground = "%opt{sky},white+F";
-      Information = "%opt{sky},white";
+      # Default = "%opt{text},%opt{base}";
+      # BufferPadding = "%opt{base},%opt{base}";
+      # MenuForeground = "%opt{blue},white+bF";
+      # MenuBackground = "%opt{sky},white+F";
+      # Information = "%opt{sky},white";
       # Markdown help color scheme
       InfoDefault = "Information";
       InfoBlock = "@block";
@@ -382,9 +374,6 @@ in {
         '';
       }
     ];
-    programs.my-kakoune.themes = {
-      catppuccin-latte = ./themes/catppuccin-latte.kak;
-    };
   };
 }
 

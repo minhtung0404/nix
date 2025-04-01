@@ -39,22 +39,11 @@ in {
       default = pkgs.kakoune;
       description = "The kakoune package to be installed";
     };
-    rc = mkOption {
-      type = types.lines;
-      default = "";
-      description = "Content of the kakrc file. A line-concatenated string";
-    };
     autoload = mkOption {
       type = types.listOf autoloadModule;
       default = [ ];
       description = "Sources to autoload";
     };
-    themes = mkOption {
-      type = types.attrsOf types.path;
-      default = { };
-      description = "Themes to load";
-    };
-
     extraFaces = mkOption {
       type = types.attrsOf types.str;
       default = { };
@@ -65,58 +54,61 @@ in {
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
 
-    xdg.configFile = let
-      kakouneAutoload =
-        { name, src, wrapAsModule ? false, activationScript ? null }:
-        [
-          (if !wrapAsModule then {
-            name = "kak/autoload/${name}";
-            value.source = src;
-          } else {
-            name = "kak/autoload/${name}/module.kak";
-            value.text = ''
-              provide-module ${name} %◍
-                ${readFile src}
-              ◍
-            '';
-          })
-        ] ++ (if activationScript == null then
-          [ ]
-        else [{
-          name = "kak/autoload/on-load/${name}.kak";
-          value.text = ''
-            hook global KakBegin .* %{
-              ${activationScript}
-            }
-          '';
-        }]);
-
-      kakouneThemes = builtins.listToAttrs (builtins.attrValues
-        (builtins.mapAttrs (name: src: {
-          name = "kak/colors/${name}.kak";
-          value.source = src;
-        }) cfg.themes));
-
-      kakouneFaces = let
-        txt = strings.concatStringsSep "\n" (builtins.attrValues
-          (builtins.mapAttrs (name: face: ''face global ${name} "${face}"'')
-            cfg.extraFaces));
-      in pkgs.writeText "faces.kak" txt;
-    in {
+    xdg.configFile = {
       # kakrc
       "kak/kakrc".text = ''
-        ${cfg.rc}
+        ${builtins.readFile ./kakrc}
+
+        # Source any settings in the current working directory,
+        # recursive upwards
+        evaluate-commands %sh{
+            ${
+              pkgs.writeScript "source-pwd"
+              (builtins.readFile ./scripts/source-pwd)
+            }
+        }
 
         # Load faces
-        source ${kakouneFaces}
+        ${strings.concatStringsSep "\n" (builtins.attrValues
+          (builtins.mapAttrs (name: face: ''face global ${name} "${face}"'')
+            cfg.extraFaces))}
       '';
-    } // (builtins.listToAttrs (lib.lists.flatten (map kakouneAutoload ([
-      # include the original autoload files
-      {
-        name = "rc";
-        src = "${cfg.package}/share/kak/autoload/rc";
-      }
-    ] ++ cfg.autoload)))) // kakouneThemes;
+
+      "kak/colors" = {
+        source = ./colors;
+        recursive = true;
+      };
+
+      "kak/autoload/site-wide".source = "${cfg.package}/share/kak/autoload";
+    }
+    # Custom autoload
+      // (let
+        kakouneAutoload =
+          { name, src, wrapAsModule ? false, activationScript ? null }:
+          [
+            (if !wrapAsModule then {
+              name = "kak/autoload/${name}";
+              value.source = src;
+            } else {
+              name = "kak/autoload/${name}/module.kak";
+              value.text = ''
+                provide-module ${name} %◍
+                  ${readFile src}
+                ◍
+              '';
+            })
+          ] ++ (if activationScript == null then
+            [ ]
+          else [{
+            name = "kak/autoload/on-load/${name}.kak";
+            value.text = ''
+              hook global KakBegin .* %{
+                ${activationScript}
+              }
+            '';
+          }]);
+      in builtins.listToAttrs
+      (lib.lists.flatten (map kakouneAutoload cfg.autoload)));
   };
 }
 
