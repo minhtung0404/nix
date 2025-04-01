@@ -14,7 +14,7 @@
 )
 
 (defalias
-  eoc (tap-hold-press 200 200 esc (layer-while-held hyper))
+  eoc (tap-hold-press 200 200 esc lctl)
   rl (tap-dance 200 (ralt ralt lrld))
   rl1 (tap-dance 500 (rmet rmet lrld-next))
   rl2 (tap-dance 500 (rmet rmet lrld-next))
