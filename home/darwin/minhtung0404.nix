@@ -12,8 +12,6 @@ in {
       darwin = true;
     };
 
-    programs.my-kakoune.enable = true;
-
     username = user;
   };
 

@@ -22,17 +22,25 @@
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
+    # build tools
+    crane.url = "github:ipetkov/crane";
+
+    # kakoune
+    kakoune.url = "github:mawww/kakoune";
+    kakoune.flake = false;
     kak-lsp.url = "github:kakoune-lsp/kakoune-lsp";
     kak-lsp.flake = false;
 
-    # nixvim-conf.url = "github:dc-tec/nixvim";
-    # nixvim-conf.inputs.nixpkgs.follows = "nixpkgs";
-    # nixvim-conf.inputs.flake-parts.follows = "flake-parts";
-    # nixvim-conf.inputs.nixvim.follows = "nixvim";
   };
-  outputs = inputs@{ self, home-manager, sops-nix, nix-homebrew, ... }:
-    let nixpkgsConfig = { config.allowUnfree = true; };
+  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, nix-homebrew, ... }:
+    let
+      overlays = import ./overlays.nix inputs;
+      nixpkgsConfig = {
+        config.allowUnfree = true;
+        overlays = overlays; # Apply the overlay here
+      };
     in {
+      overlays.default = nixpkgs.lib.composeManyExtensions overlays;
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#simple
       darwinConfigurations = let
@@ -46,6 +54,9 @@
 
           modules = [
             ./hosts/mba.nix
+            ({ pkgs, ... }: {
+              nixpkgs.overlays = overlays; # Apply the overlay here
+            })
 
             nix-homebrew.darwinModules.nix-homebrew
             {
