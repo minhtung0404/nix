@@ -23,7 +23,7 @@ hook global WinCreate .* %{
   addhl window/number-lines number-lines
 }
 
-set global grepcmd "rg --line-number --no-column --no-heading --color=never "
+set global grepcmd "rg --line-number --no-column --no-heading --follow --color=never "
 
 # Kitty-specific options
 hook -group windowing global KakBegin .* %{
