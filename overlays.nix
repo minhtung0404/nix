@@ -1,14 +1,15 @@
 { nixpkgs, ... }@inputs:
 let
-  overlay-versioning = final: prev: {
-    kakoune-unwrapped = prev.kakoune-unwrapped.overrideAttrs (attrs: {
-      version = "r${builtins.substring 0 6 inputs.kakoune.rev}";
-      src = inputs.kakoune;
-      patches = [
-        # patches in the original package was already applied
-      ];
-    });
-  };
+  overlay-versioning = final: prev:
+    {
+      # kakoune-unwrapped = prev.kakoune-unwrapped.overrideAttrs (attrs: {
+      #   version = "r${builtins.substring 0 6 inputs.kakoune.rev}";
+      #   src = inputs.kakoune;
+      #   patches = [
+      #     # patches in the original package was already applied
+      #   ];
+      # });
+    };
 
   overlay-libs = final: prev: { libs.crane = inputs.crane.mkLib final; };
   overlay-packages = final: prev: {
