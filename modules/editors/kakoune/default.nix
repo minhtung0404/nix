@@ -30,7 +30,7 @@ let
     };
   };
 in {
-  imports = [ ./kak-lsp.nix ];
+  imports = [ ./kak-lsp.nix ./tree-sitter.nix ];
 
   options.mtn.programs.my-kakoune = {
     enable = mkEnableOption "My version of the kakoune configuration";
@@ -80,6 +80,10 @@ in {
       };
 
       "kak/autoload/site-wide".source = "${cfg.package}/share/kak/autoload";
+      "kak/autoload" = {
+        source = ./autoload;
+        recursive = true;
+      };
     }
     # Custom autoload
       // (let
