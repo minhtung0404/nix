@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./common.nix ];
-
   mtn = {
     hm = {
       enable = true;

@@ -259,7 +259,7 @@ in {
 
           # Grep in the current location
           define-command peneira-grep %{
-            peneira 'line: ' "rg -n ." %{
+            peneira 'line: ' "rg -n . ." %{
               lua %arg{1} %{
                 local file, line = arg[1]:match("([^:]+):(%d+):")
                 kak.edit(file, line)

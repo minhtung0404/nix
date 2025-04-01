@@ -2,14 +2,18 @@
 let cfg = config.mtn.hm;
 in {
   imports = [
-    ../../modules/config.nix
-
-    ../../modules/editors/nvim
-    ../../modules/editors/kakoune
-    ../../modules/misc/git
-    ../../modules/misc/ssh
-    ../../modules/shells/fish
-    ../../modules/terminals/kitty
+    ./config.nix
+    ./darwin.nix
+    ./editors/kakoune
+    ./editors/nvim
+    ./gui/aerospace
+    ./gui/sketchybar
+    ./misc/git
+    ./misc/hammerspoon
+    ./misc/ssh
+    ./shells/fish
+    ./terminals/kitty
+    inputs.sops-nix.homeManagerModules.sops
   ];
 
   options.mtn.hm = {

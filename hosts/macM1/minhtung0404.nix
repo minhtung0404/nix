@@ -1,11 +1,8 @@
-{ config, nixvim-conf, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 let
   user = "minhtung0404";
   home = "/Users/${user}/";
 in {
-
-  imports = [ ./common.nix ];
-
   mtn = {
     hm = {
       enable = true;
@@ -14,6 +11,9 @@ in {
 
     username = user;
   };
+
+  home.username = user;
+  home.homeDirectory = home;
 
   home.packages = with pkgs; [ texlive.combined.scheme-full sops ];
 
@@ -37,10 +37,7 @@ in {
     defaultSopsFile = ../../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
 
-    secrets.veracrypt_drive = {
-      mode = "0440";
-      # path = "${config.sops.defaultSymlinkPath}/veracrypt_drive";
-    };
+    secrets.veracrypt_drive = { mode = "0440"; };
   };
 
 }

@@ -1,18 +1,37 @@
-{ pkgs, config, lib, ... }:
+{ inputs, pkgs, lib, ... }:
 
 {
+  imports = [
+    inputs.home-manager.darwinModules.home-manager
+    {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.backupFileExtension = "backup";
+      home-manager.users.minhtung0404 = import ./minhtung0404.nix;
+      home-manager.users.entertainment = import ./entertainment.nix;
+      home-manager.sharedModules = [ ../../homeManagerModules/default.nix ];
+      home-manager.extraSpecialArgs = { inherit inputs; };
+    }
+    inputs.nix-homebrew.darwinModules.nix-homebrew
+    {
+      nix-homebrew = {
+        enable = true;
+        enableRosetta = true;
+        user = "minhtung0404";
+        autoMigrate = true;
+      };
+    }
+  ];
   users.users.minhtung0404 = {
     name = "minhtung0404";
     home = "/Users/minhtung0404/";
-    shell =
-      "${config.home-manager.users.minhtung0404.programs.fish.package}/bin/fish";
+    shell = "${pkgs.fish}/bin/fish";
   };
 
   users.users.entertainment = {
     name = "entertainment";
     home = "/Users/entertainment/";
-    shell =
-      "${config.home-manager.users.entertainment.programs.fish.package}/bin/fish";
+    shell = "${pkgs.fish}/bin/fish";
   };
 
   nix = {
@@ -103,12 +122,6 @@
   };
 
   nixpkgs.flake.setNixPath = true;
-
-  imports = [
-    ../modules/keyboards/kanata/darwin.nix
-    ../modules/network/edns
-
-  ];
 
   mtn = {
     services = {
