@@ -5,7 +5,7 @@ in {
     ../../modules/config.nix
 
     ../../modules/editors/nvim
-    ../../modules/editors/kakoune/kak.nix
+    ../../modules/editors/kakoune
     ../../modules/misc/git
     ../../modules/misc/ssh
     ../../modules/shells/fish
@@ -38,7 +38,6 @@ in {
       stylua
       telegram-desktop
       lazygit
-      nodejs_23
     ];
 
     home.sessionVariables = { EDITOR = "nvim"; };
