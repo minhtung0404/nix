@@ -65,13 +65,12 @@ let
 in {
   imports = [ ./. ];
 
-  home.packages = with pkgs;
-    [
-      # ctags for peneira
-      # universal-ctags
-      # tree-sitter for kak
-      # kak-tree-sitter
-    ];
+  home.packages = with pkgs; [
+    # ctags for peneira
+    universal-ctags
+    # tree-sitter for kak
+    kak-tree-sitter
+  ];
 
   # Enable the kakoune package.
   mtn = {
@@ -191,7 +190,7 @@ in {
       package = pkgs.rust-analyzer;
     };
 
-    programs.my-kakoune.package = pkgs.kakoune;
+    programs.my-kakoune.package = pkgs.kakoune-unwrapped;
 
     programs.my-kakoune.extraFaces = {
       # Default = "%opt{text},%opt{base}";

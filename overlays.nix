@@ -12,9 +12,8 @@ let
 
   overlay-libs = final: prev: { libs.crane = inputs.crane.mkLib final; };
   overlay-packages = final: prev: {
-    kak-tree-sitter = final.callPackage ./packages/common/kak-tree-sitter.nix {
-      rustPlatform = final.unstable.rustPlatform;
-    };
+    kak-tree-sitter =
+      final.callPackage ./packages/common/kak-tree-sitter.nix { };
 
     kak-lsp = let
       src = inputs.kak-lsp;
@@ -28,8 +27,20 @@ let
           CoreServices
         ])) ++ (with final; [ libiconv ]);
     };
+
+    myCustomPackage = prev.hello.overrideAttrs (old: {
+      pname = "my-custom-hello";
+      meta = old.meta // {
+        mainProgram = "hello";
+        description = "A custom version of Hello package";
+      }; # Fix: Explicitly define mainProgram
+      postInstall = old.postInstall or "" + ''
+        ln -s $out/bin/hello $out/bin/my-custom-hello  # Ensure binary is accessible with new name
+      '';
+    });
   };
 in [
+  overlay-versioning
   overlay-libs
   overlay-packages
   # Bug fixes

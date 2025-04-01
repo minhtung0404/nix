@@ -56,6 +56,7 @@
             ./hosts/mba.nix
             ({ pkgs, ... }: {
               nixpkgs.overlays = overlays; # Apply the overlay here
+              environment.systemPackages = with pkgs; [ myCustomPackage ];
             })
 
             nix-homebrew.darwinModules.nix-homebrew
