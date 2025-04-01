@@ -63,6 +63,8 @@ in {
       ll = "ls -lha";
       ld = "ls -lhaD";
       mkdir = "mkdir -p";
+      e = "$EDITOR";
+      se = "sudo e";
       c = "clear";
       v = "nvim";
       sv = "sudo nvim";
