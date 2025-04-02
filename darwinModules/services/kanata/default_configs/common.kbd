@@ -15,6 +15,7 @@
 
 (defalias
   eoc (tap-hold-press 200 200 esc lctl)
+  ctl XX
   rl (tap-dance 200 (ralt ralt lrld))
   rl1 (tap-dance 500 (rmet rmet lrld-next))
   rl2 (tap-dance 500 (rmet rmet lrld-next))
@@ -32,7 +33,7 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   @eoc a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lalt @cmd           spc            @rl1 @rl2 rctl
+  @ctl lalt @cmd           spc            @rl1 @rl2 rctl
   @fn  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
 )
 
