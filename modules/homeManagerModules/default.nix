@@ -24,7 +24,9 @@ in {
     ./misc/ssh
     ./editors/nvim
     ./shells/fish
-  ]) ++ (myLib.extendModules (extends "services") [ ./misc/hammerspoon ]);
+  ]) ++ (myLib.extendModules (extends "services") [ ./misc/hammerspoon ])
+    ++ (myLib.extendModules (extends "bundles")
+      (myLib.filesIn ./editors/kakoune/bundles));
 
   options = {
     mtn.hm = {
@@ -103,5 +105,7 @@ in {
       my-nvim.enable = true;
       my-fish.enable = true;
     };
+
+    mtn.bundles.my-kak-full.enable = true;
   };
 }
