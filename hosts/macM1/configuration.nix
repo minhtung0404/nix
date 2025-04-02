@@ -9,7 +9,10 @@
       home-manager.backupFileExtension = "backup";
       home-manager.users.minhtung0404 = import ./minhtung0404.nix;
       home-manager.users.entertainment = import ./entertainment.nix;
-      home-manager.sharedModules = [ ../../homeManagerModules/default.nix ];
+      home-manager.sharedModules = [
+        ../../homeManagerModules/default.nix
+        ({ ... }: { home.packages = with pkgs; [ home-manager ]; })
+      ];
       home-manager.extraSpecialArgs = { inherit inputs; };
     }
     inputs.nix-homebrew.darwinModules.nix-homebrew
