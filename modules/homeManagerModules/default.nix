@@ -60,6 +60,8 @@ in {
 
     home.sessionVariables = { EDITOR = "nvim"; };
 
+    home.shell.enableFishIntegration = true;
+
     programs.eza.enable = true;
 
     programs.fd.enable = true;

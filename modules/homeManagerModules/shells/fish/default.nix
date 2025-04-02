@@ -3,6 +3,11 @@ let user = config.mtn.username;
 in {
   programs.fish = {
     enable = true;
+
+    # completions
+    # vendor.completions.enable = true;
+    generateCompletions = true;
+
     functions = {
       rebuild = {
         body = ''

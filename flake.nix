@@ -33,11 +33,9 @@
 
   };
   outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, nix-homebrew, ... }:
-    let
-      overlays = import ./overlays.nix inputs;
-      myLib = import ./myLib/default.nix { inherit inputs overlays; };
+    let myLib = import ./myLib/default.nix { inherit inputs; };
     in with myLib; {
-      overlays.default = nixpkgs.lib.composeManyExtensions overlays;
+      overlays.default = (import ./overlays.nix inputs);
       darwinConfigurations = {
         "MacAir-PirateKing" =
           mkDarwin "aarch64-darwin" ./hosts/macM1/configuration.nix;

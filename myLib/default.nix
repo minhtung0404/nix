@@ -1,6 +1,6 @@
-{ inputs, overlays }:
+{ inputs }:
 let
-  myLib = (import ./default.nix) { inherit inputs overlays; };
+  myLib = (import ./default.nix) { inherit inputs; };
   outputs = inputs.self.outputs;
 in rec {
   pkgsFor = sys: inputs.nixpkgs.legacyPackages.${sys};
@@ -8,21 +8,21 @@ in rec {
   mkDarwin = sys: config:
     inputs.nix-darwin.lib.darwinSystem {
       system = sys;
-      specialArgs = { inherit inputs outputs myLib overlays; };
+      specialArgs = { inherit inputs outputs myLib; };
       modules = [ config outputs.darwinModules.default ];
     };
 
   mkHome = sys: config:
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = pkgsFor sys;
-      extraSpecialArgs = { inherit inputs myLib outputs overlays; };
+      extraSpecialArgs = { inherit inputs myLib outputs; };
       modules = [
         config
         outputs.homeManagerModules.default
         ({ ... }: {
           nixpkgs = {
             config.allowUnfree = true;
-            overlays = overlays;
+            overlays = outputs.overlays.default;
           };
         })
       ];

@@ -1,7 +1,7 @@
-{ overlays, inputs, ... }: {
+{ inputs, outputs, ... }: {
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = overlays;
+    overlays = outputs.overlays.default;
   };
 
   imports = [ ./services/kanata/darwin.nix ./services/edns ];

@@ -25,6 +25,12 @@
       };
     }
   ];
+
+  programs.fish = {
+    enable = true;
+    vendor.completions.enable = true;
+  };
+
   users.users.minhtung0404 = {
     name = "minhtung0404";
     home = "/Users/minhtung0404/";
