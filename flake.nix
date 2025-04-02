@@ -31,24 +31,33 @@
     kak-lsp.url = "github:kakoune-lsp/kakoune-lsp";
     kak-lsp.flake = false;
 
+    # neovim
+    nvf.url = "github:notashelf/nvf";
   };
-  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, nix-homebrew, ... }:
-    let myLib = import ./myLib/default.nix { inherit inputs; };
+  outputs = inputs@{ self, nixpkgs, nvf, ... }:
+    let
+      myLib = import ./myLib/default.nix { inherit inputs; };
+      system = "aarch64-darwin";
     in with myLib; {
-      overlays.default = (import ./overlays.nix inputs);
+      overlays.default =
+        nixpkgs.lib.composeManyExtensions (import ./overlays.nix inputs);
       darwinConfigurations = {
-        "MacAir-PirateKing" =
-          mkDarwin "aarch64-darwin" ./hosts/macM1/configuration.nix;
+        "MacAir-PirateKing" = mkDarwin system ./hosts/macM1/configuration.nix;
       };
 
       homeConfigurations = {
-        "minhtung0404" = mkHome "aarch64-darwin" ./hosts/macM1/minhtung0404.nix;
-        "entertainment" =
-          mkHome "aarch64-darwin" ./home/darwin/entertainment.nix;
+        "minhtung0404" = mkHome system ./hosts/macM1/minhtung0404.nix;
+        "entertainment" = mkHome system ./home/darwin/entertainment.nix;
       };
 
       homeManagerModules.default = ./modules/homeManagerModules;
       darwinModules.default = ./modules/darwinModules;
+
+      packages.${system}.neovim = (nvf.lib.neovimConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+        modules = [ ./modules/homeManagerModules/editors/nvim/nvf.nix ];
+      }).neovim;
+
     };
 }
 

@@ -22,7 +22,7 @@ in rec {
         ({ ... }: {
           nixpkgs = {
             config.allowUnfree = true;
-            overlays = outputs.overlays.default;
+            overlays = [ outputs.overlays.default ];
           };
         })
       ];
