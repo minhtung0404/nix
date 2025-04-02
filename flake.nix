@@ -35,7 +35,7 @@
   outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, nix-homebrew, ... }:
     let
       overlays = import ./overlays.nix inputs;
-      myLib = import ./myLib/default.nix { inherit inputs; };
+      myLib = import ./myLib/default.nix { inherit inputs overlays; };
     in with myLib; {
       overlays.default = nixpkgs.lib.composeManyExtensions overlays;
       darwinConfigurations = {
@@ -49,8 +49,8 @@
           mkHome "aarch64-darwin" ./home/darwin/entertainment.nix;
       };
 
-      homeManagerModules.default = ./homeManagerModules;
-      darwinModules.default = ./darwinModules;
+      homeManagerModules.default = ./modules/homeManagerModules;
+      darwinModules.default = ./modules/darwinModules;
     };
 }
 

@@ -13,7 +13,7 @@ let
 
     # add images
     mkdir $out/images
-    cp ${../../../images/amira_squared.jpeg} $out/images/amira_squared.jpeg
+    cp ${../../../../images/amira_squared.jpeg} $out/images/amira_squared.jpeg
 
     chmod -R 777 $out/helpers
 

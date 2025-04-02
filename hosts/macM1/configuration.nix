@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, ... }:
+{ inputs, outputs, pkgs, lib, ... }:
 
 {
   imports = [
@@ -10,7 +10,7 @@
       home-manager.users.minhtung0404 = import ./minhtung0404.nix;
       home-manager.users.entertainment = import ./entertainment.nix;
       home-manager.sharedModules = [
-        ../../homeManagerModules/default.nix
+        outputs.homeManagerModules.default
         ({ ... }: { home.packages = with pkgs; [ home-manager ]; })
       ];
       home-manager.extraSpecialArgs = { inherit inputs; };

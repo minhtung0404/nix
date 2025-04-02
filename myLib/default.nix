@@ -1,4 +1,4 @@
-{ inputs }:
+{ inputs, overlays }:
 let
   myLib = (import ./default.nix) { inherit inputs; };
   outputs = inputs.self.outputs;
@@ -8,7 +8,7 @@ in rec {
   mkDarwin = sys: config:
     inputs.nix-darwin.lib.darwinSystem {
       system = sys;
-      specialArgs = { inherit inputs outputs myLib; };
+      specialArgs = { inherit inputs outputs myLib overlays; };
       modules = [ config outputs.darwinModules.default ];
     };
 
@@ -22,7 +22,7 @@ in rec {
         ({ ... }: {
           nixpkgs = {
             config.allowUnfree = true;
-            overlays = import ../overlays.nix inputs;
+            overlays = overlays;
           };
         })
       ];
