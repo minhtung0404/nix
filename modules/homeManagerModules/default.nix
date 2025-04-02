@@ -20,11 +20,11 @@ in {
     ./terminals/kitty
     inputs.sops-nix.homeManagerModules.sops
   ] ++ (myLib.extendModules (extends "programs") [
-    ./misc/git
-    ./misc/ssh
+    ./programs/git.nix
+    ./programs/ssh.nix
     ./editors/nvim
     ./shells/fish
-  ]) ++ (myLib.extendModules (extends "services") [ ./misc/hammerspoon ])
+  ]) ++ (myLib.extendModules (extends "services") [ ./services/hammerspoon ])
     ++ (myLib.extendModules (extends "bundles")
       (myLib.filesIn ./editors/kakoune/bundles));
 
