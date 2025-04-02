@@ -120,6 +120,7 @@
     NSGlobalDomain = {
       AppleICUForce24HourTime = true;
       AppleShowAllExtensions = true;
+      AppleShowAllFiles = true;
       AppleShowScrollBars = "Automatic";
       InitialKeyRepeat = 15;
       KeyRepeat = 2;
