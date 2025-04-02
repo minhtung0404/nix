@@ -1,6 +1,4 @@
-{ inputs, outputs, pkgs, lib, ... }:
-
-{
+{ inputs, outputs, pkgs, lib, myLib, overlays, ... }: {
   imports = [
     inputs.home-manager.darwinModules.home-manager
     {
@@ -13,7 +11,9 @@
         outputs.homeManagerModules.default
         ({ ... }: { home.packages = with pkgs; [ home-manager ]; })
       ];
-      home-manager.extraSpecialArgs = { inherit inputs; };
+      home-manager.extraSpecialArgs = {
+        inherit inputs outputs myLib overlays;
+      };
     }
     inputs.nix-homebrew.darwinModules.nix-homebrew
     {

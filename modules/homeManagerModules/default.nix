@@ -1,24 +1,36 @@
-{ inputs, config, pkgs, lib, ... }:
-let cfg = config.mtn.hm;
+{ inputs, config, pkgs, lib, myLib, ... }:
+let
+  cfg = config.mtn.hm;
+  extends = type: name: {
+    extraOptions = {
+      mtn.${type}."my-${name}".enable =
+        lib.mkEnableOption "enable my ${name} configuration";
+    };
+
+    configExtension = conf:
+      (lib.mkIf config.mtn.${type}."my-${name}".enable conf);
+  };
 in {
   imports = [
     ./config.nix
     ./darwin.nix
     ./editors/kakoune
-    ./editors/nvim
     ./gui/aerospace
     ./gui/sketchybar
-    ./misc/git
-    ./misc/hammerspoon
-    ./misc/ssh
-    ./shells/fish
     ./terminals/kitty
     inputs.sops-nix.homeManagerModules.sops
-  ];
+  ] ++ (myLib.extendModules (extends "programs") [
+    ./misc/git
+    ./misc/ssh
+    ./editors/nvim
+    ./shells/fish
+  ]) ++ (myLib.extendModules (extends "services") [ ./misc/hammerspoon ]);
 
-  options.mtn.hm = {
-    enable = lib.mkEnableOption "hm";
-    darwin = lib.mkEnableOption "hm-darwin";
+  options = {
+    mtn.hm = {
+      enable = lib.mkEnableOption "hm";
+      darwin = lib.mkEnableOption "hm-darwin";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -80,12 +92,16 @@ in {
     };
 
     mtn.programs = {
-      my-nvim.enable = true;
       my-kitty = {
         enable = true;
         fontSize = 16;
         cmd = "cmd";
       };
+
+      my-git.enable = true;
+      my-ssh.enable = true;
+      my-nvim.enable = true;
+      my-fish.enable = true;
     };
   };
 }

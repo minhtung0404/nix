@@ -1,6 +1,6 @@
 { inputs, overlays }:
 let
-  myLib = (import ./default.nix) { inherit inputs; };
+  myLib = (import ./default.nix) { inherit inputs overlays; };
   outputs = inputs.self.outputs;
 in rec {
   pkgsFor = sys: inputs.nixpkgs.legacyPackages.${sys};
@@ -15,7 +15,7 @@ in rec {
   mkHome = sys: config:
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = pkgsFor sys;
-      extraSpecialArgs = { inherit inputs myLib outputs; };
+      extraSpecialArgs = { inherit inputs myLib outputs overlays; };
       modules = [
         config
         outputs.homeManagerModules.default
