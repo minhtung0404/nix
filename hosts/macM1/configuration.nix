@@ -87,14 +87,18 @@
     finder = {
       AppleShowAllExtensions = true;
       CreateDesktop = false;
-      FXPreferredViewStyle = "clmv";
+      FXDefaultSearchScope = "SCcf";
       FXEnableExtensionChangeWarning = false;
+      FXPreferredViewStyle = "clmv";
       FXRemoveOldTrashItems = true;
       NewWindowTarget = "Home";
+      QuitMenuItem = true;
       ShowExternalHardDrivesOnDesktop = false;
       ShowPathbar = true;
       ShowRemovableMediaOnDesktop = false;
       ShowStatusBar = true;
+      _FXShowPosixPathInTitle = true;
+      _FXSortFoldersFirst = true;
     };
     loginwindow.GuestEnabled = false;
     screencapture.location = "~/Documents/screenshot/";
@@ -107,6 +111,7 @@
       tilesize = 81;
       magnification = true;
       mru-spaces = false;
+      show-recents = false;
       persistent-apps = [
         "/System/Volumes/Data/Applications/LibreWolf.app/"
         "/System/Applications/Mail.app"
@@ -122,6 +127,7 @@
       AppleShowAllExtensions = true;
       AppleShowAllFiles = true;
       AppleShowScrollBars = "Automatic";
+      NSAutomaticWindowAnimationsEnabled = false;
       InitialKeyRepeat = 15;
       KeyRepeat = 2;
       _HIHideMenuBar = true;
