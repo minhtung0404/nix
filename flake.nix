@@ -15,6 +15,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-utils.url = "github:numtide/flake-utils";
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -30,6 +31,16 @@
     kakoune.flake = false;
     kak-lsp.url = "github:kakoune-lsp/kakoune-lsp";
     kak-lsp.flake = false;
+
+    # nki-kakoune
+    nki-nix-home.url = "git+https://git.dtth.ch/nki/nix-home.git";
+    nki-nix-home.inputs = {
+      nixpkgs-unstable.follows = "nixpkgs";
+      darwin.follows = "nix-darwin";
+      home-manager.follows = "home-manager";
+      sops-nix.follows = "sops-nix";
+      flake-utils.follows = "flake-utils";
+    };
 
     # neovim
     nvf.url = "github:notashelf/nvf";

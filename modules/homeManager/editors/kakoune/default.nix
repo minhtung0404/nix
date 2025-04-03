@@ -34,6 +34,7 @@ in {
 
   options.mtn.programs.my-kakoune = {
     enable = mkEnableOption "My version of the kakoune configuration";
+    config.enable = mkEnableOption "Whether to enable kakoune config";
     package = mkOption {
       type = types.package;
       default = pkgs.kakoune;
@@ -54,7 +55,7 @@ in {
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
 
-    xdg.configFile = {
+    xdg.configFile = lib.mkIf cfg.config.enable ({
       # kakrc
       "kak/kakrc".text = ''
         ${builtins.readFile ./kakrc}
@@ -112,7 +113,7 @@ in {
             '';
           }]);
       in builtins.listToAttrs
-      (lib.lists.flatten (map kakouneAutoload cfg.autoload)));
+      (lib.lists.flatten (map kakouneAutoload cfg.autoload))));
   };
 }
 

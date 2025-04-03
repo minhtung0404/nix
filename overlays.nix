@@ -38,6 +38,10 @@ let
         ln -s $out/bin/hello $out/bin/my-custom-hello  # Ensure binary is accessible with new name
       '';
     });
+
+    nki-kakoune =
+      final.callPackage ("${inputs.nki-nix-home}/packages/common/nki-kakoune")
+      { };
   };
 in [
   overlay-versioning

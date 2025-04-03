@@ -107,6 +107,10 @@ in {
       my-fish.enable = true;
     };
 
-    mtn.bundles.my-kak-full.enable = true;
+    mtn.programs.my-kakoune = {
+      enable = true;
+      package = pkgs.nki-kakoune;
+    };
+    # mtn.bundles.my-kak-full.enable = true;
   };
 }
