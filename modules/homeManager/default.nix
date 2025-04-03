@@ -18,7 +18,6 @@ in {
     ./gui/aerospace
     ./gui/sketchybar
     ./terminals/kitty
-    inputs.sops-nix.homeManagerModules.sops
   ] ++ (myLib.extendModules (extends "programs") [
     ./programs/git.nix
     ./programs/ssh.nix

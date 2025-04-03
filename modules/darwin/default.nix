@@ -4,5 +4,10 @@
     overlays = [ outputs.overlays.default ];
   };
 
-  imports = [ ./services/kanata/darwin.nix ./services/edns ];
+  imports = [
+    ./services/kanata/darwin.nix
+    ./services/edns
+    ../common/sops.nix
+
+  ];
 }

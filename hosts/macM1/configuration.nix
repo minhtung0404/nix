@@ -168,13 +168,17 @@
     };
   };
 
-  sops = {
-    age.keyFile = "/Users/minhtung0404/.config/sops/age/keys.txt";
+  mtn.programs.sops = {
+    enable = true;
+    file = ./secrets.yaml;
+  };
 
-    defaultSopsFile = ../../secrets/secrets.yaml;
-    defaultSopsFormat = "yaml";
+  environment.variables = {
+    SOPS_AGE_KEY_FILE = "/Users/minhtung0404/.config/sops/age/keys.txt";
+  };
 
-    secrets.veracrypt_drive = { owner = "minhtung0404"; };
+  sops.secrets.veracrypt_drive = {
+    owner = config.users.users.minhtung0404.name;
   };
 
   launchd.daemons.dnscrypt-proxy.serviceConfig.UserName = lib.mkForce "root";

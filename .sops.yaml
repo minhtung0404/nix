@@ -1,9 +1,11 @@
 # .sops.yaml
 
 keys:
-  - &mba age13dtrv5nadfqvp43e97hh0d23vyzd3qgkqpzn7f0mtm4j5shkkg4swa85sh
+  - &mba_minhtung0404 age13dtrv5nadfqvp43e97hh0d23vyzd3qgkqpzn7f0mtm4j5shkkg4swa85sh
+  - &mba age1xq7sqcawstlz7ygmsheap6nv0efransz27l94sqwdrjntvnvrp5sef5t9j
 creation_rules:
-  - path_regex: secrets/secrets.yaml$
+  - path_regex: hosts/macM1/secrets.yaml$
     key_groups:
     - age:
+      - *mba_minhtung0404
       - *mba

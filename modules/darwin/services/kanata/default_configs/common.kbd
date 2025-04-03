@@ -8,6 +8,7 @@
   open_vscode (cmd open -a "Visual Studio Code.app")
   open_obsidian (cmd open -a Obsidian.app)
   open_kitty (cmd open -a kitty.app)
+  fn-mac fn
   fn (tap-hold-press 200 200 fn (layer-while-held fn_layer))
 )
 
@@ -15,7 +16,7 @@
 
 (defalias
   eoc (tap-hold-press 200 200 esc lctl)
-  ctl (tap-hold-press 200 200 XX (layer-while-held fn_layer))
+  ctl (tap-hold-press 200 200 @fn-mac (layer-while-held fn_layer))
 )
 
 ;; hyper_term layer
@@ -49,6 +50,7 @@
   0 mute
   - vold
   = volu
+  spc @fn-mac
   ___ XX
 )
 
