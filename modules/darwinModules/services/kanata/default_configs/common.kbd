@@ -15,7 +15,7 @@
 
 (defalias
   eoc (tap-hold-press 200 200 esc lctl)
-  ctl XX
+  ctl @fn
   rl (tap-dance 200 (ralt ralt lrld))
   rl1 (tap-dance 500 (rmet rmet lrld-next))
   rl2 (tap-dance 500 (rmet rmet lrld-next))
@@ -46,6 +46,11 @@
   f10 mute
   f11 vold
   f12 volu
+  1 brdn
+  2 brup
+  0 mute
+  - vold
+  = volu
   ___ XX
 )
 
