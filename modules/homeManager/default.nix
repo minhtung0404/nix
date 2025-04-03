@@ -1,31 +1,39 @@
-{ inputs, config, pkgs, lib, myLib, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  myLib,
+  ...
+}:
 let
   cfg = config.mtn.hm;
   extends = type: name: {
     extraOptions = {
-      mtn.${type}."my-${name}".enable =
-        lib.mkEnableOption "enable my ${name} configuration";
+      mtn.${type}."my-${name}".enable = lib.mkEnableOption "enable my ${name} configuration";
     };
 
-    configExtension = conf:
-      (lib.mkIf config.mtn.${type}."my-${name}".enable conf);
+    configExtension = conf: (lib.mkIf config.mtn.${type}."my-${name}".enable conf);
   };
-in {
-  imports = [
-    ./config.nix
-    ./darwin.nix
-    ./editors/kakoune
-    ./gui/aerospace
-    ./gui/sketchybar
-    ./terminals/kitty
-  ] ++ (myLib.extendModules (extends "programs") [
-    ./programs/git.nix
-    ./programs/ssh.nix
-    ./editors/nvim
-    ./shells/fish
-  ]) ++ (myLib.extendModules (extends "services") [ ./services/hammerspoon ])
-    ++ (myLib.extendModules (extends "bundles")
-      (myLib.filesIn ./editors/kakoune/bundles));
+in
+{
+  imports =
+    [
+      ./config.nix
+      ./darwin.nix
+      ./editors/kakoune
+      ./gui/aerospace
+      ./gui/sketchybar
+      ./terminals/kitty
+    ]
+    ++ (myLib.extendModules (extends "programs") [
+      ./programs/git.nix
+      ./programs/ssh.nix
+      ./editors/nvim
+      ./shells/fish
+    ])
+    ++ (myLib.extendModules (extends "services") [ ./services/hammerspoon ])
+    ++ (myLib.extendModules (extends "bundles") (myLib.filesIn ./editors/kakoune/bundles));
 
   options = {
     mtn.hm = {
@@ -57,7 +65,9 @@ in {
       lazygit
     ];
 
-    home.sessionVariables = { EDITOR = "kak"; };
+    home.sessionVariables = {
+      EDITOR = "kak";
+    };
 
     home.shell.enableFishIntegration = true;
 
@@ -105,12 +115,13 @@ in {
       my-ssh.enable = true;
       my-nvim.enable = true;
       my-fish.enable = true;
+
+      my-kakoune = {
+        enable = true;
+        package = pkgs.mtn-kakoune;
+      };
+      # bundles.my-kak-full.enable = true;
     };
 
-    mtn.programs.my-kakoune = {
-      enable = true;
-      package = pkgs.nki-kakoune;
-    };
-    # mtn.bundles.my-kak-full.enable = true;
   };
 }
