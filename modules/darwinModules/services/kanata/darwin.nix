@@ -1,4 +1,4 @@
-{ config, pkgs, lib, environment, ... }:
+{ config, pkgs, lib, ... }:
 let
   inherit (lib)
     mkIf mkEnableOption mkPackageOption mkOption listOf types literalExpression;
@@ -30,17 +30,24 @@ in {
 
   config = mkIf cfg.enable {
     environment.launchDaemons = let
-      config_file = lib.strings.concatMapStrings (name: ''
+      catString = lib.strings.concatMapStrings (name:
+        let
+          main = ./default_configs/${name}.kbd;
+          common = ./default_configs/common.kbd;
+        in ''
+          cat ${main} ${common} > $out/${name}.kbd
+        '') cfg.configFile;
+      kanataConfig = pkgs.stdenv.mkDerivation {
+        name = "kanata-config";
+        phases = [ "installPhase" ];
+        installPhase = ''
+          mkdir -p $out
+          ${catString}
+        '';
+      };
+      configFiles = lib.strings.concatMapStrings (name: ''
         <string>-c</string>
-        <string>${
-          (pkgs.writeTextFile {
-            name = "kanata_${name}.kbd";
-            text = pkgs.lib.strings.concatStrings [
-              (builtins.readFile ./default_configs/${name}.kbd)
-              (builtins.readFile ./default_configs/common.kbd)
-            ];
-          })
-        }</string>
+        <string>${kanataConfig}/${name}.kbd</string>
       '') cfg.configFile;
     in {
       "com.nixos.kanata.plist" = {
@@ -60,7 +67,7 @@ in {
               <key>ProgramArguments</key>
               <array>
                 <string>${pkgs.kanata-with-cmd}/bin/kanata</string>
-                ${config_file}
+                ${configFiles}
               </array>
               <key>RunAtLoad</key>
               <true/>
@@ -98,3 +105,4 @@ in {
     };
   };
 }
+

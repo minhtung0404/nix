@@ -44,7 +44,7 @@ let
         filetypes = [ "nix" ];
         roots = [ "flake.nix" "shell.nix" ".git" ];
         settings.nil = {
-          formatting.command = [ "${getExe pkgs.nixpkgs-fmt}" ];
+          formatting.command = [ "${getExe pkgs.nixfmt-classic}" ];
         };
       };
       pyls = {
@@ -210,7 +210,8 @@ let
       }
     '';
   };
-in {
+in
+{
   options.mtn.programs.kak-lsp = {
     enable = mkEnableOption "Enable kak-lsp support";
 
@@ -259,22 +260,24 @@ in {
     home.packages = [ wrappedPackage ];
 
     # Configurations
-    xdg.configFile."kak-lsp/kak-lsp.toml" = let
-      toml = pkgs.formats.toml { };
-      toLspConfig =
-        lib.filterAttrsRecursive (n: v: n != "package" && v != null);
-    in {
-      source = toml.generate "config.toml" {
-        semantic_tokens.faces = cfg.semanticTokens.faces
-          ++ cfg.semanticTokens.additionalFaces;
-        server.timeout = cfg.serverTimeout;
-        snippet_support = cfg.enableSnippets;
-        verbosity = 255;
-        language_server =
-          toLspConfig (lspConfig.language_servers // cfg.languageServers);
-        language_ids = lspConfig.language_ids // cfg.languageIds;
+    xdg.configFile."kak-lsp/kak-lsp.toml" =
+      let
+        toml = pkgs.formats.toml { };
+        toLspConfig =
+          lib.filterAttrsRecursive (n: v: n != "package" && v != null);
+      in
+      {
+        source = toml.generate "config.toml" {
+          semantic_tokens.faces = cfg.semanticTokens.faces
+            ++ cfg.semanticTokens.additionalFaces;
+          server.timeout = cfg.serverTimeout;
+          snippet_support = cfg.enableSnippets;
+          verbosity = 255;
+          language_server =
+            toLspConfig (lspConfig.language_servers // cfg.languageServers);
+          language_ids = lspConfig.language_ids // cfg.languageIds;
+        };
       };
-    };
   };
 }
 
