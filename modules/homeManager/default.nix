@@ -57,7 +57,7 @@ in {
       lazygit
     ];
 
-    home.sessionVariables = { EDITOR = "nvim"; };
+    home.sessionVariables = { EDITOR = "kak"; };
 
     home.shell.enableFishIntegration = true;
 
