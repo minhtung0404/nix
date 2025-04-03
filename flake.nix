@@ -50,8 +50,8 @@
         "entertainment" = mkHome system ./home/darwin/entertainment.nix;
       };
 
-      homeManagerModules.default = ./modules/homeManagerModules;
-      darwinModules.default = ./modules/darwinModules;
+      homeManagerModules.default = ./modules/homeManager;
+      darwinModules.default = ./modules/darwin;
 
       packages.${system}.neovim = (nvf.lib.neovimConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
