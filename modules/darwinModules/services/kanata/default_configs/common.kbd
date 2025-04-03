@@ -15,10 +15,7 @@
 
 (defalias
   eoc (tap-hold-press 200 200 esc lctl)
-  ctl @fn
-  rl (tap-dance 200 (ralt ralt lrld))
-  rl1 (tap-dance 500 (rmet rmet lrld-next))
-  rl2 (tap-dance 500 (rmet rmet lrld-next))
+  ctl (tap-hold-press 200 200 XX (layer-while-held fn_layer))
 )
 
 ;; hyper_term layer
@@ -33,7 +30,7 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   @eoc a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  @ctl lalt @cmd           spc            @rl1 @rl2 rctl
+  @ctl lalt @cmd           spc            ralt @cmd rctl
   @fn  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
 )
 
@@ -46,6 +43,7 @@
   f10 mute
   f11 vold
   f12 volu
+  esc lrld-next
   1 brdn
   2 brup
   0 mute
