@@ -18,6 +18,8 @@ in
   (attrs: {
     buildCommand = ''
       ${attrs.buildCommand or ""}
+
+      echo build ${lsp.extraPaths} >$out/1.log
       # location of kak binary is used to find ../share/kak/autoload,
       # unless explicitly overriden with KAKOUNE_RUNTIME
       rm "$out/bin/kak"

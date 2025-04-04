@@ -18,7 +18,7 @@ let
     # BufferPadding = "%opt{base},%opt{base}";
     # MenuForeground = "%opt{blue},white+bF";
     # MenuBackground = "%opt{sky},white+F";
-    Information = "%opt{sky},white";
+    # Information = "%opt{sky},white";
     # Markdown help color scheme
     InfoDefault = "Information";
     InfoBlock = "@block";
