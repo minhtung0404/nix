@@ -49,6 +49,10 @@
     let
       myLib = import ./myLib/default.nix { inherit inputs; };
       system = "aarch64-darwin";
+      pkgs = import nixpkgs {
+        system = system;
+        overlays = import ./overlays.nix inputs;
+      };
     in with myLib; {
       overlays.default =
         nixpkgs.lib.composeManyExtensions (import ./overlays.nix inputs);
@@ -64,11 +68,16 @@
       homeManagerModules.default = ./modules/homeManager;
       darwinModules.default = ./modules/darwin;
 
-      packages.${system}.neovim = (nvf.lib.neovimConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
-        modules = [ ./modules/homeManagerModules/editors/nvim/nvf.nix ];
-      }).neovim;
+      packages.${system} = {
+        neovim = (nvf.lib.neovimConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+          modules = [ ./modules/homeManagerModules/editors/nvim/nvf.nix ];
+        }).neovim;
 
+        nki-kakoune = pkgs.nki-kakoune;
+
+        mtn-kakoune = pkgs.mtn-kakoune;
+      };
     };
 }
 
