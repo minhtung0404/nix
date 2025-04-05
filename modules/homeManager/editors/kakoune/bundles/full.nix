@@ -84,26 +84,41 @@ in
               queries.src = src;
               queries.path = "queries";
             };
-          # yaml = {
-          #   grammar.src = pkgs.fetchFromGitHub {
-          #     owner = "ikatyang";
-          #     repo = "tree-sitter-yaml";
-          #     rev = "0e36bed171768908f331ff7dff9d956bae016efb";
-          #     hash = "sha256-bpiT3FraOZhJaoiFWAoVJX1O+plnIi8aXOW2LwyU23M=";
-          #   };
-          #   grammar.compile.args =
-          #     [ "-c" "-fpic" "../scanner.cc" "../parser.c" "-I" ".." ];
-          #   grammar.link.args = [ "-shared" "-fpic" "scanner.o" "parser.o" ];
-          #   grammar.link.flags = [ "-O3" "-lstdc++" ];
+          yaml = {
+            grammar.src = pkgs.fetchFromGitHub {
+              owner = "ikatyang";
+              repo = "tree-sitter-yaml";
+              rev = "0e36bed171768908f331ff7dff9d956bae016efb";
+              hash = "sha256-bpiT3FraOZhJaoiFWAoVJX1O+plnIi8aXOW2LwyU23M=";
+            };
+            grammar.compile.args = [
+              "-c"
+              "-xc++"
+              "-fpic"
+              "../scanner.cc"
+              "../parser.c"
+              "-I"
+              ".."
+            ];
+            grammar.link.args = [
+              "-shared"
+              "-fpic"
+              "scanner.o"
+              "parser.o"
+            ];
+            grammar.link.flags = [
+              "-O3"
+              "-lstdc++"
+            ];
 
-          #   queries.src = pkgs.fetchFromGitHub {
-          #     owner = "helix-editor";
-          #     repo = "helix";
-          #     rev = "dbd248fdfa680373d94fbc10094a160aafa0f7a7";
-          #     hash = "sha256-wk8qVUDFXhAOi1Ibc6iBMzDCXb6t+YiWZcTd0IJybqc=";
-          #   };
-          #   queries.path = "runtime/queries/yaml";
-          # };
+            queries.src = pkgs.fetchFromGitHub {
+              owner = "helix-editor";
+              repo = "helix";
+              rev = "dbd248fdfa680373d94fbc10094a160aafa0f7a7";
+              hash = "sha256-wk8qVUDFXhAOi1Ibc6iBMzDCXb6t+YiWZcTd0IJybqc=";
+            };
+            queries.path = "runtime/queries/yaml";
+          };
 
           templ =
             let

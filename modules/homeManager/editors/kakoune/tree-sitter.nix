@@ -96,8 +96,8 @@ let
       buildPhase = ''
         mkdir ${grammarPath}/build
         cd ${grammarPath}/build
-        ${pkgs.gcc}/bin/gcc ${lib.concatStringsSep " " grammarCompileArgs}
-        ${pkgs.gcc}/bin/gcc ${lib.concatStringsSep " " grammarLinkArgs} -o ${name}.so
+        $CC ${lib.concatStringsSep " " grammarCompileArgs}
+        $CC ${lib.concatStringsSep " " grammarLinkArgs} -o ${name}.so
       '';
       installPhase = ''
         cp ${name}.so $out
