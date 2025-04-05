@@ -49,7 +49,7 @@ let
         '';
     });
 
-    nki-kakoune = final.callPackage ("${inputs.nki-nix-home}/packages/common/nki-kakoune") { };
+    nki-kakoune = inputs.nki-nix-home.packages.kakoune;
 
     mtn-kakoune = final.callPackage ./packages/common/mtn-kakoune { };
   };
@@ -58,5 +58,6 @@ in
   overlay-versioning
   overlay-libs
   overlay-packages
+  inputs.nki-nix-home.overlays.kakoune
   # Bug fixes
 ] # we assign the overlay created before to the overlays of nixpkgs.

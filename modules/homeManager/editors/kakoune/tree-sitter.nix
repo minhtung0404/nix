@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 let
   cfg = config.mtn.programs.my-kakoune.tree-sitter;
@@ -20,7 +25,14 @@ let
         };
         args = mkOption {
           type = types.listOf types.str;
-          default = [ "-c" "-fpic" "../parser.c" "../scanner.c" "-I" ".." ];
+          default = [
+            "-c"
+            "-fpic"
+            "../parser.c"
+            "../scanner.c"
+            "-I"
+            ".."
+          ];
         };
         flags = mkOption {
           type = types.listOf types.str;
@@ -34,7 +46,12 @@ let
         };
         args = mkOption {
           type = types.listOf types.str;
-          default = [ "-shared" "-fpic" "parser.o" "scanner.o" ];
+          default = [
+            "-shared"
+            "-fpic"
+            "parser.o"
+            "scanner.o"
+          ];
         };
         flags = mkOption {
           type = types.listOf types.str;
@@ -51,15 +68,27 @@ let
       };
     };
   };
-  mkGrammarPackage = { name, src, grammarPath ? "src", grammarCompileArgs ? [
-    "-O3"
-    "-c"
-    "-fpic"
-    "../parser.c"
-    "../scanner.c"
-    "-I"
-    ".."
-  ], grammarLinkArgs ? [ "-shared" "-fpic" "parser.o" "scanner.o" ], }:
+  mkGrammarPackage =
+    {
+      name,
+      src,
+      grammarPath ? "src",
+      grammarCompileArgs ? [
+        "-O3"
+        "-c"
+        "-fpic"
+        "../parser.c"
+        "../scanner.c"
+        "-I"
+        ".."
+      ],
+      grammarLinkArgs ? [
+        "-shared"
+        "-fpic"
+        "parser.o"
+        "scanner.o"
+      ],
+    }:
     pkgs.stdenv.mkDerivation {
       inherit src;
       name = "kak-tree-sitter-grammar-${name}.so";
@@ -67,15 +96,16 @@ let
       buildPhase = ''
         mkdir ${grammarPath}/build
         cd ${grammarPath}/build
-        $CC ${lib.concatStringsSep " " grammarCompileArgs}
-        $CC ${lib.concatStringsSep " " grammarLinkArgs} -o ${name}.so
+        ${pkgs.gcc}/bin/gcc ${lib.concatStringsSep " " grammarCompileArgs}
+        ${pkgs.gcc}/bin/gcc ${lib.concatStringsSep " " grammarLinkArgs} -o ${name}.so
       '';
       installPhase = ''
         cp ${name}.so $out
       '';
     };
 
-in {
+in
+{
   options.mtn.programs.my-kakoune.tree-sitter = {
     enable = mkOption {
       type = types.bool;
@@ -180,8 +210,7 @@ in {
     extraHighlighterGroups = mkOption {
       type = types.attrsOf types.str;
       default = { };
-      description =
-        "Highlighter groups to add to the `highlighterGroups`. Maps from group names to face names.";
+      description = "Highlighter groups to add to the `highlighterGroups`. Maps from group names to face names.";
     };
 
     aliases = mkOption {
@@ -227,72 +256,74 @@ in {
     };
   };
 
-  config = let
-    allGroups =
-      attrsets.recursiveUpdate cfg.highlighterGroups cfg.extraHighlighterGroups;
+  config =
+    let
+      allGroups = attrsets.recursiveUpdate cfg.highlighterGroups cfg.extraHighlighterGroups;
 
-    aliases = attrsets.recursiveUpdate cfg.aliases cfg.extraAliases;
+      aliases = attrsets.recursiveUpdate cfg.aliases cfg.extraAliases;
 
-    toTs = name:
-      "ts_${strings.concatStringsSep "_" (strings.splitString "." name)}";
-    toScm = name: strings.concatStringsSep "." (strings.splitString "_" name);
+      toTs = name: "ts_${strings.concatStringsSep "_" (strings.splitString "." name)}";
+      toScm = name: strings.concatStringsSep "." (strings.splitString "_" name);
 
-    definedFaces = attrsets.mapAttrs' (name: value: {
-      inherit value;
-      name = toTs name;
-    }) allGroups;
-    aliasFaces = attrsets.mapAttrs' (name: value: {
-      name = toTs name;
-      value = "@${toTs value}";
-    }) aliases;
-    faces = attrsets.recursiveUpdate definedFaces aliasFaces;
+      definedFaces = attrsets.mapAttrs' (name: value: {
+        inherit value;
+        name = toTs name;
+      }) allGroups;
+      aliasFaces = attrsets.mapAttrs' (name: value: {
+        name = toTs name;
+        value = "@${toTs value}";
+      }) aliases;
+      faces = attrsets.recursiveUpdate definedFaces aliasFaces;
 
-    toml = pkgs.formats.toml { };
+      toml = pkgs.formats.toml { };
 
-    toLanguageConf = name: lang:
-      with lang; {
-        grammar = {
-          source.local.path = mkGrammarPackage {
-            inherit name;
-            src = grammar.src;
-            grammarPath = grammar.path;
-            grammarCompileArgs = grammar.compile.flags ++ grammar.compile.args;
-            grammarLinkArgs = grammar.link.flags ++ grammar.link.args;
+      toLanguageConf =
+        name: lang: with lang; {
+          grammar = {
+            source.local.path = mkGrammarPackage {
+              inherit name;
+              src = grammar.src;
+              grammarPath = grammar.path;
+              grammarCompileArgs = grammar.compile.flags ++ grammar.compile.args;
+              grammarLinkArgs = grammar.link.flags ++ grammar.link.args;
+            };
+            compile = grammar.compile.command;
+            compile_args = grammar.compile.args;
+            compile_flags = grammar.compile.flags;
+            link = grammar.link.command;
+            link_args = grammar.link.args ++ [
+              "-o"
+              "${name}.so"
+            ];
+            link_flags = grammar.link.flags;
           };
-          compile = grammar.compile.command;
-          compile_args = grammar.compile.args;
-          compile_flags = grammar.compile.flags;
-          link = grammar.link.command;
-          link_args = grammar.link.args ++ [ "-o" "${name}.so" ];
-          link_flags = grammar.link.flags;
+          queries = rec {
+            path = if queries.path == null then "runtime/queries/${name}" else queries.path;
+            source.local.path = "${queries.src}/${path}";
+          };
         };
-        queries = rec {
-          path = if queries.path == null then
-            "runtime/queries/${name}"
-          else
-            queries.path;
-          source.local.path = "${queries.src}/${path}";
-        };
-      };
-  in mkIf cfg.enable {
-    assertions = with lib.asserts;
-      ([ ] ++ attrsets.mapAttrsToList (name: _: {
-        assertion = (!(builtins.hasAttr name allGroups));
-        message = "${name} was both defined and aliased";
-      }) aliases);
-    home.packages = [ cfg.package ];
+    in
+    mkIf cfg.enable {
+      assertions =
+        with lib.asserts;
+        (
+          [ ]
+          ++ attrsets.mapAttrsToList (name: _: {
+            assertion = (!(builtins.hasAttr name allGroups));
+            message = "${name} was both defined and aliased";
+          }) aliases
+        );
+      home.packages = [ cfg.package ];
 
-    xdg.configFile."kak-tree-sitter/config.toml" = {
-      source = toml.generate "config.toml" {
-        highlight.groups = builtins.map toScm
-          (builtins.attrNames allGroups ++ builtins.attrNames aliases);
-        features = cfg.features;
-        language = builtins.mapAttrs toLanguageConf cfg.languages;
+      xdg.configFile."kak-tree-sitter/config.toml" = {
+        source = toml.generate "config.toml" {
+          highlight.groups = builtins.map toScm (builtins.attrNames allGroups ++ builtins.attrNames aliases);
+          features = cfg.features;
+          language = builtins.mapAttrs toLanguageConf cfg.languages;
+        };
       };
+
+      mtn.programs.my-kakoune.extraFaces = faces;
     };
 
-    mtn.programs.my-kakoune.extraFaces = faces;
-  };
-
 }
-

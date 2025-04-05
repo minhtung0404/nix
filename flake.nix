@@ -83,8 +83,6 @@
           }).neovim;
 
         nki-kakoune = pkgs.nki-kakoune;
-
-        mtn-kakoune = pkgs.mtn-kakoune;
       };
     };
 }

@@ -116,11 +116,11 @@ in
       my-nvim.enable = true;
       my-fish.enable = true;
 
-      # my-kakoune = {
-      #   enable = true;
-      #   package = pkgs.mtn-kakoune;
-      # };
-      # bundles.my-kak-full.enable = true;
+      my-kakoune = {
+        enable = true;
+        package = pkgs.nki-kakoune;
+        bundles = "full";
+      };
     };
 
   };
