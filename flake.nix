@@ -45,7 +45,13 @@
     # neovim
     nvf.url = "github:notashelf/nvf";
   };
-  outputs = inputs@{ self, nixpkgs, nvf, ... }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      nvf,
+      ...
+    }:
     let
       myLib = import ./myLib/default.nix { inherit inputs; };
       system = "aarch64-darwin";
@@ -53,9 +59,10 @@
         system = system;
         overlays = import ./overlays.nix inputs;
       };
-    in with myLib; {
-      overlays.default =
-        nixpkgs.lib.composeManyExtensions (import ./overlays.nix inputs);
+    in
+    with myLib;
+    {
+      overlays.default = nixpkgs.lib.composeManyExtensions (import ./overlays.nix inputs);
       darwinConfigurations = {
         "MacAir-PirateKing" = mkDarwin system ./hosts/macM1/configuration.nix;
       };
@@ -69,10 +76,11 @@
       darwinModules.default = ./modules/darwin;
 
       packages.${system} = {
-        neovim = (nvf.lib.neovimConfiguration {
-          pkgs = nixpkgs.legacyPackages.${system};
-          modules = [ ./modules/homeManagerModules/editors/nvim/nvf.nix ];
-        }).neovim;
+        neovim =
+          (nvf.lib.neovimConfiguration {
+            pkgs = nixpkgs.legacyPackages.${system};
+            modules = [ ./modules/homeManagerModules/editors/nvim/nvf.nix ];
+          }).neovim;
 
         nki-kakoune = pkgs.nki-kakoune;
 
@@ -80,4 +88,3 @@
       };
     };
 }
-

@@ -23,7 +23,8 @@
 }:
 let
   # Configuration for kak-lsp
-  config = {
+  config =
+  {
     languageIDs = {
       c = "c_cpp";
       cpp = "c_cpp";

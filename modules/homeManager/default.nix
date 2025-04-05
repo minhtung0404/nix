@@ -56,7 +56,7 @@ in
       grc
       htop
       nerd-fonts.fira-code
-      nixfmt-classic
+      nixfmt-rfc-style
       obsidian
       podman
       ripgrep
@@ -116,10 +116,10 @@ in
       my-nvim.enable = true;
       my-fish.enable = true;
 
-      my-kakoune = {
-        enable = true;
-        package = pkgs.mtn-kakoune;
-      };
+      # my-kakoune = {
+      #   enable = true;
+      #   package = pkgs.mtn-kakoune;
+      # };
       # bundles.my-kak-full.enable = true;
     };
 
