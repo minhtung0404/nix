@@ -53,7 +53,7 @@
       ...
     }:
     let
-      myLib = import ./myLib/default.nix { inherit inputs; };
+      myLib = import ./my-lib/default.nix { inherit inputs; };
       system = "aarch64-darwin";
       pkgs = import nixpkgs {
         system = system;
@@ -72,7 +72,7 @@
         "entertainment" = mkHome system ./home/darwin/entertainment.nix;
       };
 
-      homeManagerModules.default = ./modules/homeManager;
+      homeManagerModules.default = ./modules/home-manager;
       darwinModules.default = ./modules/darwin;
 
       packages.${system} = {
