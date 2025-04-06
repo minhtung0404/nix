@@ -71,8 +71,9 @@ in
 
           map global normal <a-[> ':inc-dec-modify-numbers - %val{count}<ret>'
           map global normal <a-]> ':inc-dec-modify-numbers + %val{count}<ret>'
-          source /Users/${user}/.config/kak/colors/catppuccin-latte.kak
-          colorscheme catppuccin-latte
+          hook global KakBegin .* %{
+            colorscheme catppuccin-latte
+          }
         '';
       }
       // lib.mapAttrs' (name: attrs: {
