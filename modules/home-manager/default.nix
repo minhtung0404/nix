@@ -114,11 +114,15 @@ in
       my-git.enable = true;
       my-ssh.enable = true;
       my-nvim.enable = true;
-      my-fish.enable = true;
+      my-fish = {
+        enable = true;
+        tide.enable = true;
+      };
 
       my-kakoune = {
         enable = true;
         package = pkgs.nki-kakoune;
+        enable-fish-session = true;
         bundles = "full";
       };
     };

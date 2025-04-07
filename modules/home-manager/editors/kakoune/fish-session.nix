@@ -7,10 +7,11 @@
 
 with lib;
 let
-  cfg = config.programs.my-kakoune;
+  cfg = config.mtn.programs.my-kakoune;
 in
 {
-  options.programs.my-kakoune.enable-fish-session = mkEnableOption "Enable fish integration script";
+  options.mtn.programs.my-kakoune.enable-fish-session =
+    mkEnableOption "Enable fish integration script";
   config = mkIf cfg.enable-fish-session {
     programs.fish.functions = {
       kak-session = ''
@@ -50,7 +51,7 @@ in
         alias e="kak"
       '';
     };
-    programs.fish.tide = {
+    mtn.programs.my-fish.tide = {
       items.kakoune = ''
         if set -q kak_session
           set -U tide_kakoune_color FFA500
@@ -62,4 +63,3 @@ in
     };
   };
 }
-

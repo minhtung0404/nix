@@ -13,7 +13,10 @@ let
   user = config.mtn.username;
 in
 {
-  imports = [ ./tree-sitter.nix ] ++ (myLib.filesIn ./bundles);
+  imports = [
+    ./tree-sitter.nix
+    ./fish-session.nix
+  ] ++ (myLib.filesIn ./bundles);
 
   options.mtn.programs.my-kakoune = {
     enable = mkEnableOption "My version of the kakoune configuration";
