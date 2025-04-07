@@ -121,19 +121,26 @@ local function reload_icon()
 end
 
 local function reload_space_monitor()
-	-- move space to monitor
-	for i = 1, 2, 1 do
-		sbar.exec("aerospace list-workspaces --monitor " .. i, function(env)
-			for workspace in string.gmatch(env, "%S+") do
-				local id = tonumber(workspace)
-				if space_icons[id] ~= nil then
-					spaces[id]:set({
-						associated_display = i,
-					})
-				end
-			end
-		end)
-	end
+  sbar.exec("aerospace list-monitors --count", function(env)
+    local n_monitors = tonumber(env)
+  	-- move space to monitor
+  	for i = 1, n_monitors, 1 do
+  		sbar.exec("aerospace list-workspaces --monitor " .. i, function(env)
+  			for workspace in string.gmatch(env, "%S+") do
+  				local id = tonumber(workspace)
+  				if space_icons[id] ~= nil then
+  					spaces[id]:set({
+  						associated_display = i,
+  					})
+  				end
+  			end
+  		end)
+  	end
+
+    spaces[7]:set({
+      drawing = (n_monitors ~= 1),
+    })
+  end)
 end
 
 local function space_change(id, selected)
