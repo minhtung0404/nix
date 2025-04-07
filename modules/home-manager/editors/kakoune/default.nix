@@ -72,6 +72,8 @@ in
           # Load faces
           source ${kakouneFaces}
 
+          set global grepcmd "rg --line-number --no-column --no-heading --follow --color=never "
+
           map global normal <a-[> ':inc-dec-modify-numbers - %val{count}<ret>'
           map global normal <a-]> ':inc-dec-modify-numbers + %val{count}<ret>'
           hook global KakBegin .* %{
