@@ -20,9 +20,6 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixvim.url = "github:nix-community/nixvim";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs";
-
     # build tools
     crane.url = "github:ipetkov/crane";
 
@@ -40,6 +37,7 @@
       home-manager.follows = "home-manager";
       sops-nix.follows = "sops-nix";
       flake-utils.follows = "flake-utils";
+      crane.follows = "crane";
     };
 
     # neovim
