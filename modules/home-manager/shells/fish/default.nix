@@ -91,6 +91,9 @@ in
       m = "make";
       lg = "lazygit";
       rgp = "rg --fixed-strings --ignore-case";
+
+      cat = "bat";
+      man = "batman";
     };
   };
 

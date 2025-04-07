@@ -63,6 +63,9 @@ in
       stylua
       telegram-desktop
       lazygit
+      bat
+      bat-extras.batgrep
+      bat-extras.batman
     ];
 
     home.sessionVariables = {
