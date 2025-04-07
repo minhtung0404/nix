@@ -93,7 +93,6 @@ in
       rgp = "rg --fixed-strings --ignore-case";
 
       cat = "bat";
-      man = "batman";
     };
   };
 

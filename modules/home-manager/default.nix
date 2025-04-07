@@ -63,9 +63,6 @@ in
       stylua
       telegram-desktop
       lazygit
-      bat
-      bat-extras.batgrep
-      bat-extras.batman
     ];
 
     home.sessionVariables = {
@@ -73,6 +70,16 @@ in
     };
 
     home.shell.enableFishIntegration = true;
+
+    programs.bat = {
+      enable = true;
+      config = {
+        theme = "GitHub";
+      };
+      extraPackages = with pkgs.bat-extras; [
+        batgrep
+      ];
+    };
 
     programs.eza.enable = true;
 
