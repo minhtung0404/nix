@@ -78,6 +78,15 @@ in
           map global normal <a-]> ':inc-dec-modify-numbers + %val{count}<ret>'
           hook global KakBegin .* %{
             colorscheme catppuccin-latte
+            set-option global peneira_files_command "fd -L ."
+            define-command -override peneira-grep %{
+              peneira 'line: ' %{ rg -L -n . . } %{
+                lua %arg{1} %{
+                  local file, line = arg[1]:match("([^:]+):(%d+):")
+                  kak.edit(file, line)
+                }
+              }
+            }
           }
         '';
       }
