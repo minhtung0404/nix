@@ -50,6 +50,7 @@ in
       coreutils
       curl
       discord
+      entr
       fishPlugins.grc
       fishPlugins.plugin-git
       # fishPlugins.fzf-fish
