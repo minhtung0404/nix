@@ -81,6 +81,7 @@
       options = "--delete-older-than 30d";
     };
   };
+  nixpkgs.flake.setNixPath = true;
 
   homebrew = {
     enable = true;
@@ -158,8 +159,6 @@
     spaces.spans-displays = false;
   };
 
-  nixpkgs.flake.setNixPath = true;
-
   mtn = {
     services = {
       my-kanata = {
@@ -206,10 +205,14 @@
 
   launchd.daemons.dnscrypt-proxy.serviceConfig.UserName = lib.mkForce "root";
 
-  system.activationScripts.postActivation.text = lib.mkAfter ''
-
-    echo "kanata: Please enable Input Mornitoring/Full Disk Access for ${config.mtn.services.my-kanata.package}/bin/kanata"
-  '';
+  system.activationScripts = {
+    postActivation = {
+      text = lib.mkOrder 1600 ''
+        echo "Permission required ..."
+        echo "kanata: Please enable Input Mornitoring/Full Disk Access for ${config.mtn.services.my-kanata.package}/bin/kanata"
+      '';
+    };
+  };
 
   system.stateVersion = 6;
 }
