@@ -1,4 +1,14 @@
-{ inputs, outputs, pkgs, lib, myLib, overlays, config, ... }: {
+{
+  inputs,
+  outputs,
+  pkgs,
+  lib,
+  myLib,
+  overlays,
+  config,
+  ...
+}:
+{
   imports = [
     inputs.home-manager.darwinModules.home-manager
     {
@@ -9,10 +19,20 @@
       home-manager.users.entertainment = import ./entertainment.nix;
       home-manager.sharedModules = [
         outputs.homeManagerModules.default
-        ({ ... }: { home.packages = with pkgs; [ home-manager ]; })
+        (
+          { ... }:
+          {
+            home.packages = with pkgs; [ home-manager ];
+          }
+        )
       ];
       home-manager.extraSpecialArgs = {
-        inherit inputs outputs myLib overlays;
+        inherit
+          inputs
+          outputs
+          myLib
+          overlays
+          ;
       };
     }
     inputs.nix-homebrew.darwinModules.nix-homebrew
@@ -144,7 +164,10 @@
     services = {
       my-kanata = {
         enable = true;
-        configFile = [ "gm610" "apple" ];
+        configFile = [
+          "gm610"
+          "apple"
+        ];
       };
 
       edns = {
@@ -182,6 +205,11 @@
   };
 
   launchd.daemons.dnscrypt-proxy.serviceConfig.UserName = lib.mkForce "root";
+
+  system.activationScripts.postActivation.text = lib.mkAfter ''
+
+    echo "kanata: Please enable Input Mornitoring/Full Disk Access for ${config.mtn.services.my-kanata.package}/bin/kanata"
+  '';
 
   system.stateVersion = 6;
 }
