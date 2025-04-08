@@ -88,6 +88,10 @@ in
               }
             }
           }
+
+          hook -group latex-highlight global WinSetOption filetype=latex %{
+            remove-highlighter shared/latex/content/regex_((?<!\\)(?:\\\\)*\K\$(\\\$|[^$])+\$)|((?<!\\)(?:\\\\)*\K\$\$(\\\$|[^$])+\$\$)|((?<!\\)(?:\\\\)*\K\\\[.*?\\\])|(\\\(.*?\\\))_0:meta
+          }
         '';
       }
       // lib.mapAttrs' (name: attrs: {
