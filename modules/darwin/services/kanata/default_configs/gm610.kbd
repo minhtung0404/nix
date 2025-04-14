@@ -1,10 +1,6 @@
 (defcfg
   process-unmapped-keys yes
   danger-enable-cmd yes
-  macos-dev-names-exclude (
-    "M585/M590"
-    "USB Receiver"
-  )
 )
 
 (defsrc
