@@ -2,17 +2,24 @@ hs.location.get()
 
 -- local log = hs.logger.new("wifi_change", "info")
 
-local ssid = {
-  home_ssid = "Livebox-9C80",
-}
+local ssid = {"Livebox-9C80", "akamatsu1274"}
+
+function is_home(list, str)
+  for _, value in ipairs(list) do
+    if value == str then
+      return true
+    end
+  end
+  return false
+end
 
 local function ssid_changed_callback()
   local new_ssid = hs.wifi.currentNetwork()
 
-  if new_ssid == ssid.home_ssid then
+  if is_home(ssid, new_ssid) then
     -- We just joined our home WiFi network
     hs.shortcuts.run("Turn off Not Home")
-  elseif new_ssid ~= ssid.home_ssid then
+  else
     -- We just departed our home WiFi network
     hs.shortcuts.run("Turn on Not Home")
   end
