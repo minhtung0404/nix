@@ -50,12 +50,13 @@ in
       coreutils
       curl
       discord
+      dust
       entr
       fishPlugins.grc
       fishPlugins.plugin-git
-      # fishPlugins.fzf-fish
       grc
       htop
+      lazygit
       nerd-fonts.fira-code
       nixfmt-rfc-style
       obsidian
@@ -63,7 +64,7 @@ in
       ripgrep
       stylua
       telegram-desktop
-      lazygit
+      tldr
     ];
 
     home.sessionVariables = {
@@ -114,6 +115,8 @@ in
       nix-direnv.enable = true;
       config.global.load_dotenv = true;
     };
+
+    services.tldr-update.enable = true;
 
     mtn.programs = {
       my-kitty = {
