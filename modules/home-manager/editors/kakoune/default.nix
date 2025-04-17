@@ -92,6 +92,10 @@ in
           hook -group latex-highlight global WinSetOption filetype=latex %{
             remove-highlighter shared/latex/content/regex_((?<!\\)(?:\\\\)*\K\$(\\\$|[^$])+\$)|((?<!\\)(?:\\\\)*\K\$\$(\\\$|[^$])+\$\$)|((?<!\\)(?:\\\\)*\K\\\[.*?\\\])|(\\\(.*?\\\))_0:meta
           }
+
+          declare-user-mode ui
+          map -docstring "UI" global user u ": enter-user-mode ui<ret>"
+          map -docstring "Disable format on save" global ui f ":remove-hooks window lsp-formatting <ret>"
         '';
       }
       // lib.mapAttrs' (name: attrs: {
