@@ -677,22 +677,6 @@
     "kak-lsp": {
       "flake": false,
       "locked": {
-        "lastModified": 1745827881,
-        "narHash": "sha256-0Zy0AAuIkTofZThLuoGt4SrxYOrERaJGRnoKRi98xJA=",
-        "owner": "kakoune-lsp",
-        "repo": "kakoune-lsp",
-        "rev": "023c346a1e57439271be5e2bd01a906252621d42",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kakoune-lsp",
-        "repo": "kakoune-lsp",
-        "type": "github"
-      }
-    },
-    "kak-lsp_2": {
-      "flake": false,
-      "locked": {
         "lastModified": 1742457498,
         "narHash": "sha256-2jD0meehUNGvmywOY4D9CwP1qswD7QCPlctLBjngzvE=",
         "owner": "kakoune-lsp",
@@ -708,22 +692,6 @@
       }
     },
     "kakoune": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1745879507,
-        "narHash": "sha256-nfNK1KjwddokIaqnpwqY8bWbQa4ADutcaDjbRTJXpuk=",
-        "owner": "mawww",
-        "repo": "kakoune",
-        "rev": "0fbbcb007d043c2649f989b0bdec4a96f56a44a4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mawww",
-        "repo": "kakoune",
-        "type": "github"
-      }
-    },
-    "kakoune_2": {
       "flake": false,
       "locked": {
         "lastModified": 1743226963,
@@ -1356,8 +1324,8 @@
           "home-manager"
         ],
         "home-manager-unstable": "home-manager-unstable",
-        "kak-lsp": "kak-lsp_2",
-        "kakoune": "kakoune_2",
+        "kak-lsp": "kak-lsp",
+        "kakoune": "kakoune",
         "lanzaboote": "lanzaboote",
         "lix-module": "lix-module",
         "mpd-mpris": "mpd-mpris",
@@ -1449,8 +1417,6 @@
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
-        "kak-lsp": "kak-lsp",
-        "kakoune": "kakoune",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",

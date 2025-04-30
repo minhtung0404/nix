@@ -23,12 +23,6 @@
     # build tools
     crane.url = "github:ipetkov/crane";
 
-    # kakoune
-    kakoune.url = "github:mawww/kakoune";
-    kakoune.flake = false;
-    kak-lsp.url = "github:kakoune-lsp/kakoune-lsp";
-    kak-lsp.flake = false;
-
     # nki-kakoune
     nki-nix-home.url = "git+https://git.dtth.ch/nki/nix-home.git";
     nki-nix-home.inputs = {
