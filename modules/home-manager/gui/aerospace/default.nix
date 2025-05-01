@@ -177,6 +177,7 @@ in
           ++ map (f [ "move-node-to-workspace ${games}" ]) [
             "com.riotgames.RiotGames.RiotClient"
             "com.riotgames.LeagueofLegends.LeagueClientUx"
+            "com.riotgames.LeagueofLegends.LeagueClient"
             "com.riotgames.LeagueofLegends.GameClient"
           ]
           ++ [
