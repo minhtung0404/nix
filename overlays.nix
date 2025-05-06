@@ -23,5 +23,4 @@ in
   overlay-libs
   overlay-packages
   inputs.nki-nix-home.overlays.kakoune
-  # Bug fixes
-] # we assign the overlay created before to the overlays of nixpkgs.
+]
