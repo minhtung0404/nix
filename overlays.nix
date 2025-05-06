@@ -16,21 +16,6 @@ let
       meta.mainProgram = "kak-lsp";
     };
 
-    myCustomPackage = prev.hello.overrideAttrs (old: {
-      pname = "my-custom-hello";
-      meta = old.meta // {
-        mainProgram = "hello";
-        description = "A custom version of Hello package";
-      }; # Fix: Explicitly define mainProgram
-      postInstall =
-        old.postInstall or ""
-        + ''
-          ln -s $out/bin/hello $out/bin/my-custom-hello  # Ensure binary is accessible with new name
-        '';
-    });
-
-    nki-kakoune = inputs.nki-nix-home.packages.kakoune;
-
     mtn-kakoune = final.callPackage ./packages/common/mtn-kakoune { };
   };
 in
