@@ -1,11 +1,12 @@
 { nixpkgs, ... }@inputs:
 let
+  nki-source = inputs.nki-nix-home.sourceInfo.outPath;
   overlay-versioning = final: prev: {
   };
 
   overlay-libs = final: prev: { libs.crane = inputs.crane.mkLib final; };
   overlay-packages = final: prev: {
-    kak-tree-sitter = final.callPackage ./packages/common/kak-tree-sitter.nix { };
+    kak-tree-sitter = final.callPackage "${nki-source}/packages/common/kak-tree-sitter" { };
 
     kak-lsp = final.rustPlatform.buildRustPackage {
       name = "kak-lsp";
@@ -15,8 +16,6 @@ let
 
       meta.mainProgram = "kak-lsp";
     };
-
-    mtn-kakoune = final.callPackage ./packages/common/mtn-kakoune { };
   };
 in
 [
