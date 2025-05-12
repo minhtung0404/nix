@@ -89,7 +89,6 @@ in
             }
             hook -group latex-highlight global WinSetOption filetype=(latex|tex) %{
               remove-highlighter shared/latex/content/regex_((?<!\\)(?:\\\\)*\K\$(\\\$|[^$])+\$)|((?<!\\)(?:\\\\)*\K\$\$(\\\$|[^$])+\$\$)|((?<!\\)(?:\\\\)*\K\\\[.*?\\\])|(\\\(.*?\\\))_0:meta
-              remove-hooks window lsp-formatting
             }
           }
 
