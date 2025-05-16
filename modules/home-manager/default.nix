@@ -57,6 +57,7 @@ in
       grc
       htop
       lazygit
+      librewolf
       nerd-fonts.fira-code
       nixfmt-rfc-style
       obsidian

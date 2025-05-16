@@ -89,10 +89,6 @@
     brews = [ "mas" ];
 
     casks = [
-      {
-        name = "librewolf";
-        greedy = true;
-      }
       "scroll-reverser"
       "hammerspoon"
     ];
