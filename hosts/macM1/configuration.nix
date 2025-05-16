@@ -131,7 +131,7 @@
       mru-spaces = false;
       show-recents = false;
       persistent-apps = [
-        "/System/Volumes/Data/Applications/LibreWolf.app/"
+        "${pkgs.librewolf}/Applications/LibreWolf.app/"
         "/System/Applications/Mail.app"
         "/System/Volumes/Data/Applications/VeraCrypt.app/"
         "${pkgs.obsidian}/Applications/Obsidian.app/"
