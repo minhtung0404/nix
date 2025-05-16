@@ -9,13 +9,20 @@ local battery = sbar.add("item", "widgets.battery", {
 			style = settings.font.style_map["Regular"],
 			size = 19.0,
 		},
+		padding_left = settings.bracket_paddings,
 	},
-	label = { font = { family = settings.font.numbers } },
+	label = {
+  	font = { family = settings.font.numbers },
+  	padding_right = settings.bracket_paddings,
+  },
 	update_freq = 180,
 	popup = { align = "center" },
+	background = {
+  	color = colors.yellow,
+	},
 })
 
-local remaining_time = sbar.add("item", {
+local remaining_time = sbar.add("item", "widgets.battery.time", {
 	position = "popup." .. battery.name,
 	icon = {
 		string = "Time remaining:",
@@ -91,12 +98,3 @@ battery:subscribe("mouse.clicked", function(env)
 		end)
 	end
 end)
-
-sbar.add("bracket", "widgets.battery.bracket", { battery.name }, {
-	background = { color = colors.yellow },
-})
-
-sbar.add("item", "widgets.battery.padding", {
-	position = "right",
-	width = settings.group_paddings,
-})

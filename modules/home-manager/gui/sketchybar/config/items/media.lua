@@ -4,7 +4,7 @@ local cmd = require("helpers.cmd")
 
 local whitelist = { ["Spotify"] = true, ["Music"] = true }
 
-local media_cover = sbar.add("item", {
+local media_cover = sbar.add("item", "widgets.media.cover", {
 	position = "right",
 	background = {
 		image = {
@@ -24,7 +24,7 @@ local media_cover = sbar.add("item", {
 	update_freq = 5,
 })
 
-local media_artist = sbar.add("item", {
+local media_artist = sbar.add("item", "widgets.media.artist", {
 	position = "right",
 	drawing = false,
 	padding_left = 3,
@@ -40,7 +40,7 @@ local media_artist = sbar.add("item", {
 	},
 })
 
-local media_title = sbar.add("item", {
+local media_title = sbar.add("item", "widgets.media.title", {
 	position = "right",
 	drawing = false,
 	padding_left = 3,
@@ -54,19 +54,19 @@ local media_title = sbar.add("item", {
 	},
 })
 
-sbar.add("item", {
+sbar.add("item", "widgets.media.previous", {
 	position = "popup." .. media_cover.name,
 	icon = { string = icons.media.back },
 	label = { drawing = false },
 	click_script = "nowplaying-cli previous",
 })
-sbar.add("item", {
+sbar.add("item", "widgets.media.play", {
 	position = "popup." .. media_cover.name,
 	icon = { string = icons.media.play_pause },
 	label = { drawing = false },
 	click_script = "nowplaying-cli togglePlayPause",
 })
-sbar.add("item", {
+sbar.add("item", "widgets.media.forward", {
 	position = "popup." .. media_cover.name,
 	icon = { string = icons.media.forward },
 	label = { drawing = false },

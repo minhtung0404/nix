@@ -2,11 +2,14 @@ local colors = require("colors")
 local icons = require("icons")
 local settings = require("settings")
 
-local menu_watcher = sbar.add("item", {
+local space_regex = "/space\\.[0-9][0-9]*/"
+local menu_regex = "/menu\\..*/"
+
+local menu_watcher = sbar.add("item", "menu_watcher", {
   drawing = false,
   updates = false,
 })
-local space_menu_swap = sbar.add("item", {
+local space_menu_swap = sbar.add("item", "space_menu_swap", {
   drawing = false,
   updates = true,
 })
@@ -34,7 +37,7 @@ for i = 1, max_items, 1 do
   menu_items[i] = menu
 end
 
-sbar.add("bracket", { '/menu\\..*/' }, {
+sbar.add("bracket", "menu_bracket", { menu_regex }, {
   background = { color = colors.red }
 })
 
@@ -45,7 +48,7 @@ local menu_padding = sbar.add("item", "menu.padding", {
 
 local function update_menus(env)
   sbar.exec("$CONFIG_DIR/helpers/menus/bin/menus -l", function(menus)
-    sbar.set('/menu\\..*/', { drawing = false })
+    sbar.set(menu_regex, { drawing = false })
     menu_padding:set({ drawing = true })
     id = 1
     for menu in string.gmatch(menus, '[^\r\n]+') do
@@ -63,12 +66,13 @@ space_menu_swap:subscribe("swap_menus_and_spaces", function(env)
   local drawing = menu_items[1]:query().geometry.drawing == "on"
   if drawing then
     menu_watcher:set( { updates = false })
-    sbar.set("/menu\\..*/", { drawing = false })
-    sbar.set("/space\\..*/", { drawing = true })
+    sbar.set(menu_regex, { drawing = false })
+    sbar.set(space_regex, { drawing = true })
     sbar.set("front_app", { drawing = true })
+    sbar.trigger("aerospace_monitor_change")
   else
     menu_watcher:set( { updates = true })
-    sbar.set("/space\\..*/", { drawing = false })
+    sbar.set(space_regex, { drawing = false })
     sbar.set("front_app", { drawing = false })
     update_menus()
   end

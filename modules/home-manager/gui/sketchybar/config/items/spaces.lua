@@ -4,7 +4,6 @@ local settings = require("settings")
 local app_icons = require("helpers.app_icons")
 
 local spaces = {}
-local space_brackets = {}
 local current_space = nil
 
 sbar.add("event", "aerospace_workspace_change")
@@ -37,55 +36,19 @@ for i, space_icon in ipairs(space_icons) do
 			height = settings.background_height or 26,
 			border_color = colors.black,
 		},
-		popup = { background = { border_width = 5, border_color = colors.black } },
 		associated_display = space_icon == "7" and 2 or 1,
 	})
 
-	-- Single item bracket for space items to achieve double border on highlight
-	local space_bracket = sbar.add("bracket", { space.name }, {
-		background = {
-			color = colors.transparent,
-			border_color = colors.bg2,
-			height = settings.spaces_background_height or 28,
-			border_width = 2,
-		},
-	})
-
 	spaces[i] = space
-	space_brackets[i] = space_bracket
-
-	-- Padding space
-	sbar.add("space", "space.padding." .. i, {
-		space = i,
-		script = "",
-		width = settings.group_paddings,
-	})
-
-	local space_popup = sbar.add("item", {
-		position = "popup." .. space.name,
-		padding_left = 5,
-		padding_right = 0,
-		background = {
-			drawing = true,
-			image = {
-				corner_radius = 9,
-				scale = 0.2,
-			},
-		},
-	})
 
 	space:subscribe("mouse.clicked", function(env)
 		sbar.exec("aerospace workspace " .. env.NAME:sub(7))
-	end)
-
-	space:subscribe("mouse.exited", function(_)
-		space:set({ popup = { drawing = false } })
 	end)
 end
 
 ---------------------------------------------------
 
-local space_window_observer = sbar.add("item", {
+local space_window_observer = sbar.add("item", "space.window_observer", {
 	drawing = false,
 	updates = true,
 })
@@ -155,9 +118,6 @@ local function space_change(id, selected)
 			color = selected and colors.red or colors.white,
 		},
 	})
-	space_brackets[id]:set({
-		background = { border_color = selected and colors.grey or colors.bg2 },
-	})
 end
 
 space_window_observer:subscribe("aerospace_workspace_change", function(env)
@@ -177,7 +137,7 @@ end)
 
 ---------------------------------------------------
 
-local spaces_indicator = sbar.add("item", {
+local spaces_indicator = sbar.add("item", "space.indicator", {
 	padding_left = -3,
 	padding_right = 0,
 	icon = {

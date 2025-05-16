@@ -1,6 +1,7 @@
 return {
 	paddings = 3,
 	group_paddings = 5,
+	bracket_paddings = 10,
 
 	icons = "NerdFont", -- alternatively available: NerdFont
 	bar_height = 24,
