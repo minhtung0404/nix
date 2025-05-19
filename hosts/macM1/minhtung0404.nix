@@ -1,8 +1,12 @@
-{ config, inputs, pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
 let
   user = "minhtung0404";
   home = "/Users/${user}/";
-in {
+in
+{
   mtn = {
     hm = {
       enable = true;
@@ -15,6 +19,8 @@ in {
   home.username = user;
   home.homeDirectory = home;
 
-  home.packages = with pkgs; [ texlive.combined.scheme-full sops ];
-
+  home.packages = with pkgs; [
+    texlive.combined.scheme-full
+    sops
+  ];
 }

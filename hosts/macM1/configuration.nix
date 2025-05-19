@@ -101,6 +101,7 @@
     onActivation.cleanup = "zap";
   };
 
+  system.primaryUser = "minhtung0404";
   system.defaults = {
     finder = {
       AppleShowAllExtensions = true;

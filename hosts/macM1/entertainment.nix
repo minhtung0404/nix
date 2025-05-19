@@ -1,5 +1,10 @@
-{ config, pkgs, ... }:
-
+{
+  ...
+}:
+let
+  user = "entertainment";
+  home = "/Users/${user}/";
+in
 {
   mtn = {
     hm = {
@@ -7,6 +12,9 @@
       darwin = true;
     };
 
-    username = "entertainment";
+    username = user;
   };
+
+  home.username = user;
+  home.homeDirectory = home;
 }
