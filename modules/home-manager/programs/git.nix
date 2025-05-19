@@ -1,4 +1,5 @@
-{ ... }: {
+{ config, ... }:
+{
   programs.git = {
     enable = true;
     ignores = [
@@ -18,13 +19,22 @@
       ".vscode"
     ];
     extraConfig = {
-      init = { defaultBranch = "main"; };
+      init = {
+        defaultBranch = "main";
+      };
       user = {
         name = "Minh Tung NGUYEN";
         email = "minhtung04042001@gmail.com";
       };
-      pull = { rebase = true; };
-      core = { editor = "nvim"; };
+      pull = {
+        rebase = true;
+      };
+      push = {
+        autoSetupRemote = true;
+      };
+      core = {
+        editor = config.mtn.editor;
+      };
     };
   };
 

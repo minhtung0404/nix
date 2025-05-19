@@ -76,7 +76,7 @@ in
             cursor_shape = "block";
             enable_audio_bell = false;
             hide_window_decorations = true;
-            editor = "nvim";
+            editor = config.mtn.editor;
             dynamic_background_opacity = true;
 
             allow_remote_control = true;
