@@ -67,7 +67,7 @@
         neovim =
           (nvf.lib.neovimConfiguration {
             pkgs = nixpkgs.legacyPackages.${system};
-            modules = [ ./modules/homeManagerModules/editors/nvim/nvf.nix ];
+            modules = [ ./modules/home-manager/editors/nvf.nix ];
           }).neovim;
       };
     };

@@ -19,6 +19,7 @@ in
 {
   imports =
     [
+      inputs.nvf.homeManagerModules.default
       ./config.nix
       ./darwin.nix
       ./editors/kakoune
@@ -27,9 +28,9 @@ in
       ./terminals/kitty
     ]
     ++ (myLib.extendModules (extends "programs") [
+      ./editors/nvf.nix
       ./programs/git.nix
       ./programs/ssh.nix
-      ./editors/nvim
       ./shells/fish
     ])
     ++ (myLib.extendModules (extends "services") [ ./services/hammerspoon ])
@@ -128,7 +129,6 @@ in
 
       my-git.enable = true;
       my-ssh.enable = true;
-      my-nvim.enable = true;
       my-fish = {
         enable = true;
         tide.enable = true;
@@ -140,7 +140,7 @@ in
         enable-fish-session = true;
         bundles = "full";
       };
+      my-nvf.enable = true;
     };
-
   };
 }
