@@ -27,7 +27,7 @@ in
     functions = {
       rebuild = {
         body = ''
-          darwin-rebuild switch --flake ~/.config/nix/
+          sudo darwin-rebuild switch --flake ~/.config/nix/
         '';
         wraps = "darwin-rebuild";
       };
