@@ -58,7 +58,6 @@ in
       grc
       htop
       lazygit
-      librewolf
       nerd-fonts.fira-code
       nixfmt-rfc-style
       obsidian
@@ -91,6 +90,17 @@ in
 
     programs.jq.enable = true;
     programs.jqp.enable = true;
+
+    programs.librewolf = {
+      enable = true;
+      settings = {
+        "browser.tabs.groups.enabled" = true;
+        "identity.fxaccounts.enabled" = true;
+        "privacy.clearOnShutdown.downloads" = false;
+        "privacy.clearOnShutdown.history" = false;
+        "privacy.resistFingerprinting" = false;
+      };
+    };
 
     programs.man.enable = true;
 
