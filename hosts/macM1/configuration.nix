@@ -60,60 +60,6 @@
   };
 
   system.primaryUser = "minhtung0404";
-  system.defaults = {
-    finder = {
-      AppleShowAllExtensions = true;
-      CreateDesktop = false;
-      FXDefaultSearchScope = "SCcf";
-      FXEnableExtensionChangeWarning = false;
-      FXPreferredViewStyle = "clmv";
-      FXRemoveOldTrashItems = true;
-      NewWindowTarget = "Home";
-      QuitMenuItem = true;
-      ShowExternalHardDrivesOnDesktop = false;
-      ShowPathbar = true;
-      ShowRemovableMediaOnDesktop = false;
-      ShowStatusBar = true;
-      _FXShowPosixPathInTitle = true;
-      _FXSortFoldersFirst = true;
-    };
-    loginwindow.GuestEnabled = false;
-    screencapture.location = "~/Documents/screenshot/";
-
-    # Dock
-    dock = {
-      autohide = true;
-      launchanim = false;
-      largesize = 128;
-      tilesize = 81;
-      magnification = true;
-      mru-spaces = false;
-      show-recents = false;
-      persistent-apps = [
-        "${pkgs.librewolf}/Applications/LibreWolf.app/"
-        "/System/Applications/Mail.app"
-        "/System/Volumes/Data/Applications/VeraCrypt.app/"
-        "${pkgs.obsidian}/Applications/Obsidian.app/"
-      ];
-    };
-
-    hitoolbox.AppleFnUsageType = "Change Input Source";
-
-    NSGlobalDomain = {
-      AppleICUForce24HourTime = true;
-      AppleShowAllExtensions = true;
-      AppleShowAllFiles = true;
-      AppleShowScrollBars = "Automatic";
-      NSAutomaticWindowAnimationsEnabled = false;
-      InitialKeyRepeat = 15;
-      KeyRepeat = 2;
-      _HIHideMenuBar = true;
-    };
-    # universalaccess.reduceMotion = true;
-
-    spaces.spans-displays = false;
-  };
-
   mtn = {
     services = {
       my-kanata = {
