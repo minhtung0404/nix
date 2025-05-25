@@ -21,7 +21,7 @@ in
     [
       inputs.nvf.homeManagerModules.default
       ./config.nix
-      ./darwin.nix
+      ./darwin
       ./editors/kakoune
       ./gui/aerospace
       ./gui/sketchybar

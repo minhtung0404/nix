@@ -1,8 +1,18 @@
-{ inputs, config, pkgs, lib, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   user = config.mtn.username;
   cfg = config.mtn.hm;
-in {
+in
+{
+  imports = [
+    ./darwin-defaults.nix
+  ];
   config = lib.mkIf cfg.darwin {
     home.packages = with pkgs; [
       aerospace
@@ -22,4 +32,3 @@ in {
     };
   };
 }
-
