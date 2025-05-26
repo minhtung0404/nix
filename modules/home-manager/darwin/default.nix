@@ -3,6 +3,7 @@
   config,
   pkgs,
   lib,
+  myLib,
   ...
 }:
 let
@@ -12,10 +13,12 @@ in
 {
   imports = [
     ./darwin-defaults.nix
-  ];
+    ./services/aerospace
+    ./services/sketchybar
+  ] ++ (myLib.extendModules (myLib.extends lib config "services") [ ./services/hammerspoon ]);
+
   config = lib.mkIf cfg.darwin {
     home.packages = with pkgs; [
-      aerospace
       aldente
       hidden-bar
       kanata-with-cmd

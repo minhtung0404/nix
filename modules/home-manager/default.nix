@@ -1,41 +1,18 @@
 {
-  inputs,
   config,
   pkgs,
   lib,
-  myLib,
   ...
 }:
 let
   cfg = config.mtn.hm;
-  extends = type: name: {
-    extraOptions = {
-      mtn.${type}."my-${name}".enable = lib.mkEnableOption "enable my ${name} configuration";
-    };
-
-    configExtension = conf: (lib.mkIf config.mtn.${type}."my-${name}".enable conf);
-  };
 in
 {
-  imports =
-    [
-      inputs.nvf.homeManagerModules.default
-      ./config.nix
-      ./darwin
-      ./editors/kakoune
-      ./gui/aerospace
-      ./gui/sketchybar
-      ./terminals/kitty
-    ]
-    ++ (myLib.extendModules (extends "programs") [
-      ./editors/nvf.nix
-      ./programs/git.nix
-      ./programs/ssh.nix
-      ./shells/fish
-    ])
-    ++ (myLib.extendModules (extends "services") [ ./services/hammerspoon ])
-    ++ (myLib.extendModules (extends "bundles") (myLib.filesIn ./editors/kakoune/bundles));
-
+  imports = [
+    ./config.nix
+    ./darwin
+    ./shared
+  ];
   options = {
     mtn.hm = {
       enable = lib.mkEnableOption "hm";
