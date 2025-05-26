@@ -49,12 +49,6 @@
         magnification = true;
         mru-spaces = false;
         show-recents = false;
-        persistent-apps = [
-          "${pkgs.librewolf}/Applications/LibreWolf.app/"
-          "/System/Applications/Mail.app"
-          "/System/Volumes/Data/Applications/VeraCrypt.app/"
-          "${pkgs.obsidian}/Applications/Obsidian.app/"
-        ];
       };
       loginwindow.GuestEnabled = false;
       screencapture.location = "~/Documents/screenshot/";
