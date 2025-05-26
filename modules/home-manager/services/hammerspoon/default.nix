@@ -6,7 +6,8 @@ let
     rev = "95958fc6091491e8269ec2dfc6b97d4a91af9205";
     hash = "sha256-NCKuBg7opn8BeP1FTpG0cchYdjlea6sbAaVpX6OApxg=";
   };
-in {
+in
+{
   xdg.configFile.hammerspoon = {
     source = ./config;
     recursive = true;
@@ -15,9 +16,9 @@ in {
     source = "${spoons}/Source/EmmyLua.spoon";
     recursive = true;
   };
-  home.sessionPath = [ "/usr/bin" "/bin" "/usr/sbin" "/sbin" ];
-  home.activation = {
-    hammerspoon = ''
-      run /usr/bin/defaults write org.hammerspoon.Hammerspoon MJConfigFile "~/.config/hammerspoon/init.lua"'';
+  targets.darwin.defaults = {
+    "org.hammerspoon.Hammerspoon" = {
+      MJConfigFile = "~/.config/hammerspoon/init.lua";
+    };
   };
 }
