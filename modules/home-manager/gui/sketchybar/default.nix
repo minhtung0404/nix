@@ -50,7 +50,6 @@ let
 
     buildInputs = [
       pkgs.gcc
-      pkgs.darwin.apple_sdk.frameworks.CoreFoundation
       pkgs.readline
     ];
 
