@@ -159,7 +159,10 @@ in
             games = "6";
           in
           map (f [ "layout floating" ]) [ "com.apple.systempreferences" ]
-          ++ map (f [ "move-node-to-workspace ${web}" ]) [ "org.mozilla.librewolf" ]
+          ++ map (f [ "move-node-to-workspace ${web}" ]) [
+            "org.mozilla.librewolf"
+            "org.nixos.librewolf"
+          ]
           ++ map (f [ "move-node-to-workspace ${work}" ]) [
             "org.microsolf.VSCode"
             "com.microsolf.VSCode"
