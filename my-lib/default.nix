@@ -1,6 +1,6 @@
-{ inputs }:
+{ self, inputs }:
 let
-  myLib = (import ./default.nix) { inherit inputs; };
+  myLib = (import ./default.nix) { inherit self inputs; };
   outputs = inputs.self.outputs;
 in
 rec {
@@ -10,7 +10,14 @@ rec {
     sys: config:
     inputs.nix-darwin.lib.darwinSystem {
       system = sys;
-      specialArgs = { inherit inputs outputs myLib; };
+      specialArgs = {
+        inherit
+          self
+          inputs
+          outputs
+          myLib
+          ;
+      };
       modules = [
         config
         outputs.darwinModules.default
@@ -21,7 +28,14 @@ rec {
     sys: config:
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = pkgsFor sys;
-      extraSpecialArgs = { inherit inputs myLib outputs; };
+      extraSpecialArgs = {
+        inherit
+          self
+          inputs
+          myLib
+          outputs
+          ;
+      };
       modules = [
         config
         outputs.homeManagerModules.default

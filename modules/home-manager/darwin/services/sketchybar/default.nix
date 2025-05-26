@@ -1,4 +1,5 @@
 {
+  self,
   config,
   lib,
   pkgs,
@@ -8,12 +9,10 @@
 let
   inherit (lib)
     literalExpression
-    maintainers
     mkEnableOption
     mkIf
     mkPackageOption
     mkOption
-    optionals
     types
     ;
   cfg = config.mtn.services.my-sketchybar;
@@ -25,7 +24,7 @@ let
 
     # add images
     mkdir $out/images
-    cp ${../../../../../images/amira_squared.jpeg} $out/images/amira_squared.jpeg
+    cp ${self}/images/amira_squared.jpeg $out/images/amira_squared.jpeg
 
     chmod -R 777 $out/helpers
 

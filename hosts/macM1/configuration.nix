@@ -1,8 +1,8 @@
 {
+  self,
   inputs,
   outputs,
   pkgs,
-  lib,
   myLib,
   overlays,
   config,
@@ -28,6 +28,7 @@
       ];
       home-manager.extraSpecialArgs = {
         inherit
+          self
           inputs
           outputs
           myLib

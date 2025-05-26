@@ -45,7 +45,7 @@
       ...
     }:
     let
-      myLib = import ./my-lib/default.nix { inherit inputs; };
+      myLib = import ./my-lib/default.nix { inherit self inputs; };
       system = "aarch64-darwin";
     in
     with myLib;
