@@ -34,7 +34,11 @@
 
     # neovim
     nvf.url = "github:notashelf/nvf";
-    nvf.inputs.nixpkgs.follows = "nixpkgs";
+    nvf.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      flake-parts.follows = "flake-parts";
+      flake-utils.follows = "flake-utils";
+    };
   };
   outputs =
     inputs@{
