@@ -65,13 +65,5 @@
 
       homeManagerModules.default = ./modules/home-manager;
       darwinModules.default = ./modules/darwin;
-
-      packages.${system} = {
-        neovim =
-          (nvf.lib.neovimConfiguration {
-            pkgs = nixpkgs.legacyPackages.${system};
-            modules = [ ./modules/home-manager/editors/nvf.nix ];
-          }).neovim;
-      };
     };
 }
