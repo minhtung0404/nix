@@ -42,6 +42,12 @@ in
       description = "Enable tabs";
       default = pkgs.stdenv.isDarwin;
     };
+
+    theme = lib.mkOption {
+      type = types.str;
+      description = "kitty theme";
+      default = "rose-pine-dawn";
+    };
   };
   config = lib.mkIf cfg.enable {
     programs.kitty = {
@@ -113,7 +119,7 @@ in
       };
 
       shellIntegration.enableFishIntegration = true;
-      themeFile = "rose-pine-dawn";
+      themeFile = cfg.theme;
     };
   };
 }
