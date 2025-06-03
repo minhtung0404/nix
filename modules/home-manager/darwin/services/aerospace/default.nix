@@ -57,7 +57,8 @@ in
 
         mode.main.binding =
           {
-            cmd-enter = "exec-and-forget open -na kitty.app";
+            # cmd-enter = "exec-and-forget open -na kitty.app";
+            cmd-enter = "exec-and-forget ${pkgs.kitty}/Applications/kitty.app/Contents/MacOS/kitty --single-instance --directory=~";
 
             alt-slash = "layout tiles horizontal vertical";
             alt-comma = "layout accordion horizontal vertical";
