@@ -41,7 +41,7 @@ in
       podman
       ripgrep
       stylua
-      # telegram-desktop
+      telegram-desktop
       tldr
     ];
 
