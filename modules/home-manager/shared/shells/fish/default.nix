@@ -102,4 +102,8 @@ in
       run ${pkgs.fish}/bin/fish ~/.config/fish/tide/init.fish
     '';
   };
+  home.packages = with pkgs; [
+    fishPlugins.grc
+    fishPlugins.plugin-git
+  ];
 }

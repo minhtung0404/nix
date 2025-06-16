@@ -30,10 +30,8 @@ in
       discord
       dust
       entr
-      fishPlugins.grc
-      fishPlugins.plugin-git
       grc
-      htop
+      btop
       lazygit
       nerd-fonts.fira-code
       nixfmt-rfc-style
