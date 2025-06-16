@@ -85,13 +85,11 @@ in
 
     programs.zoxide = {
       enable = true;
-      enableFishIntegration = true;
       options = [ "--cmd j" ];
     };
 
     programs.fzf = {
       enable = true;
-      enableFishIntegration = true;
     };
 
     programs.direnv = {
