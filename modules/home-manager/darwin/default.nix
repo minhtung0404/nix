@@ -15,6 +15,7 @@ in
     ./darwin-defaults.nix
     ./services/aerospace
     ./services/sketchybar
+    ./dock.nix
   ] ++ (myLib.extendModules (myLib.extends lib config "services") [ ./services/hammerspoon ]);
 
   config = lib.mkIf cfg.darwin {
