@@ -18,6 +18,14 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
+    # stylix
+    stylix.url = "github:danth/stylix";
+    stylix.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      flake-parts.follows = "flake-parts";
+      home-manager.follows = "home-manager";
+    };
+
     # build tools
     crane.url = "github:ipetkov/crane";
 

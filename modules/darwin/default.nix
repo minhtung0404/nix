@@ -1,7 +1,48 @@
-{ lib, config, ... }:
+{
+  config,
+  inputs,
+  lib,
+  myLib,
+  outputs,
+  overlays,
+  pkgs,
+  self,
+  ...
+}:
 {
   imports = [
     ../shared
+    inputs.home-manager.darwinModules.home-manager
+    {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.backupFileExtension = "backup";
+      home-manager.sharedModules = [
+        outputs.homeManagerModules.default
+        {
+          home.packages = with pkgs; [ home-manager ];
+        }
+      ];
+      home-manager.extraSpecialArgs = {
+        inherit
+          self
+          inputs
+          outputs
+          myLib
+          overlays
+          ;
+      };
+    }
+    inputs.nix-homebrew.darwinModules.nix-homebrew
+    {
+      nix-homebrew = {
+        enable = true;
+        enableRosetta = true;
+        autoMigrate = true;
+      };
+    }
+    inputs.sops-nix.darwinModules.sops
+    inputs.stylix.darwinModules.stylix
   ];
 
   homebrew = {

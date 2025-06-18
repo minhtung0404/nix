@@ -10,42 +10,13 @@
 }:
 {
   imports = [
-    inputs.home-manager.darwinModules.home-manager
     {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.backupFileExtension = "backup";
       home-manager.users.minhtung0404 = import ./minhtung0404.nix;
       home-manager.users.entertainment = import ./entertainment.nix;
-      home-manager.sharedModules = [
-        outputs.homeManagerModules.default
-        (
-          { ... }:
-          {
-            home.packages = with pkgs; [ home-manager ];
-          }
-        )
-      ];
-      home-manager.extraSpecialArgs = {
-        inherit
-          self
-          inputs
-          outputs
-          myLib
-          overlays
-          ;
-      };
     }
-    inputs.nix-homebrew.darwinModules.nix-homebrew
     {
-      nix-homebrew = {
-        enable = true;
-        enableRosetta = true;
-        user = "minhtung0404";
-        autoMigrate = true;
-      };
+      nix-homebrew.user = "minhtung0404";
     }
-    inputs.sops-nix.darwinModules.sops
   ];
 
   users.users.minhtung0404 = {
@@ -93,7 +64,7 @@
             echo "  -m, --mount    Mount the disk"
           end
 
-          argparse -n=greet -x dismount,mount -N 1 'd/dismount' 'm/mount' 'h/help' -- $argv
+          argparse -n=veramount -x dismount,mount -N 1 'd/dismount' 'm/mount' 'h/help' -- $argv
           or return 1
 
           if set -q _flag_help
