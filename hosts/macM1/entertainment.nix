@@ -13,6 +13,7 @@ in
     };
 
     username = user;
+    programs.my-librewolf.entertainment = true;
   };
 
   home.username = user;
