@@ -48,7 +48,6 @@
             vimium
             auto-tab-discard
             bitwarden
-            container-tab-groups
           ];
           settings = {
             # "uBlock0@raymondhill.net" = {
