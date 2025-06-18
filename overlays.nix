@@ -23,4 +23,5 @@ in
   overlay-libs
   overlay-packages
   inputs.nki-nix-home.overlays.kakoune
+  inputs.nur.overlays.default
 ]

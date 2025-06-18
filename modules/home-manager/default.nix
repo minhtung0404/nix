@@ -66,17 +66,6 @@ in
     programs.jq.enable = true;
     programs.jqp.enable = true;
 
-    programs.librewolf = {
-      enable = true;
-      settings = {
-        "browser.tabs.groups.enabled" = true;
-        "identity.fxaccounts.enabled" = true;
-        "privacy.clearOnShutdown.downloads" = false;
-        "privacy.clearOnShutdown.history" = false;
-        "privacy.resistFingerprinting" = false;
-      };
-    };
-
     programs.man.enable = true;
 
     programs.vscode.enable = true;
@@ -120,6 +109,7 @@ in
         enable-fish-session = true;
         bundles = "full";
       };
+      my-librewolf.enable = true;
       my-nvf.enable = true;
     };
   };
