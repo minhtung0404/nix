@@ -68,6 +68,7 @@
   system.activationScripts = {
     postActivation = {
       text = lib.mkOrder 1600 ''
+        echo "-----------------------------------------------"
         echo "Permission required ..."
         echo "kanata: Please enable Input Mornitoring/Full Disk Access for ${config.mtn.services.my-kanata.package}/bin/kanata"
       '';
