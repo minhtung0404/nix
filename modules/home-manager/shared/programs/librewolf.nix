@@ -57,7 +57,7 @@ in
               Youtube = {
                 icon = "chill";
                 color = "toolbar";
-                id = 8;
+                id = 6;
               };
             }
             // (
@@ -66,12 +66,17 @@ in
                   Games = {
                     icon = "chill";
                     color = "green";
-                    id = 6;
+                    id = 7;
                   };
                   Manga = {
                     icon = "chill";
                     color = "yellow";
-                    id = 7;
+                    id = 8;
+                  };
+                  Meta = {
+                    icon = "fence";
+                    color = "toolbar";
+                    id = 9;
                   };
                 }
               else
