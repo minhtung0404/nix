@@ -14,7 +14,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    launchd.agents.aerospace = {
+    launchd.agents.aerospace = lib.mkForce {
       enable = true;
       config = {
         ProgramArguments = [
