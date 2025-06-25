@@ -42,7 +42,6 @@
       };
     }
     inputs.sops-nix.darwinModules.sops
-    inputs.stylix.darwinModules.stylix
   ];
 
   homebrew = {
