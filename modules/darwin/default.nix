@@ -64,6 +64,8 @@
 
   launchd.daemons.dnscrypt-proxy.serviceConfig.UserName = lib.mkForce "root";
 
+  services.tailscale.enable = true;
+
   system.activationScripts = {
     postActivation = {
       text = lib.mkOrder 1600 ''
