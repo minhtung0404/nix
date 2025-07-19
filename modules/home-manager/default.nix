@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   pkgs,
   lib,
   ...
@@ -12,6 +13,7 @@ in
     ./config.nix
     ./darwin
     ./shared
+    inputs.zen-browser.homeModules.beta
   ];
   options = {
     mtn.hm = {
@@ -85,6 +87,29 @@ in
       enable = true;
       nix-direnv.enable = true;
       config.global.load_dotenv = true;
+    };
+
+    programs.zen-browser = {
+      enable = true;
+      nativeMessagingHosts = [ pkgs.firefoxpwa ];
+      policies = {
+        AutofillAddressEnabled = true;
+        AutofillCreditCardEnabled = false;
+        DisableAppUpdate = true;
+        DisableFeedbackCommands = true;
+        DisableFirefoxStudies = true;
+        DisablePocket = true;
+        DisableTelemetry = true;
+        DontCheckDefaultBrowser = true;
+        NoDefaultBookmarks = true;
+        OfferToSaveLogins = false;
+        EnableTrackingProtection = {
+          Value = true;
+          Locked = true;
+          Cryptomining = true;
+          Fingerprinting = true;
+        };
+      };
     };
 
     services.tldr-update.enable = true;
