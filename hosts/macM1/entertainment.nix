@@ -14,6 +14,10 @@ in
 
     username = user;
     programs.my-librewolf.entertainment = true;
+    programs.my-zenbrowser = {
+      enable = true;
+      entertainment = true;
+    };
   };
 
   home.username = user;
