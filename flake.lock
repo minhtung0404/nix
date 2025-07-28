@@ -677,6 +677,27 @@
         "type": "github"
       }
     },
+    "home-manager_2": {
+      "inputs": {
+        "nixpkgs": [
+          "zen-browser",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1752603129,
+        "narHash": "sha256-S+wmHhwNQ5Ru689L2Gu8n1OD6s9eU9n9mD827JNR+kw=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "e8c19a3cec2814c754f031ab3ae7316b64da085b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "kak-lsp": {
       "flake": false,
       "locked": {
@@ -1414,7 +1435,8 @@
         "nki-nix-home": "nki-nix-home",
         "nur": "nur",
         "nvf": "nvf",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "zen-browser": "zen-browser_2"
       }
     },
     "rust-analyzer-src": {
@@ -1816,6 +1838,27 @@
       },
       "original": {
         "owner": "youwen5",
+        "repo": "zen-browser-flake",
+        "type": "github"
+      }
+    },
+    "zen-browser_2": {
+      "inputs": {
+        "home-manager": "home-manager_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1753674409,
+        "narHash": "sha256-jhBdIc802upDu3S/Nu0rgVlIJ39E8KWugQwm/a74MBY=",
+        "owner": "0xc000022070",
+        "repo": "zen-browser-flake",
+        "rev": "e1bf71a0eb5ff9fdcfe83f6e4676ce19dd87f468",
+        "type": "github"
+      },
+      "original": {
+        "owner": "0xc000022070",
         "repo": "zen-browser-flake",
         "type": "github"
       }
