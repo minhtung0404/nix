@@ -38,6 +38,13 @@ in
           Cryptomining = true;
           Fingerprinting = true;
         };
+
+        PasswordManagerEnabled = false;
+
+        SanitizeOnShutdown = {
+          Cache = true;
+          Cookies = true;
+        };
       };
       profiles = {
         work = {
