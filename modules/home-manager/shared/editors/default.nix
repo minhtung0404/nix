@@ -5,11 +5,9 @@
   ...
 }:
 {
-  imports =
-    [
-      ./kakoune
-    ]
-    ++ (myLib.extendModules (myLib.extends lib config "programs") [
-      ./nvf.nix
-    ]);
+  imports = [
+  ]
+  ++ (myLib.extendModules (myLib.extends lib config "programs") [
+    ./nvf.nix
+  ]);
 }

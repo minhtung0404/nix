@@ -23,6 +23,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # kakoune
+    kakoune = {
+      url = "github:minhtung0404/kakoune-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
@@ -32,17 +41,6 @@
 
     # build tools
     crane.url = "github:ipetkov/crane";
-
-    # nki-kakoune
-    nki-nix-home.url = "git+https://git.dtth.ch/nki/nix-home.git";
-    nki-nix-home.inputs = {
-      nixpkgs-unstable.follows = "nixpkgs";
-      darwin.follows = "nix-darwin";
-      home-manager.follows = "home-manager";
-      sops-nix.follows = "sops-nix";
-      flake-utils.follows = "flake-utils";
-      crane.follows = "crane";
-    };
 
     # neovim
     nvf.url = "github:notashelf/nvf";

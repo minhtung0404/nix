@@ -42,6 +42,8 @@ in
       stylua
       telegram-desktop
       tldr
+
+      mtn-kakoune
     ];
 
     home.sessionVariables = {
@@ -104,12 +106,6 @@ in
         tide.enable = true;
       };
 
-      my-kakoune = {
-        enable = true;
-        package = pkgs.nki-kakoune;
-        enable-fish-session = true;
-        bundles = "full";
-      };
       my-nvf.enable = true;
     };
   };
