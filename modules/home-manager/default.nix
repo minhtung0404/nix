@@ -106,6 +106,7 @@ in
         tide.enable = true;
       };
 
+      my-kakoune.enable-fish-session = true;
       my-nvf.enable = true;
     };
   };
