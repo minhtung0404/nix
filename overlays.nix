@@ -12,5 +12,5 @@ in
   overlay-libs
   overlay-packages
   inputs.nur.overlays.default
-  inputs.kakoune.overlays.default
+  inputs.mtn-kakoune.overlays.default
 ]

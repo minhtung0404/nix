@@ -21,10 +21,11 @@
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
     # kakoune
-    kakoune = {
+    mtn-kakoune = {
       url = "github:minhtung0404/kakoune-flake";
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -37,6 +38,7 @@
       # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
       # to have it up-to-date or simply don't specify the nixpkgs input
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
 
     # build tools
@@ -48,6 +50,7 @@
       nixpkgs.follows = "nixpkgs";
       flake-parts.follows = "flake-parts";
       flake-utils.follows = "flake-utils";
+      systems.follows = "flake-utils/systems";
     };
   };
   outputs =
