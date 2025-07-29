@@ -54,52 +54,51 @@ in
           outer.right = 3;
         };
 
-        mode.main.binding =
-          {
-            # cmd-enter = "exec-and-forget open -na kitty.app";
-            cmd-enter = "exec-and-forget ${pkgs.kitty}/Applications/kitty.app/Contents/MacOS/kitty --single-instance --directory=~";
+        mode.main.binding = {
+          # cmd-enter = "exec-and-forget open -na kitty.app";
+          cmd-enter = "exec-and-forget ${pkgs.kitty}/Applications/kitty.app/Contents/MacOS/kitty --single-instance --directory=~";
 
-            alt-slash = "layout tiles horizontal vertical";
-            alt-comma = "layout accordion horizontal vertical";
+          alt-slash = "layout tiles horizontal vertical";
+          alt-comma = "layout accordion horizontal vertical";
 
-            cmd-h = "focus left";
-            cmd-j = "focus down";
-            cmd-k = "focus up";
-            cmd-l = "focus right";
+          cmd-h = "focus left";
+          cmd-j = "focus down";
+          cmd-k = "focus up";
+          cmd-l = "focus right";
 
-            cmd-shift-h = "move left";
-            cmd-shift-j = "move down";
-            cmd-shift-k = "move up";
-            cmd-shift-l = "move right";
+          cmd-shift-h = "move left";
+          cmd-shift-j = "move down";
+          cmd-shift-k = "move up";
+          cmd-shift-l = "move right";
 
-            cmd-shift-f = "fullscreen";
+          cmd-shift-f = "fullscreen";
 
-            cmd-shift-minus = "resize smart -50";
-            cmd-shift-equal = "resize smart +50";
+          cmd-shift-minus = "resize smart -50";
+          cmd-shift-equal = "resize smart +50";
 
-            cmd-tab = "workspace-back-and-forth";
-            cmd-shift-0 = [
-              "move-workspace-to-monitor --wrap-around next"
-              "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_monitor_change"
-            ];
+          cmd-tab = "workspace-back-and-forth";
+          cmd-shift-0 = [
+            "move-workspace-to-monitor --wrap-around next"
+            "exec-and-forget ${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_monitor_change"
+          ];
 
-            cmd-shift-semicolon = "mode service";
-          }
-          // (
-            let
-              f = (
-                prefix: command: x: {
-                  name = prefix + (toString x);
-                  value = command + (toString x);
-                }
-              );
-              range = n: if n == 0 then [ ] else (range (n - 1)) ++ [ n ];
-            in
-            builtins.listToAttrs (map (f "cmd-" "workspace ") (range 9))
-            // builtins.listToAttrs (
-              map (f "cmd-shift-" "move-node-to-workspace --focus-follows-window ") (range 9)
-            )
-          );
+          cmd-shift-semicolon = "mode service";
+        }
+        // (
+          let
+            f = (
+              prefix: command: x: {
+                name = prefix + (toString x);
+                value = command + (toString x);
+              }
+            );
+            range = n: if n == 0 then [ ] else (range (n - 1)) ++ [ n ];
+          in
+          builtins.listToAttrs (map (f "cmd-" "workspace ") (range 9))
+          // builtins.listToAttrs (
+            map (f "cmd-shift-" "move-node-to-workspace --focus-follows-window ") (range 9)
+          )
+        );
 
         mode.service.binding = {
           esc = [
@@ -162,6 +161,7 @@ in
           ++ map (f [ "move-node-to-workspace ${web}" ]) [
             "org.mozilla.librewolf"
             "org.nixos.librewolf"
+            "app.zen-browser.zen"
           ]
           ++ map (f [ "move-node-to-workspace ${work}" ]) [
             "org.microsolf.VSCode"

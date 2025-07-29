@@ -110,7 +110,6 @@ in
         enable-fish-session = true;
         bundles = "full";
       };
-      my-librewolf.enable = true;
       my-nvf.enable = true;
     };
   };

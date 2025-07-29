@@ -1,4 +1,6 @@
 {
+  pkgs,
+  config,
   ...
 }:
 let
@@ -13,10 +15,21 @@ in
     };
 
     username = user;
-    programs.my-librewolf.entertainment = true;
-    programs.my-zenbrowser = {
-      enable = true;
-      entertainment = true;
+    programs = {
+      # my-librewolf.enable = true;
+      my-zenbrowser = {
+        enable = true;
+        entertainment = true;
+      };
+      my-dock = {
+        enable = true;
+        apps = [
+          "${config.programs.zen-browser.finalPackage}/Applications/Zen Browser (Beta).app/"
+          "/System/Applications/Mail.app/"
+          "/System/Volumes/Data/Applications/VeraCrypt.app/"
+          "${pkgs.obsidian}/Applications/Obsidian.app/"
+        ];
+      };
     };
   };
 
