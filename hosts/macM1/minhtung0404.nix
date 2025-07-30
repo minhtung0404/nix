@@ -28,6 +28,11 @@ in
         ];
       };
     };
+
+    services = {
+      my-komga.enable = true;
+      my-caddy.enable = true;
+    };
   };
 
   home.username = user;
