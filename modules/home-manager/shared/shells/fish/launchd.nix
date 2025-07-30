@@ -3,6 +3,8 @@ let
   hmLaunchdList = [
     "sketchybar"
     "aerospace"
+    "caddy"
+    "komga"
   ];
   loadBodyHmFn =
     load:
