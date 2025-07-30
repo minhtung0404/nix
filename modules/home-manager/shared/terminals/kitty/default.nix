@@ -121,5 +121,14 @@ in
       shellIntegration.enableFishIntegration = true;
       themeFile = cfg.theme;
     };
+
+    programs.fish = {
+      shellAliases = {
+        icat = "kitten icat";
+      };
+      shellInit = ''
+        set -U fish_color_autosuggestion brblack
+      '';
+    };
   };
 }
