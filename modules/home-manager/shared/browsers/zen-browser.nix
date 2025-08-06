@@ -20,6 +20,12 @@ in
   config = mkIf cfg.enable {
     programs.zen-browser = {
       enable = true;
+      profiles.work.settings = {
+        "zen.workspaces.separate-essentials" = false;
+        "zen.tab-unloader.excluded-urls" =
+          "mail.proton.me,calendar.proton.me,mail.google.com,mattermost.inf.telecom-sudparis.eu";
+        "browser.sessionstore.restore_pinned_tabs_on_demand" = false;
+      };
     }
     // (import ./firefox-fork.nix {
       inherit pkgs;

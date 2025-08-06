@@ -21,7 +21,7 @@ in
       my-dock = {
         enable = true;
         apps = [
-          "${config.programs.librewolf.finalPackage}/Applications/LibreWolf.app/"
+          "${config.programs.zen-browser.finalPackage}/Applications/Zen Browser (Beta).app/"
           "/System/Applications/Mail.app/"
           "/System/Volumes/Data/Applications/VeraCrypt.app/"
           "${pkgs.obsidian}/Applications/Obsidian.app/"
