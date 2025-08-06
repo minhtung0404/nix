@@ -1,4 +1,9 @@
-{ cfg, pkgs, ... }:
+{
+  cfg,
+  profile_settings ? { },
+  pkgs,
+  ...
+}:
 {
   # nativeMessagingHosts = [ pkgs.firefoxpwa ];
   policies = {
@@ -28,6 +33,7 @@
   };
   profiles = {
     work = {
+      settings = profile_settings;
       containersForce = true;
       containers = {
         ChatGPT = {
