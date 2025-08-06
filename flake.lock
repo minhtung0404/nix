@@ -164,11 +164,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1754440163,
-        "narHash": "sha256-jlMVEL9LAkcfzvW02SGBfT4VhWIwnPYII2RWpsJd4cE=",
+        "lastModified": 1754517696,
+        "narHash": "sha256-PjSl69ciYBTzDVxGjHL5z+EEVKD8VDjesmZGUAGOrt4=",
         "owner": "minhtung0404",
         "repo": "kakoune-flake",
-        "rev": "fa88b10ab4240a369e6d013ba20e5df8e73d1444",
+        "rev": "b1f71aa2921eaff354af15eae53c5eed9bfa5e9d",
         "type": "github"
       },
       "original": {
