@@ -36,7 +36,7 @@ in
         "zen.view.compact.hide-tabbar" = false;
         "zen.view.compact.hide-toolbar" = true;
         "zen.view.compact.should-enable-at-startup" = true;
-        "zen.view.use-single-toolbar" = true;
+        "zen.view.use-single-toolbar" = false;
         "zen.workspaces.separate-essentials" = false;
       };
 
