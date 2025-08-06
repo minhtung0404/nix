@@ -23,7 +23,7 @@ in
     package = mkPackageOption pkgs "komga" { };
 
     configDir = mkOption {
-      type = types.string;
+      type = types.str;
       default = "/Volumes/Data1/komga/.komga/";
       example = "~/.komga";
       description = ''
