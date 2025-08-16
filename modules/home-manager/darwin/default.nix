@@ -13,10 +13,9 @@ in
 {
   imports = [
     ./darwin-defaults.nix
-    ./services/aerospace
-    ./services/sketchybar
+    ./services
     ./dock.nix
-  ] ++ (myLib.extendModules (myLib.extends lib config "services") [ ./services/hammerspoon ]);
+  ];
 
   config = lib.mkIf cfg.darwin {
     home.packages = with pkgs; [

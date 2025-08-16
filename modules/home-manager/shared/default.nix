@@ -6,6 +6,5 @@
     ./programs
     ./shells
     ./terminals
-    ./services
   ];
 }

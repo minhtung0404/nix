@@ -17,9 +17,17 @@ let
   username = config.mtn.username;
 
   caddyfile = pkgs.writeText "Caddyfile" ''
-    https://mtn-m1.dtth.ts:8080 {
-      tls internal
-      reverse_proxy localhost:25600
+    https://mtn-m1.dtth.ts {
+        tls internal
+
+        # Forward /komga/* to Komga at /komga/
+        route /komga/* {
+          reverse_proxy localhost:25600
+        }
+
+        route /random_images/* {
+          reverse_proxy localhost:10404
+        }
     }
   '';
 in
