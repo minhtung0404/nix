@@ -25,7 +25,7 @@ let
           reverse_proxy localhost:25600
         }
 
-        route /random_images/* {
+        handle_path /random-images/* {
           reverse_proxy localhost:10404
         }
     }
