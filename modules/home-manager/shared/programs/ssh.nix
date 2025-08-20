@@ -1,8 +1,11 @@
-{ ... }: {
+{ ... }:
+{
   programs.ssh = {
     enable = true;
     matchBlocks = {
-      "*.polytechnique.fr" = { user = "tung.nguyen"; };
+      "*.polytechnique.fr" = {
+        user = "tung.nguyen";
+      };
       "telecom-sud" = {
         hostname = "ssh.imtbs-tsp.eu";
         user = "mnguyen1";
@@ -14,9 +17,7 @@
 
       "noname" = {
         proxyJump = "mnguyen1@157.159.110.170";
-        proxyCommand = ''
-          ssh mnguyen1@ssh3.imtbs-tsp.eu -W %h:%p -o "StrictHostKeyChecking no"'';
-        identityFile = "~/.ssh.id_rsa";
+        identityFile = "~/.ssh/id_rsa";
         hostname = "192.168.1.110";
         port = 2222;
         user = "mnguyen1";
