@@ -31,6 +31,13 @@
           }
         ];
       };
+
+      "bran" = {
+        proxyCommand = "ssh mnguyen1@157.159.110.170 -W %h:%p -o \"StrictHostKeyChecking no\"";
+        user = "mnguyen1";
+        identityFile = "~/.ssh/id_rsa";
+      };
+
       "tp-*" = {
         hostname = "%h";
         user = "mnguyen-23";
