@@ -16,6 +16,7 @@
       };
 
       "noname" = {
+        forwardAgent = true;
         proxyJump = "mnguyen1@157.159.110.170";
         identityFile = "~/.ssh/id_rsa";
         hostname = "192.168.1.110";
@@ -33,6 +34,7 @@
       };
 
       "bran" = {
+        forwardAgent = true;
         proxyCommand = "ssh mnguyen1@157.159.110.170 -W %h:%p -o \"StrictHostKeyChecking no\"";
         user = "mnguyen1";
         identityFile = "~/.ssh/id_rsa";
@@ -43,10 +45,5 @@
         user = "mnguyen-23";
       };
     };
-    forwardAgent = true;
-    extraConfig = ''
-      ForwardX11 yes
-      ForwardX11Trusted yes
-    '';
   };
 }
