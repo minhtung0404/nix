@@ -10,6 +10,7 @@
     ./sketchybar
     ./caddy.nix
     ./komga.nix
+    ./jellyfin.nix
   ]
   ++ (myLib.extendModules (myLib.extends lib config "services") [ ./hammerspoon ]);
 }

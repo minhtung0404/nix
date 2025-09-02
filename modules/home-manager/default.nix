@@ -44,6 +44,7 @@ in
       tldr
 
       mtn-kakoune
+      deluge
     ];
 
     home.sessionVariables = {

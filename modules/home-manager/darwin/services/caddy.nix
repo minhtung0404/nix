@@ -28,6 +28,14 @@ let
         handle_path /random-images/* {
           reverse_proxy localhost:10404
         }
+        handle_path /jellyfin/* {
+            reverse_proxy localhost:8096 {
+                header_up Host {host}
+                header_up X-Real-IP {remote_host}
+                header_up X-Forwarded-For {remote_host}
+                header_up X-Forwarded-Proto {scheme}
+            }
+        }
     }
   '';
 in
