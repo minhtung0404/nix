@@ -16,25 +16,8 @@ let
     types
     ;
   cfg = config.mtn.services.my-sketchybar;
-  sketchybarconf = pkgs.runCommandCC "sketchybar-config" { } ''
-    echo Creating sketchybar config
-    mkdir $out
-
-    cp -r ${./config}/* $out/
-
-    # add images
-    mkdir $out/images
-    cp ${self}/images/amira_squared.jpeg $out/images/amira_squared.jpeg
-
-    chmod -R 777 $out/helpers
-
-    # helpers
-    cd $out/helpers
-
-    make
-  '';
-
   username = config.mtn.username;
+
 in
 {
   options.mtn.services.my-sketchybar = {
@@ -58,36 +41,50 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ cfg.package ];
-    launchd.agents.sketchybar = {
+    programs.sketchybar = {
       enable = true;
-      config = {
-        EnvironmentVariables = {
-          PATH = lib.concatStrings (
-            (map (x: "${x}/bin/:") ([ cfg.package ] ++ cfg.extraPackages))
-            ++ [
-              "/Users/${username}.nix-profile/bin:/etc/profiles/per-user/${username}/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin/:/usr/local/bin/:/usr/bin/:/bin/:/usr/sbin/:/sbin"
-            ]
-          );
-          LUA_CPATH = "${pkgs.sbarlua}/lib/lua/5.4/?.so;";
-        };
-        LimitLoadToSessionType = [
-          "Aqua"
-          "Background"
-          "LoginWindow"
-          "StandardIO"
-          "System"
-        ];
-        ProcessType = "Interactive";
-        ProgramArguments = [
-          "${cfg.package}/bin/sketchybar"
-          "--config"
-          "${sketchybarconf}/sketchybarrc"
-        ];
-        KeepAlive = true;
-        RunAtLoad = true;
-        StandardOutPath = "/tmp/${username}/sbar.out.log";
-        StandardErrorPath = "/tmp/${username}/sbar.err.log";
+      config = ''
+        FONT="FiraCode Nerd Font:Bold:14.0"
+
+        # ---------------------------------------------------------
+        # Bar appearance
+        # ---------------------------------------------------------
+        sketchybar --bar height=24 \
+                   color=0x00000000 \
+                   position=top
+        # ---------------------------------------------------------
+        # LEFT: Spaces inside a rounded box
+        # ---------------------------------------------------------
+        ${import ./items/spaces.nix {
+          inherit pkgs;
+          spaces = config.mtn.workspaces;
+        }}
+
+        # ---------------------------------------------------------
+        # CENTER: Clock
+        # ---------------------------------------------------------
+        ${import ./items/clock.nix { inherit pkgs; }}
+
+        # ---------------------------------------------------------
+        # RIGHT: Volume + Battery
+        # ---------------------------------------------------------
+
+        ${import ./items/battery.nix { inherit pkgs; }}
+        ${import ./items/volume.nix { inherit pkgs; }}
+
+        # ---------------------------------------------------------
+        # Done
+        # ---------------------------------------------------------
+        sketchybar --update
+        sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)
+        echo "✅ Sketchybar config loaded"
+      '';
+      extraPackages = cfg.extraPackages;
+      package = cfg.package;
+      service = {
+        enable = true;
+        outLogFile = "/tmp/${username}/sbar.out.log";
+        errorLogFile = "/tmp/${username}/sbar.err.log";
       };
     };
   };

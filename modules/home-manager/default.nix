@@ -110,5 +110,41 @@ in
       my-kakoune.enable-fish-session = true;
       my-nvf.enable = true;
     };
+
+    mtn.workspaces = [
+      {
+        id = "1";
+        name = "web";
+        icon = "🌐";
+      }
+      {
+        id = "2";
+        name = "work";
+        icon = "💻";
+      }
+      {
+        id = "3";
+        name = "notes";
+        icon = "📝";
+
+      }
+      {
+        id = "4";
+        name = "mail";
+        icon = "📩";
+
+      }
+      {
+        id = "5";
+        name = "chat";
+        icon = "💬";
+
+      }
+      {
+        id = "6";
+        name = "games";
+        icon = "🎮";
+      }
+    ];
   };
 }
