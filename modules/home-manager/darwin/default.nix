@@ -30,7 +30,6 @@ in
       services = {
         my-sketchybar.enable = true;
         my-aerospace.enable = true;
-        my-hammerspoon.enable = true;
       };
     };
   };

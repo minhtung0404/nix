@@ -1,6 +1,5 @@
 local menu = require("menu")
 local wifi_changer = require("wifi_change")
-local keyboards = require("keyboards")
 local startup = require("startup")
 local axbrowse = require("axbrowse")
 
@@ -23,6 +22,5 @@ end)
 Main_table = {
   menu = menu,
   wifi_changer = wifi_changer,
-  keyboards = keyboards,
   startup = startup,
 }
