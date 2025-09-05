@@ -145,6 +145,12 @@ in
         name = "games";
         icon = "🎮";
       }
+      {
+        id = "7";
+        name = "7";
+        icon = "7";
+        monitor = "secondary";
+      }
     ];
   };
 }

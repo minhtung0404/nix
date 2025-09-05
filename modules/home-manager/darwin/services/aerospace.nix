@@ -14,18 +14,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    launchd.agents.aerospace = lib.mkForce {
-      enable = true;
-      config = {
-        ProgramArguments = [
-          "${cfg.package}/Applications/Aerospace.app/Contents/MacOS/AeroSpace"
-        ];
-        KeepAlive = true;
-        RunAtLoad = true;
-      };
-    };
     programs.aerospace = {
       enable = true;
+      launchd = {
+        enable = true;
+        keepAlive = true;
+      };
       userSettings = {
         exec-on-workspace-change = [
           "/bin/bash"
@@ -55,7 +49,6 @@ in
         };
 
         mode.main.binding = {
-          # cmd-enter = "exec-and-forget open -na kitty.app";
           cmd-enter = "exec-and-forget ${pkgs.kitty}/Applications/kitty.app/Contents/MacOS/kitty --single-instance --directory=~";
 
           alt-slash = "layout tiles horizontal vertical";
@@ -136,9 +129,12 @@ in
           ];
         };
 
-        workspace-to-monitor-force-assignment = {
-          "7" = 2;
-        };
+        workspace-to-monitor-force-assignment = lib.listToAttrs (
+          map (workspace: {
+            name = workspace.id;
+            value = workspace.monitor;
+          }) (lib.filter (workspace: workspace.monitor != null) config.mtn.workspaces)
+        );
 
         on-window-detected =
           let
@@ -150,34 +146,34 @@ in
                 "run" = action;
               }
             );
-            web = "1";
-            work = "2";
-            notes = "3";
-            mail = "4";
-            chat = "5";
-            games = "6";
+            name_to_workspace = lib.listToAttrs (
+              map (s: {
+                name = s.name;
+                value = s.id;
+              }) config.mtn.workspaces
+            );
           in
           map (f [ "layout floating" ]) [ "com.apple.systempreferences" ]
-          ++ map (f [ "move-node-to-workspace ${web}" ]) [
+          ++ map (f [ "move-node-to-workspace ${name_to_workspace.web}" ]) [
             "org.mozilla.librewolf"
             "org.nixos.librewolf"
             "app.zen-browser.zen"
           ]
-          ++ map (f [ "move-node-to-workspace ${work}" ]) [
+          ++ map (f [ "move-node-to-workspace ${name_to_workspace.work}" ]) [
             "org.microsolf.VSCode"
             "com.microsolf.VSCode"
             "com.microsoft.Powerpoint"
           ]
-          ++ map (f [ "move-node-to-workspace ${notes}" ]) [ "md.obsidian" ]
-          ++ map (f [ "move-node-to-workspace ${mail}" ]) [ "com.apple.mail" ]
-          ++ map (f [ "move-node-to-workspace ${chat}" ]) [
+          ++ map (f [ "move-node-to-workspace ${name_to_workspace.notes}" ]) [ "md.obsidian" ]
+          ++ map (f [ "move-node-to-workspace ${name_to_workspace.mail}" ]) [ "com.apple.mail" ]
+          ++ map (f [ "move-node-to-workspace ${name_to_workspace.chat}" ]) [
             "com.facebook.archon"
             "com.hnc.Discord"
             "ru.keepcoder.Telegram"
             "com.vng.zalo"
             "com.tdesktop.Telegram"
           ]
-          ++ map (f [ "move-node-to-workspace ${games}" ]) [
+          ++ map (f [ "move-node-to-workspace ${name_to_workspace.games}" ]) [
             "com.riotgames.RiotGames.RiotClient"
             "com.riotgames.LeagueofLegends.LeagueClientUx"
             "com.riotgames.LeagueofLegends.LeagueClient"
@@ -186,7 +182,7 @@ in
           ++ [
             {
               "if"."app-name-regex-substring" = "^Code$";
-              "run" = [ "move-node-to-workspace ${work}" ];
+              "run" = [ "move-node-to-workspace ${name_to_workspace.work}" ];
             }
           ];
       };

@@ -1,6 +1,4 @@
 {
-  pkgs,
-  config,
   lib,
   ...
 }:
@@ -20,6 +18,12 @@ let
       icon = lib.mkOption {
         type = lib.types.str;
         description = "Workspace icon";
+      };
+
+      monitor = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        description = "Workspace icon";
+        default = null;
       };
     };
   };

@@ -6,11 +6,11 @@
 }:
 {
   imports = [
-    ./aerospace
-    ./sketchybar
+    ./aerospace.nix
     ./caddy.nix
-    ./komga.nix
     ./jellyfin.nix
+    ./komga.nix
+    ./sketchybar
     ./workspaces.nix
   ]
   ++ (myLib.extendModules (myLib.extends lib config "services") [ ./hammerspoon ]);
