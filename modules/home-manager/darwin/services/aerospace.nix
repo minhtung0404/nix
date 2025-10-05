@@ -14,12 +14,18 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    launchd.agents.aerospace = lib.mkForce {
+      enable = true;
+      config = {
+        ProgramArguments = [
+          "${cfg.package}/Applications/Aerospace.app/Contents/MacOS/AeroSpace"
+        ];
+        KeepAlive = true;
+        RunAtLoad = true;
+      };
+    };
     programs.aerospace = {
       enable = true;
-      launchd = {
-        enable = true;
-        keepAlive = true;
-      };
       userSettings = {
         exec-on-workspace-change = [
           "/bin/bash"
