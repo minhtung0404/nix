@@ -31,9 +31,9 @@ in
 
     services = {
       my-hammerspoon.enable = true;
-      my-komga.enable = true;
-      my-caddy.enable = true;
-      my-jellyfin.enable = true;
+      # my-komga.enable = true;
+      # my-caddy.enable = true;
+      # my-jellyfin.enable = true;
     };
   };
 

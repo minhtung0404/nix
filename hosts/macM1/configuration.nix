@@ -37,8 +37,8 @@
       my-kanata = {
         enable = true;
         configFile = [
-          "gm610"
           "apple"
+          "gm610"
         ];
       };
 

@@ -21,7 +21,6 @@ in
     home.packages = with pkgs; [
       aldente
       hidden-bar
-      kanata-with-cmd
       raycast
       skimpdf
     ];
