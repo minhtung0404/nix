@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   spoons = pkgs.fetchFromGitHub {
     owner = "Hammerspoon";
@@ -27,9 +32,11 @@ let
   };
 in
 {
-  targets.darwin.defaults = {
-    "org.hammerspoon.Hammerspoon" = {
-      MJConfigFile = "${hs-config}/init.lua";
+  config = lib.mkIf config.mtn.hm.darwin {
+    targets.darwin.defaults = {
+      "org.hammerspoon.Hammerspoon" = {
+        MJConfigFile = "${hs-config}/init.lua";
+      };
     };
   };
 }

@@ -9,7 +9,6 @@
   };
 
   imports = [
-    ./services/kanata/darwin.nix
     ./services/edns
     ./programs/sops.nix
   ];
@@ -21,15 +20,6 @@
       extra-platforms = x86_64-darwin aarch64-darwin
       extra-nix-path = nixpkgs=flake:nixpkgs
     '';
-    gc = {
-      automatic = true;
-      interval = {
-        Weekday = 0;
-        Hour = 2;
-        Minute = 0;
-      };
-      options = "--delete-older-than 30d";
-    };
   };
   nixpkgs.flake.setNixPath = true;
 

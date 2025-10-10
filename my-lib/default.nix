@@ -6,6 +6,24 @@ in
 rec {
   pkgsFor = sys: inputs.nixpkgs.legacyPackages.${sys};
 
+  mkNixos =
+    sys: config:
+    inputs.nixpkgs.lib.nixosSystem {
+      system = sys;
+      specialArgs = {
+        inherit
+          self
+          inputs
+          outputs
+          myLib
+          ;
+      };
+      modules = [
+        config
+        outputs.nixosModules.default
+      ];
+    };
+
   mkDarwin =
     sys: config:
     inputs.nix-darwin.lib.darwinSystem {

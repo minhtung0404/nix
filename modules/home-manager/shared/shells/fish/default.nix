@@ -56,7 +56,7 @@ in
     };
     interactiveShellInit = ''
       set MANPATH "usr/local/man:$MANPATH"
-      set PATH "$HOME/.local/bin:/run/current-system/sw/bin/:/etc/profiles/per-user/${user}/bin/:$PATH"
+      # set PATH "$HOME/.local/bin:/run/current-system/sw/bin/:/etc/profiles/per-user/${user}/bin/:$PATH"
 
       set fish_greeting # Disable greeting
 
@@ -99,7 +99,7 @@ in
   home.activation = {
     tideConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       echo "Running tide configure..."
-      run ${pkgs.fish}/bin/fish ~/.config/fish/tide/init.fish
+      # run ${pkgs.fish}/bin/fish ~/.config/fish/tide/init.fish
     '';
   };
   home.packages = with pkgs; [

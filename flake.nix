@@ -66,6 +66,10 @@
     with myLib;
     {
       overlays.default = nixpkgs.lib.composeManyExtensions (import ./overlays.nix inputs);
+
+      nixosConfigurations = {
+        "mtnPC" = mkNixos "x86_64-linux" ./hosts/mtn-home/configuration.nix;
+      };
       darwinConfigurations = {
         "MacAir-PirateKing" = mkDarwin system ./hosts/macM1/configuration.nix;
       };
@@ -75,6 +79,7 @@
         "entertainment" = mkHome system ./home/darwin/entertainment.nix;
       };
 
+      nixosModules.default = ./modules/nixos;
       homeManagerModules.default = ./modules/home-manager;
       darwinModules.default = ./modules/darwin;
     };
