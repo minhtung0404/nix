@@ -14,6 +14,23 @@
 
 )
 
+(environment (LAPTOP pc)
+
+(defalias
+  cmd lmet
+  open_web XX
+  open_discord XX
+  open_telegram XX
+  open_vscode XX
+  open_obsidian XX
+  open_kitty XX
+  fn-mac XX
+  fn XX
+)
+
+)
+
+
 (defalias
   eoc (tap-hold-press 200 200 esc lctl)
   ctl (tap-hold-press 200 200 @fn-mac (layer-while-held fn_layer))

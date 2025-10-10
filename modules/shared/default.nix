@@ -9,7 +9,9 @@
   };
 
   imports = [
+    ./config.nix
     ./services/edns
+    ./services/kanata
     ./programs/sops.nix
   ];
 

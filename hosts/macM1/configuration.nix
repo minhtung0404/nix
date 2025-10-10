@@ -36,6 +36,7 @@
     services = {
       my-kanata = {
         enable = true;
+        darwin = true;
         configFile = [
           "apple"
           "gm610"
