@@ -58,8 +58,13 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+  };
   services.desktopManager.gnome.enable = true;
+
+  programs.niri.enable = true;
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
