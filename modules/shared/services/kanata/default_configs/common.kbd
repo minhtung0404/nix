@@ -2,6 +2,7 @@
 
 (defalias
   cmd lmet
+  alt lalt
   open_web (cmd open -a LibreWolf.app)
   open_discord (cmd open -a Discord.app)
   open_telegram (cmd open -a Telegram.app)
@@ -17,7 +18,8 @@
 (environment (LAPTOP pc)
 
 (defalias
-  cmd lmet
+  cmd lalt
+  alt lmet
   open_web XX
   open_discord XX
   open_telegram XX
@@ -30,17 +32,25 @@
 
 )
 
+(environment (LAPTOP pc)
+
+(defoverrides
+  (lalt a) (lctl a)
+  (lalt c) (lctl c)
+  (lalt s) (lctl s)
+  (lalt t) (lctl t)
+  (lalt v) (lctl v)
+  (lalt w) (lctl w)
+  (lalt x) (lctl x)
+  (lalt z) (lctl z)
+)
+
+)
+
 
 (defalias
   eoc (tap-hold-press 200 200 esc lctl)
   ctl (tap-hold-press 200 200 @fn-mac (layer-while-held fn_layer))
-)
-
-;; hyper_term layer
-(defalias
-  term_split_down (macro C-b min)
-  term_split_right (macro C-b S-min)
-  term_maximize (macro C-b S-eql)
 )
 
 (deflayer base
@@ -48,7 +58,7 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   @eoc a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  @ctl lalt @cmd           spc            lalt @cmd rctl
+  @ctl @alt @cmd           spc            @alt @cmd rctl
   @fn  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
 )
 
@@ -71,37 +81,3 @@
   ___ XX
 )
 
-;; Hyper layer
-(deflayermap hyper
-  o (layer-while-held hyper_open)
-  t (layer-while-held hyper_term)
-  s (layer-while-held hyper_system)
-  ___ XX
-)
-
-(deflayermap hyper_open
-  f @open_web
-  d @open_discord
-  t @open_telegram
-  v @open_vscode
-  n @open_obsidian
-  k @open_kitty
-  ___ XX
-)
-
-(deflayermap hyper_term
-  u @term_split_down
-  i @term_split_right
-  m @term_maximize
-  ___ XX
-)
-
-(deflayermap hyper_system
-  u lrld
-  i brdn
-  o brup
-  j mute
-  k vold
-  l volu
-  ___ XX
-)
