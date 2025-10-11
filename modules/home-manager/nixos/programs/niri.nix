@@ -191,15 +191,6 @@ in
               };
             }) config.mtn.workspaces
           );
-          # (
-          #   _: w:
-          #   {
-          #     inherit (w) name;
-          #   }
-          #   // (lib.optionalAttrs (w.monitor != null) {
-          #     open-on-output = w.monitor;
-          #   })
-          # ) config.mtn.workspaces;
         in
         workspaceConfig;
 
@@ -365,7 +356,7 @@ in
           "Shift+XF86MonBrightnessDown".action = spawn brightnessctl "-d" "kbd_backlight" "s" "25%-";
           "Shift+XF86MonBrightnessUp".action = spawn brightnessctl "-d" "kbd_backlight" "s" "25%+";
 
-          "Mod+Shift+Q".action = close-window;
+          "Mod+Q".action = close-window;
 
           "Mod+Left".action = focus-column-or-monitor-left;
           "Mod+Right".action = focus-column-or-monitor-right;
@@ -429,8 +420,8 @@ in
           "Mod+W".action = switch-preset-column-width;
           "Mod+Shift+W".action = switch-preset-window-height;
           "Mod+Ctrl+W".action = reset-window-height;
-          "Mod+F".action = maximize-column;
-          "Mod+Shift+F".action = fullscreen-window;
+          "Mod+Shift+F".action = maximize-column;
+          # "Mod+Shift+F".action = fullscreen-window;
           "Mod+E".action = center-column;
 
           "Mod+Minus".action = set-column-width "-10%";
