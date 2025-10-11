@@ -75,6 +75,7 @@ in
                 "niri/window"
               ];
               modules-center = [
+                "clock"
               ];
               modules-right =
                 lib.optional showMedia (if cfg.enableMpd then "mpd" else "custom/media")
@@ -94,9 +95,6 @@ in
                 ++ lib.optionals cfg.enableLaptopBars [
                   "battery"
                   "battery#bat2"
-                ]
-                ++ [
-                  "clock"
                 ];
 
               "sway/workspaces" = {
