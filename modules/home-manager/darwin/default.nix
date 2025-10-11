@@ -31,5 +31,13 @@ in
         my-aerospace.enable = true;
       };
     };
+    programs.fish.functions = {
+      rebuild = {
+        body = ''
+          sudo darwin-rebuild switch --flake ~/.config/nix/
+        '';
+        wraps = "darwin-rebuild";
+      };
+    };
   };
 }

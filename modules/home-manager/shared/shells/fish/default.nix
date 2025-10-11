@@ -25,13 +25,6 @@ in
     generateCompletions = true;
 
     functions = {
-      rebuild = {
-        body = ''
-          sudo darwin-rebuild switch --flake ~/.config/nix/
-        '';
-        wraps = "darwin-rebuild";
-      };
-
       repair = {
         body = ''
           sudo nix-store --repair --verify --check-contents
