@@ -54,7 +54,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ libxkbcommon ];
+    home.packages = with pkgs; [
+      libxkbcommon
+      kdePackages.dolphin
+    ];
     systemd.user.services.swaync.Install.WantedBy = [ "niri.service" ];
     systemd.user.services.swaync.Unit.After = [ "niri.service" ];
     systemd.user.targets.tray.Unit.After = [ "niri.service" ];
