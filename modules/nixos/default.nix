@@ -37,4 +37,9 @@
     inputs.niri.nixosModules.niri
   ];
   nixpkgs.overlays = [ outputs.overlays.default ];
+
+  programs.niri.enable = true;
+
+  services.udisks2.enable = true;
+
 }
