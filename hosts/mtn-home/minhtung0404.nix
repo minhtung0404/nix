@@ -24,7 +24,7 @@ in
 
     linux.graphical = {
       type = "wayland";
-      wallpaper = ../../images/amira.jpeg;
+      wallpaper = ../../images/kuriyama_mirai.png;
       defaults = {
         webBrowser = {
           package = config.programs.zen-browser.finalPackage;
