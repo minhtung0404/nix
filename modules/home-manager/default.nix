@@ -93,6 +93,7 @@ in
     };
 
     services.tldr-update.enable = true;
+    services.caffeine.enable = true;
 
     mtn.programs = {
       my-kitty = {
