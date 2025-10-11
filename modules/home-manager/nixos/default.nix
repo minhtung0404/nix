@@ -15,4 +15,5 @@
       wraps = "nixos-rebuild";
     };
   };
+  mtn.programs.my-kitty.mod = "alt+shift";
 }

@@ -48,6 +48,12 @@ in
       description = "kitty theme";
       default = "rose-pine-dawn";
     };
+
+    mod = lib.mkOption {
+      type = types.str;
+      description = "kitty mod";
+      default = "cmd+shift";
+    };
   };
   config = lib.mkIf cfg.enable {
     programs.kitty = {
@@ -88,7 +94,7 @@ in
             allow_remote_control = true;
             listen_on = "unix:/tmp/mykitty";
 
-            kitty_mod = "cmd+shift";
+            kitty_mod = cfg.mod;
             enabled_layouts = "fat:bias=70,splits,stack,tall:bias:60";
           }
         ];
@@ -115,6 +121,7 @@ in
         "f3" = "goto_layout tall";
         "f4" = "combine : launch --location=split : clear";
 
+        "ctrl+t" = "combine : new_tab : clear";
         "cmd+t" = "combine : new_tab : clear";
       };
 
