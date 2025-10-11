@@ -34,5 +34,7 @@
       };
     }
     inputs.sops-nix.nixosModules.sops
+    inputs.niri.nixosModules.niri
   ];
+  nixpkgs.overlays = [ outputs.overlays.default ];
 }

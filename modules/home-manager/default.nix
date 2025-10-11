@@ -12,6 +12,7 @@ in
   imports = [
     ./config.nix
     ./darwin
+    ./nixos
     ./shared
   ];
   options = {
@@ -148,7 +149,7 @@ in
       {
         id = "7";
         name = "7";
-        icon = "7";
+        icon = "";
         monitor = "secondary";
       }
     ];
