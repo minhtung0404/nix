@@ -58,7 +58,38 @@
     openFirewall = true;
     settings = {
       config-dir = "/mnt/Library/komga/.komga/";
+      server.port = 25600;
     };
+  };
+
+  # tailscale
+  services.tailscale.enable = true;
+
+  # caddy
+  services.caddy = {
+    enable = true;
+    configFile = pkgs.writeText "Caddyfile" ''
+      https://mtn-pc.dtth.ts {
+          tls internal
+
+          # Forward /komga/* to Komga at /komga/
+          route /komga/* {
+            reverse_proxy localhost:25600
+          }
+
+          handle_path /random-images/* {
+            reverse_proxy localhost:10404
+          }
+          handle_path /jellyfin/* {
+              reverse_proxy localhost:8096 {
+                  header_up Host {host}
+                  header_up X-Real-IP {remote_host}
+                  header_up X-Forwarded-For {remote_host}
+                  header_up X-Forwarded-Proto {scheme}
+              }
+          }
+      }
+    '';
   };
 
   # Use the systemd-boot EFI boot loader.
