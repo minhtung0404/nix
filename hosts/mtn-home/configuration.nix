@@ -52,6 +52,15 @@
     openFirewall = true;
   };
 
+  # komga
+  services.komga = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      config-dir = "/mnt/Library/komga/.komga/";
+    };
+  };
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
