@@ -31,6 +31,27 @@
     };
   };
 
+  # mounting
+  fileSystems = {
+    "/mnt/Library" = {
+      device = "/dev/disk/by-uuid/2A85-E011";
+      fsType = "exfat";
+      options = [
+        "users"
+        "uid=1001"
+        "gid=100"
+        "umask=0022"
+      ];
+      neededForBoot = false;
+    };
+  };
+
+  # jellyfin
+  services.jellyfin = {
+    enable = true;
+    openFirewall = true;
+  };
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -40,6 +61,7 @@
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
 
+  # bluetooth
   services.blueman.enable = true;
   hardware.bluetooth.enable = true;
   services.dbus.packages = [ pkgs.bluez ];
