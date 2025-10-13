@@ -11,6 +11,7 @@ let
   cfg = config.mtn.services.my-kanata;
 in
 {
+  imports = [ ./config.nix ];
   config = mkIf (cfg.enable && cfg.linux) {
     systemd.services.kanata =
 

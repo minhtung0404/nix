@@ -3,7 +3,6 @@
   inputs,
   lib,
   myLib,
-  outputs,
   overlays,
   pkgs,
   self,
@@ -12,13 +11,15 @@
 {
   imports = [
     ../shared
+    ../shared/services/kanata/darwin.nix
     inputs.home-manager.darwinModules.home-manager
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "backup";
       home-manager.sharedModules = [
-        outputs.homeManagerModules.default
+        self.homeManagerModules.default
+        ../home-manager/darwin
         {
           home.packages = with pkgs; [ home-manager ];
         }
@@ -27,7 +28,6 @@
         inherit
           self
           inputs
-          outputs
           myLib
           overlays
           ;

@@ -1,7 +1,6 @@
 { self, inputs }:
 let
   myLib = (import ./default.nix) { inherit self inputs; };
-  outputs = inputs.self.outputs;
 in
 rec {
   pkgsFor = sys: inputs.nixpkgs.legacyPackages.${sys};
@@ -14,13 +13,12 @@ rec {
         inherit
           self
           inputs
-          outputs
           myLib
           ;
       };
       modules = [
         config
-        outputs.nixosModules.default
+        self.nixosModules.default
       ];
     };
 
@@ -32,13 +30,12 @@ rec {
         inherit
           self
           inputs
-          outputs
           myLib
           ;
       };
       modules = [
         config
-        outputs.darwinModules.default
+        self.darwinModules.default
       ];
     };
 
@@ -51,18 +48,17 @@ rec {
           self
           inputs
           myLib
-          outputs
           ;
       };
       modules = [
         config
-        outputs.homeManagerModules.default
+        self.homeManagerModules.default
         (
           { ... }:
           {
             nixpkgs = {
               config.allowUnfree = true;
-              overlays = [ outputs.overlays.default ];
+              overlays = [ self.overlays.default ];
             };
           }
         )

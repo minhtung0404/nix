@@ -1,17 +1,16 @@
 {
-  outputs,
+  self,
   ...
 }:
 {
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [ outputs.overlays.default ];
+    overlays = [ self.overlays.default ];
   };
 
   imports = [
     ./config.nix
     ./services/edns
-    ./services/kanata
     ./programs/sops.nix
   ];
 

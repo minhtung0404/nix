@@ -18,7 +18,8 @@
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "backup";
       home-manager.sharedModules = [
-        outputs.homeManagerModules.default
+        self.homeManagerModules.default
+        ../home-manager/linux
         {
           home.packages = with pkgs; [ home-manager ];
         }

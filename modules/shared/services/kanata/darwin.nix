@@ -11,12 +11,7 @@ let
   cfg = config.mtn.services.my-kanata;
 in
 {
-  options.environment.launchDaemons = lib.mkOption {
-    type = lib.types.attrsOf lib.types.any;
-    description = "Launch daemons configuration for Darwin";
-    default = { };
-  };
-
+  imports = [ ./config.nix ];
   config = mkIf (cfg.enable && cfg.darwin) {
     environment.launchDaemons =
       let

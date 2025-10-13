@@ -11,8 +11,6 @@ in
 {
   imports = [
     ./config.nix
-    ./darwin
-    ./nixos
     ./shared
   ];
   options = {
@@ -93,7 +91,6 @@ in
     };
 
     services.tldr-update.enable = true;
-    services.caffeine.enable = true;
 
     mtn.programs = {
       my-kitty = {

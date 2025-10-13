@@ -17,10 +17,6 @@ let
   cfg = config.mtn.services.my-kanata;
 in
 {
-  imports = [
-    ./darwin.nix
-    ./linux.nix
-  ];
   options.mtn.services.my-kanata = {
     enable = mkEnableOption "my-kanata";
     darwin = mkEnableOption "my-kanata-darwin";

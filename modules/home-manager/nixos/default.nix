@@ -16,4 +16,6 @@
     };
   };
   mtn.programs.my-kitty.mod = "alt+shift";
+
+  services.caffeine.enable = true;
 }
