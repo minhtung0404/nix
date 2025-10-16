@@ -45,20 +45,11 @@
 
     # build tools
     crane.url = "github:ipetkov/crane";
-
-    # neovim
-    nvf.url = "github:notashelf/nvf";
-    nvf.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      flake-parts.follows = "flake-parts";
-      systems.follows = "flake-utils/systems";
-    };
   };
   outputs =
     inputs@{
       self,
       nixpkgs,
-      nvf,
       ...
     }:
     let

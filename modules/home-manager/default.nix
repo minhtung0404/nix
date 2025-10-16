@@ -107,7 +107,6 @@ in
       };
 
       my-kakoune.enable-fish-session = true;
-      my-nvf.enable = true;
     };
 
     mtn.workspaces = [
