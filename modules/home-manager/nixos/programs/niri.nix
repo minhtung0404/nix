@@ -229,6 +229,11 @@ in
               at-startup = true;
               app-id = "^zen$";
             }
+            {
+              at-startup = true;
+              app-id = "^zen-beta$";
+            }
+
           ];
         }
         {
