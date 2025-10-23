@@ -43,6 +43,9 @@ in
       tldr
 
       mtn-kakoune
+      gnumake
+      unzip
+      zip
       deluge
     ];
 
