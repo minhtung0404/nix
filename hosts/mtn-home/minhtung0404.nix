@@ -36,4 +36,9 @@ in
 
   home.username = user;
   home.homeDirectory = home;
+  home.packages = with pkgs; [
+    texlive.combined.scheme-full
+    bibtool
+    sops
+  ];
 }
