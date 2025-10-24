@@ -110,7 +110,13 @@ in
     systemd.network.wait-online.enable = false;
     networking.hostName = cfg.networking.hostname;
     networking.wireless.iwd.enable = true;
-    networking.wireless.iwd.settings.General.EnableNetworkConfiguration = true;
+    networking.wireless.iwd.settings = {
+      General.EnableNetworkConfiguration = true;
+      Network = {
+        UseDNS = false;
+        IPv6AcceptRA = false;
+      };
+    };
     systemd.network.networks = builtins.mapAttrs (name: cfg: {
       matchConfig.Name = cfg.match;
       networkConfig.DHCP = "yes";

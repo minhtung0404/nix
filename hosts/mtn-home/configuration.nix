@@ -128,7 +128,7 @@
   networking.hostName = "mtnPC"; # Define your hostname.
 
   # Configure network connections interactively with nmcli or nmtui.
-  networking.networkmanager.enable = true;
+  # networking.networkmanager.enable = true;
 
   # bluetooth
   services.blueman.enable = true;
