@@ -14,6 +14,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./deluge.nix
     {
       home-manager.users.minhtung0404 = import ./minhtung0404.nix;
     }
@@ -28,8 +29,36 @@
           "gm610_linux"
         ];
       };
+      edns = {
+        enable = true;
+        ipv6 = true;
+      };
+    };
+    programs.sops = {
+      enable = true;
+      file = ./secrets.yaml;
+    };
+
+    common.linux = {
+      enable = true;
+
+      networking = {
+        hostname = "mtnPC";
+        networks = {
+          "10-wired" = {
+            match = "enp*";
+            isRequired = true;
+          };
+          "20-wireless".match = "wlan*";
+        };
+        dnsServers = [ "127.0.0.1" ];
+      };
+
+      username = "minhtung0404";
     };
   };
+
+  sops.age.keyFile = "/home/minhtung0404/.config/sops/age/keys.txt";
 
   # mounting
   fileSystems = {

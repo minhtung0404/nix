@@ -3,9 +3,15 @@
 keys:
   - &mba_minhtung0404 age13dtrv5nadfqvp43e97hh0d23vyzd3qgkqpzn7f0mtm4j5shkkg4swa85sh
   - &mba age1xq7sqcawstlz7ygmsheap6nv0efransz27l94sqwdrjntvnvrp5sef5t9j
+  - &mtn_home age1tm40e5ntevztvqxu55trmcw6d3ua3eh98hmryrum9unsmkf9vepqx0ufk6
 creation_rules:
   - path_regex: hosts/macM1/secrets.yaml$
     key_groups:
     - age:
       - *mba_minhtung0404
       - *mba
+  - path_regex: hosts/mtn-home/secrets.yaml$
+    key_groups:
+    - age:
+      - *mtn_home
+      - &mba_minhtung0404
