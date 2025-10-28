@@ -18,7 +18,7 @@
       ".direnv"
       ".vscode"
     ];
-    extraConfig = {
+    settings = {
       init = {
         defaultBranch = "main";
       };

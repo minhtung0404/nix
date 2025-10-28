@@ -60,9 +60,9 @@ in
       config = {
         theme = "GitHub";
       };
-      extraPackages = with pkgs.bat-extras; [
-        batgrep
-      ];
+      # extraPackages = with pkgs.bat-extras; [
+      #   batgrep
+      # ];
     };
 
     programs.eza.enable = true;
