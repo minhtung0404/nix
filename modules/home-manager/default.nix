@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   pkgs,
   lib,
   ...
@@ -21,7 +20,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.stateVersion = "24.11";
+    home.stateVersion = "25.11";
     programs.home-manager.enable = true;
 
     home.packages = with pkgs; [

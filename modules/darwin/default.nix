@@ -2,10 +2,6 @@
   config,
   inputs,
   lib,
-  myLib,
-  overlays,
-  pkgs,
-  self,
   ...
 }:
 {
@@ -14,24 +10,9 @@
     ../shared/services/kanata/darwin.nix
     inputs.home-manager.darwinModules.home-manager
     {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.backupFileExtension = "backup";
       home-manager.sharedModules = [
-        self.homeManagerModules.default
         ../home-manager/darwin
-        {
-          home.packages = with pkgs; [ home-manager ];
-        }
       ];
-      home-manager.extraSpecialArgs = {
-        inherit
-          self
-          inputs
-          myLib
-          overlays
-          ;
-      };
     }
     inputs.nix-homebrew.darwinModules.nix-homebrew
     {

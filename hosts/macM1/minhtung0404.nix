@@ -16,7 +16,6 @@ in
 
     username = user;
     programs = {
-      my-librewolf.enable = true;
       my-zenbrowser.enable = true;
       my-dock = {
         enable = true;

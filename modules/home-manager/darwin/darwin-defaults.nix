@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   ...
@@ -62,11 +61,6 @@
         hitoolbox.AppleFnUsageType = "Change Input Source";
 
         spaces.spans-displays = false;
-      };
-
-      linkApps = {
-        enable = true;
-        directory = "Applications/Home Manager Apps";
       };
     };
   };

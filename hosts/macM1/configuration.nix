@@ -1,10 +1,5 @@
 {
-  self,
-  inputs,
-  outputs,
   pkgs,
-  myLib,
-  overlays,
   config,
   ...
 }:

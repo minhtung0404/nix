@@ -1,13 +1,10 @@
 {
-  inputs,
   config,
   pkgs,
   lib,
-  myLib,
   ...
 }:
 let
-  user = config.mtn.username;
   cfg = config.mtn.hm;
 in
 {

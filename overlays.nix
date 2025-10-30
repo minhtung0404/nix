@@ -13,5 +13,4 @@ in
   overlay-packages
   inputs.nur.overlays.default
   inputs.mtn-kakoune.overlays.default
-  inputs.niri.overlays.niri
 ]
