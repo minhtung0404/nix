@@ -23,10 +23,8 @@ in
       my-dock = {
         enable = true;
         apps = [
-          "${config.programs.zen-browser.finalPackage}/Applications/Zen Browser (Beta).app/"
-          "/System/Applications/Mail.app/"
-          "/System/Volumes/Data/Applications/VeraCrypt.app/"
-          "${pkgs.obsidian}/Applications/Obsidian.app/"
+          "${home}/Applications/Home Manager Apps/Zen Browser (Beta).app/"
+          "${home}/Applications/Home Manager Apps/Obsidian.app/"
         ];
       };
     };
