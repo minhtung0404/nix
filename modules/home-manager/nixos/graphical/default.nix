@@ -125,9 +125,7 @@ in
         mpv # for anki
         anki-bin
 
-        # Chat stuff
-        tdesktop
-        whatsapp-for-linux
+        wasistlos
         zoom-us
 
         ## CLI stuff

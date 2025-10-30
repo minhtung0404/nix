@@ -1,4 +1,5 @@
 {
+  self,
   config,
   inputs,
   lib,
@@ -16,7 +17,7 @@ in
     inputs.home-manager.nixosModules.home-manager
     {
       home-manager.sharedModules = [
-        self.homeManagerModules.default
+        ../home-manager/nixos
       ];
     }
     inputs.sops-nix.nixosModules.sops

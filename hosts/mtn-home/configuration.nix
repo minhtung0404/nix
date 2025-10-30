@@ -178,8 +178,8 @@
   users.users.minhtung0404 = {
     isNormalUser = true;
     extraGroups = [
-      "networkmanager"
       "wheel"
+      "deluge"
     ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
