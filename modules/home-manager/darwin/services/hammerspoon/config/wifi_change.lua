@@ -2,7 +2,7 @@ hs.location.get()
 
 -- local log = hs.logger.new("wifi_change", "info")
 
-local ssid = {"Livebox-9C80", "akamatsu1274"}
+local ssid = {"Supersonic", "akamatsu1274"}
 
 function is_home(list, str)
   for _, value in ipairs(list) do
