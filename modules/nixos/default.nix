@@ -82,6 +82,9 @@ in
   config = mkIf cfg.enable {
     nixpkgs.overlays = [ inputs.niri.overlays.niri ];
     programs.niri.enable = true;
+    programs.niri.package = pkgs.niri-stable.override {
+      libdisplay-info = pkgs.libdisplay-info_0_2;
+    };
 
     services.udisks2.enable = true;
 
