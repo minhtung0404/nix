@@ -66,10 +66,19 @@
         "users"
         "uid=1001"
         "gid=100"
-        "umask=0022"
+        "umask=0000"
       ];
       neededForBoot = false;
     };
+  };
+
+  # immich
+  services.immich = {
+    enable = true;
+    port = 2283;
+    mediaLocation = "/mnt/Library/immich/";
+    host = "0.0.0.0";
+    openFirewall = true;
   };
 
   # jellyfin
