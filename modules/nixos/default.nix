@@ -14,6 +14,7 @@ in
   imports = [
     ../shared
     ../shared/services/kanata/linux.nix
+    ../shared/services/edns/linux.nix
     inputs.home-manager.nixosModules.home-manager
     {
       home-manager.sharedModules = [

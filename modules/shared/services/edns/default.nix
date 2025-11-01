@@ -10,9 +10,6 @@ let
   cfg = config.mtn.services.edns;
 in
 {
-  imports = [
-    ./linux.nix
-  ];
   options.mtn.services.edns = {
     enable = mkEnableOption "Enable encrypted DNS";
     ipv6 = mkEnableOption "Enable ipv6";
