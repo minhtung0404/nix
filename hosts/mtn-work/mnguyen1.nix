@@ -30,6 +30,7 @@ in
 
       startup = [
         pkgs.mattermost-desktop
+        config.mtn.linux.graphical.defaults.webBrowser.package
       ];
 
       defaults = {
