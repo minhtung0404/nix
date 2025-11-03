@@ -247,6 +247,7 @@ in
             { app-id = "vesktop"; }
 
             { title = "Slack"; }
+            { app-id = "Mattermost"; }
           ];
         }
         {

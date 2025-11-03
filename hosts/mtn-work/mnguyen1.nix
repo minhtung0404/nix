@@ -27,6 +27,11 @@ in
     linux.graphical = {
       type = "wayland";
       wallpaper = ../../images/kuriyama_mirai.png;
+
+      startup = [
+        pkgs.mattermost-desktop
+      ];
+
       defaults = {
         webBrowser = {
           package = config.programs.zen-browser.finalPackage;
@@ -42,5 +47,6 @@ in
     texlive.combined.scheme-full
     bibtool
     sops
+    mattermost-desktop
   ];
 }
