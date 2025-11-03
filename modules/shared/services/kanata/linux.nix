@@ -34,9 +34,7 @@ in
             ${catString}
           '';
         };
-        argument = lib.strings.concatMapStrings (name: ''
-          -c ${kanataConfig}/${name}.kbd
-        '') cfg.configFile;
+        argument = lib.strings.concatMapStrings (name: "-c ${kanataConfig}/${name}.kbd ") cfg.configFile;
       in
       {
         description = "Service for kanata keyboard";

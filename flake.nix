@@ -62,6 +62,7 @@
 
       nixosConfigurations = {
         "mtnPC" = mkNixos "x86_64-linux" ./hosts/mtn-home/configuration.nix;
+        "mtnWork" = mkNixos "x86_64-linux" ./hosts/mtn-work/configuration.nix;
       };
       darwinConfigurations = {
         "MacAir-PirateKing" = mkDarwin system ./hosts/macM1/configuration.nix;
