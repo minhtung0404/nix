@@ -81,10 +81,32 @@ in
   };
 
   config = mkIf cfg.enable {
+    # niri
     nixpkgs.overlays = [ inputs.niri.overlays.niri ];
     programs.niri.enable = true;
     programs.niri.package = pkgs.niri-stable.override {
       libdisplay-info = pkgs.libdisplay-info_0_2;
+    };
+
+    # battery
+    services.tlp = {
+      enable = true;
+      settings = {
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+
+        CPU_MIN_PERF_ON_AC = 0;
+        CPU_MAX_PERF_ON_AC = 100;
+        CPU_MIN_PERF_ON_BAT = 0;
+        CPU_MAX_PERF_ON_BAT = 20;
+
+        #Optional helps save long term battery health
+        START_CHARGE_THRESH_BAT0 = 40; # 40 and below it starts to charge
+        STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+      };
     };
 
     services.udisks2.enable = true;
@@ -108,13 +130,16 @@ in
       networkConfig.DHCP = "yes";
       linkConfig.RequiredForOnline = if cfg.isRequired then "yes" else "no";
     }) cfg.networking.networks;
+
     # Leave DNS to systemd-resolved
     services.resolved.enable = true;
     services.resolved.domains = cfg.networking.dnsServers;
     services.resolved.fallbackDns = cfg.networking.dnsServers;
+
     # Firewall: only open to SSH now
     networking.firewall.allowedTCPPorts = [ 22 ];
     networking.firewall.allowedUDPPorts = [ 22 ];
+
     # Network namespaces management
     systemd.services."netns@" = {
       description = "Network namespace %I";
@@ -125,6 +150,28 @@ in
         ExecStart = "${pkgs.iproute2}/bin/ip netns add %I";
         ExecStop = "${pkgs.iproute2}/bin/ip netns del %I";
       };
+    };
+    # default settings
+
+    # Use the systemd-boot EFI boot loader.
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+
+    # bluetooth
+    services.blueman.enable = true;
+    hardware.bluetooth.enable = true;
+    services.dbus.packages = [ pkgs.bluez ];
+
+    # Set your time zone.
+    time.timeZone = "Europe/Paris";
+
+    # Enable the X11 windowing system.
+    services.xserver.enable = true;
+
+    # Enable the GNOME Desktop Environment.
+    services.displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
     };
   };
 }
