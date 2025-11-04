@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   ...
 }:
 
@@ -25,6 +26,9 @@
         enable = true;
         ipv6 = true;
       };
+      my-gdrive = {
+        enable = true;
+      };
     };
     programs.sops = {
       enable = true;
@@ -48,6 +52,10 @@
 
       username = "mnguyen1";
     };
+  };
+
+  sops.secrets."veracrypt/drive" = {
+    owner = config.users.users.mnguyen1.name;
   };
 
   networking.hostName = "mtnWork"; # Define your hostname.
