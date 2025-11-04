@@ -251,6 +251,13 @@ in
           ];
         }
         {
+          open-on-workspace = "notes";
+          open-maximized = true;
+          matches = [
+            { app-id = "obsidian"; }
+          ];
+        }
+        {
           open-on-workspace = "mail";
           open-maximized = true;
           matches = [
