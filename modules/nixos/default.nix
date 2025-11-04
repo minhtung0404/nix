@@ -12,6 +12,7 @@ let
 in
 {
   imports = [
+    ./services
     ../shared
     ../shared/services/kanata/linux.nix
     ../shared/services/edns/linux.nix
@@ -76,7 +77,7 @@ in
     username = mkOption {
       type = types.str;
       description = "The linux username";
-      default = "nki";
+      default = "minhtung0404";
     };
   };
 
@@ -87,6 +88,9 @@ in
     programs.niri.package = pkgs.niri-stable.override {
       libdisplay-info = pkgs.libdisplay-info_0_2;
     };
+
+    # openssh
+    services.openssh.enable = true;
 
     # battery
     services.tlp = {
