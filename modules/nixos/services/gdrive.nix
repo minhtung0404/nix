@@ -18,7 +18,7 @@ in
     systemd.user.services.rclone-sync = {
       description = "Sync Google Drive using rclone";
       serviceConfig = {
-        ExecStart = "${pkgs.rclone}/bin/rclone sync google-drive:encrypted ~/Documents/encrypted/ --progress";
+        ExecStart = "${pkgs.rclone}/bin/rclone sync google-drive:encrypted /home/${config.mtn.common.linux.username}/Documents/encrypted/ --progress";
         Restart = "on-failure";
       };
       wantedBy = [ "default.target" ];
