@@ -59,8 +59,19 @@
     };
   };
 
-  sops.secrets."veracrypt/drive" = {
-    owner = config.users.users.minhtung0404.name;
+  sops.secrets = {
+    "veracrypt/drive" = {
+      owner = config.users.users.minhtung0404.name;
+    };
+    "rclone-crypt/obscured-passwd1" = {
+      owner = config.users.users.minhtung0404.name;
+    };
+    "rclone-crypt/obscured-passwd2" = {
+      owner = config.users.users.minhtung0404.name;
+    };
+    "rclone-crypt/token" = {
+      owner = config.users.users.minhtung0404.name;
+    };
   };
 
   # mounting

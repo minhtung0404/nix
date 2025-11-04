@@ -15,71 +15,45 @@ in
     environment.systemPackages = with pkgs; [ rclone ];
 
     # Optional: create a systemd service to sync automatically
-    # systemd.user.services.rclone-sync = {
-    #   description = "Sync Google Drive using rclone";
-    #   serviceConfig = {
-    #     ExecStart = "${pkgs.rclone}/bin/rclone sync google-drive:encrypted /home/${config.mtn.common.linux.username}/Documents/encrypted/ --progress";
-    #     Restart = "on-failure";
-    #   };
-    #   wantedBy = [ "default.target" ];
-    # };
+    systemd.user.services.rclone-sync = {
+      description = "Sync Google Drive using rclone";
+      serviceConfig = {
+        ExecStart = "${pkgs.rclone}/bin/rclone bisync crypt: %h/Documents/encrypted/ --resync --check-access --fast-list --drive-skip-gdocs --create-empty-src-dirs --verbose";
+        Restart = "on-failure";
+      };
+      wantedBy = [ "default.target" ];
+    };
 
-    # systemd.user.timers.rclone-sync = {
-    #   description = "Periodic rclone sync";
-    #   wantedBy = [ "timers.target" ];
-    #   timerConfig = {
-    #     OnCalendar = "*:0/10";
-    #     Persistent = true;
-    #   };
-    # };
+    systemd.user.timers.rclone-sync = {
+      description = "Periodic rclone sync";
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = "*:0/10";
+        Persistent = true;
+      };
+    };
 
-    home-manager.users.${config.mtn.common.linux.username}.programs.fish = {
-      functions = {
-        veramount = {
-          body = ''
-            function __help
-              echo "Usage: veramount [OPTIONS] NAME"
-              echo
-              echo "Positional arguments:"
-              echo "  NAME          Required. The name of the disk to mount"
-              echo
-              echo "Options"
-              echo "  -u, --dismount Unmount the disk"
-              echo "  -m, --mount    Mount the disk"
-            end
-
-            argparse -n=veramount -x dismount,mount -N 1 'd/dismount' 'm/mount' 'h/help' -- $argv
-            or return 1
-
-            if set -q _flag_help
-              __help
-              return 0
-            end
-
-            if test (count $argv) -lt 1
-              __help
-              return 1
-            end
-
-            set disk $argv[1]
-
-            switch $disk
-              case "drive"
-                set src ~/Documents/encrypted/drive_encrypted
-                set dst /mnt/DRIVE
-                set pwd ${config.sops.secrets."veracrypt/drive".path}
-                set slt 1
-              case "*"
-                __help
-                return 1
-            end
-
-            if set -q _flag_dismount
-              ${lib.getExe pkgs.veracrypt} --text --dismount $src
-            else
-              ${lib.getExe pkgs.veracrypt} --text --mount $src $dst --password (cat $pwd) --pim 0 --keyfiles "" --protect-hidden no --slot $slt --verbose
-            end
-          '';
+    home-manager.users.${config.mtn.common.linux.username}.programs.rclone = {
+      enable = true;
+      remotes = {
+        google-drive = {
+          config = {
+            type = "drive";
+            scope = "drive";
+          };
+          secrets = {
+            token = config.sops.secrets."rclone-crypt/token".path;
+          };
+        };
+        crypt = {
+          config = {
+            type = "crypt";
+            remote = "google-drive:encrypted";
+          };
+          secrets = {
+            password = config.sops.secrets."rclone-crypt/obscured-passwd1".path;
+            password2 = config.sops.secrets."rclone-crypt/obscured-passwd2".path;
+          };
         };
       };
     };
