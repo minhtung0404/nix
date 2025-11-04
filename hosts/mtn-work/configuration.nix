@@ -58,10 +58,13 @@
     "veracrypt/drive" = {
       owner = config.users.users.mnguyen1.name;
     };
-    "rclone-crypt/passwd1" = {
+    "rclone-crypt/obscured-passwd1" = {
       owner = config.users.users.mnguyen1.name;
     };
-    "rclone-crypt/passwd2" = {
+    "rclone-crypt/obscured-passwd2" = {
+      owner = config.users.users.mnguyen1.name;
+    };
+    "rclone-crypt/token" = {
       owner = config.users.users.mnguyen1.name;
     };
   };
