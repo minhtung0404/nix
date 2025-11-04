@@ -122,7 +122,7 @@ in
           command = [
             "${lib.getExe pkgs.swaybg}"
             "-i"
-            (toString wallpaper)
+            "${wallpaper}"
             "-m"
             "fill"
           ];
@@ -131,7 +131,7 @@ in
           command = [
             "${lib.getExe pkgs.swaybg}"
             "-i"
-            (toString blurred-wallpaper)
+            "${blurred-wallpaper}"
             "-m"
             "fill"
             "-n"
