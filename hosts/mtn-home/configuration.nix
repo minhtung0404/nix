@@ -59,7 +59,6 @@
     };
   };
 
-  sops.age.keyFile = "/home/minhtung0404/.config/sops/age/keys.txt";
   sops.secrets."veracrypt/drive" = {
     owner = config.users.users.minhtung0404.name;
   };

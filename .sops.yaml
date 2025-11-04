@@ -3,7 +3,7 @@
 keys:
   - &mba_minhtung0404 age13dtrv5nadfqvp43e97hh0d23vyzd3qgkqpzn7f0mtm4j5shkkg4swa85sh
   - &mba age1xq7sqcawstlz7ygmsheap6nv0efransz27l94sqwdrjntvnvrp5sef5t9j
-  - &mtn_home age1tm40e5ntevztvqxu55trmcw6d3ua3eh98hmryrum9unsmkf9vepqx0ufk6
+  - &mtn_home age17ckhlhhqdxegvpwlghztrcghn26ty4kl5wdruzk8r88e8392kqsqq20dma
   - &mtn_work age14j6hz6dzx8mjyvtzdc7he4qcjr482gwzsfmt5ccuthwgg82r944q5llcx2
 creation_rules:
   - path_regex: hosts/macM1/secrets.yaml$
