@@ -54,8 +54,16 @@
     };
   };
 
-  sops.secrets."veracrypt/drive" = {
-    owner = config.users.users.mnguyen1.name;
+  sops.secrets = {
+    "veracrypt/drive" = {
+      owner = config.users.users.mnguyen1.name;
+    };
+    "rclone-crypt/passwd1" = {
+      owner = config.users.users.mnguyen1.name;
+    };
+    "rclone-crypt/passwd2" = {
+      owner = config.users.users.mnguyen1.name;
+    };
   };
 
   networking.hostName = "mtnWork"; # Define your hostname.
