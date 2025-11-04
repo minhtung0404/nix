@@ -15,23 +15,23 @@ in
     environment.systemPackages = with pkgs; [ rclone ];
 
     # Optional: create a systemd service to sync automatically
-    systemd.user.services.rclone-sync = {
-      description = "Sync Google Drive using rclone";
-      serviceConfig = {
-        ExecStart = "${pkgs.rclone}/bin/rclone sync google-drive:encrypted /home/${config.mtn.common.linux.username}/Documents/encrypted/ --progress";
-        Restart = "on-failure";
-      };
-      wantedBy = [ "default.target" ];
-    };
+    # systemd.user.services.rclone-sync = {
+    #   description = "Sync Google Drive using rclone";
+    #   serviceConfig = {
+    #     ExecStart = "${pkgs.rclone}/bin/rclone sync google-drive:encrypted /home/${config.mtn.common.linux.username}/Documents/encrypted/ --progress";
+    #     Restart = "on-failure";
+    #   };
+    #   wantedBy = [ "default.target" ];
+    # };
 
-    systemd.user.timers.rclone-sync = {
-      description = "Periodic rclone sync";
-      wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnCalendar = "*:0/10";
-        Persistent = true;
-      };
-    };
+    # systemd.user.timers.rclone-sync = {
+    #   description = "Periodic rclone sync";
+    #   wantedBy = [ "timers.target" ];
+    #   timerConfig = {
+    #     OnCalendar = "*:0/10";
+    #     Persistent = true;
+    #   };
+    # };
 
     home-manager.users.${config.mtn.common.linux.username}.programs.fish = {
       functions = {
