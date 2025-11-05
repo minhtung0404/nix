@@ -147,8 +147,8 @@ in
       }
       {
         id = "7";
-        name = "7";
-        icon = "";
+        name = "other";
+        icon = "🔣";
         monitor = "secondary";
       }
     ];

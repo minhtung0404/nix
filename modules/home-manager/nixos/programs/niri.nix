@@ -100,7 +100,23 @@ in
         max-scroll-amount = "0%";
       };
 
-      outputs."eDP-1".scale = 1.0;
+      outputs = {
+        "HDMI-A-1" = {
+          scale = 1.0;
+          position = {
+            x = 0;
+            y = 0;
+          };
+          focus-at-startup = true;
+        };
+        "eDP-1" = {
+          scale = 1.0;
+          position = {
+            x = 1920;
+            y = 0;
+          };
+        };
+      };
 
       # outputs =
       #   let
@@ -191,6 +207,7 @@ in
               name = w.id;
               value = {
                 name = "${w.name}";
+                open-on-output = if w.monitor == "secondary" then "eDP-1" else "HDMI-A-1";
               };
             }) config.mtn.workspaces
           );
@@ -456,29 +473,16 @@ in
           "Mod+Shift+E".action = quit;
         }
         // (builtins.listToAttrs (
-          builtins.concatMap
-            (id: [
-              {
-                name = "Mod+${toString (if id == 10 then 0 else id)}";
-                value.action = focus-workspace id;
-              }
-              {
-                name = "Mod+Shift+${toString (if id == 10 then 0 else id)}";
-                value.action = move-column-to-workspace id;
-              }
-            ])
-            [
-              1
-              2
-              3
-              4
-              5
-              6
-              7
-              8
-              9
-              10
-            ]
+          builtins.concatMap (w: [
+            {
+              name = "Mod+${w.id}";
+              value.action = focus-workspace w.name;
+            }
+            {
+              name = "Mod+Shift+${w.id}";
+              value.action = move-column-to-workspace w.name;
+            }
+          ]) config.mtn.workspaces
         ));
     };
   };
