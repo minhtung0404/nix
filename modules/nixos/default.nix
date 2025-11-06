@@ -18,9 +18,14 @@ in
     ../shared/services/edns/linux.nix
     inputs.home-manager.nixosModules.home-manager
     {
-      home-manager.sharedModules = [
-        ../home-manager/nixos
-      ];
+      home-manager = {
+        sharedModules = [
+          ../home-manager/nixos
+        ];
+        extraSpecialArgs = {
+          sops = config.sops;
+        };
+      };
     }
     inputs.sops-nix.nixosModules.sops
     inputs.niri.nixosModules.niri

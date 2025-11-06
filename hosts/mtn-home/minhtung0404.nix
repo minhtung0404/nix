@@ -20,6 +20,9 @@ in
         enableMpd = true;
       };
     };
+    services = {
+      my-gdrive.enable = true;
+    };
 
     linux.graphical = {
       type = "wayland";
