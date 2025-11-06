@@ -79,6 +79,7 @@
     "/mnt/Library" = {
       device = "/dev/disk/by-uuid/2A85-E011";
       fsType = "exfat";
+      noCheck = true;
       options = [
         "users"
         "uid=1001"
