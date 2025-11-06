@@ -24,6 +24,10 @@ in
       };
     };
 
+    services = {
+      my-gdrive.enable = true;
+    };
+
     linux.graphical = {
       type = "wayland";
       wallpaper = ../../images/kuriyama_mirai.png;

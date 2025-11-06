@@ -26,9 +26,6 @@
         enable = true;
         ipv6 = true;
       };
-      my-gdrive = {
-        enable = true;
-      };
     };
     programs.sops = {
       enable = true;

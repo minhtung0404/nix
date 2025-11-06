@@ -12,7 +12,6 @@ let
 in
 {
   imports = [
-    ./services
     ../shared
     ../shared/services/kanata/linux.nix
     ../shared/services/edns/linux.nix
