@@ -37,7 +37,6 @@
     ];
 
     masApps = {
-      "Messenger" = 1480068668;
       "Bitwarden" = 1352778147;
     };
 
