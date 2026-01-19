@@ -1,9 +1,10 @@
 {
   pkgs,
-  config,
   ...
 }:
-
+let
+  username = "mnguyen1";
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -47,22 +48,25 @@
         dnsServers = [ "127.0.0.1" ];
       };
 
-      username = "mnguyen1";
+      username = username;
     };
   };
 
   sops.secrets = {
     "veracrypt/drive" = {
-      owner = config.users.users.mnguyen1.name;
+      owner = username;
     };
     "rclone-crypt/obscured-passwd1" = {
-      owner = config.users.users.mnguyen1.name;
+      owner = username;
+      sopsFile = ../secrets/rclone.yaml;
     };
     "rclone-crypt/obscured-passwd2" = {
-      owner = config.users.users.mnguyen1.name;
+      owner = username;
+      sopsFile = ../secrets/rclone.yaml;
     };
     "rclone-crypt/token" = {
-      owner = config.users.users.mnguyen1.name;
+      owner = username;
+      sopsFile = ../secrets/rclone.yaml;
     };
   };
 
