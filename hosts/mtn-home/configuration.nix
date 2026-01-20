@@ -7,7 +7,9 @@
   config,
   ...
 }:
-
+let
+  username = "minhtung0404";
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -52,22 +54,26 @@
         dnsServers = [ "127.0.0.1" ];
       };
 
-      username = "minhtung0404";
+      username = username;
     };
   };
 
   sops.secrets = {
     "veracrypt/drive" = {
-      owner = config.users.users.minhtung0404.name;
+      owner = username;
+      sopsFile = ../secrets/veracrypt.yaml;
     };
     "rclone-crypt/obscured-passwd1" = {
-      owner = config.users.users.minhtung0404.name;
+      owner = username;
+      sopsFile = ../secrets/rclone.yaml;
     };
     "rclone-crypt/obscured-passwd2" = {
-      owner = config.users.users.minhtung0404.name;
+      owner = username;
+      sopsFile = ../secrets/rclone.yaml;
     };
     "rclone-crypt/token" = {
-      owner = config.users.users.minhtung0404.name;
+      owner = username;
+      sopsFile = ../secrets/rclone.yaml;
     };
   };
 
