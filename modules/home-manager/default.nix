@@ -33,7 +33,7 @@ in
       btop
       lazygit
       nerd-fonts.fira-code
-      nixfmt-rfc-style
+      nixfmt
       obsidian
       podman
       ripgrep

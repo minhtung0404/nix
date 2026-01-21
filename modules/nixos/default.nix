@@ -141,8 +141,10 @@ in
 
     # Leave DNS to systemd-resolved
     services.resolved.enable = true;
-    services.resolved.domains = cfg.networking.dnsServers;
-    services.resolved.fallbackDns = cfg.networking.dnsServers;
+    services.resolved.settings.Resolve = {
+      Domains = cfg.networking.dnsServers;
+      FallbackDNS = cfg.networking.dnsServers;
+    };
 
     # Firewall: only open to SSH now
     networking.firewall.allowedTCPPorts = [ 22 ];
