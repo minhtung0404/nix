@@ -125,12 +125,17 @@ in
     networking.useNetworkd = true;
     systemd.network.wait-online.enable = false;
     networking.hostName = cfg.networking.hostname;
-    networking.wireless.iwd.enable = true;
-    networking.wireless.iwd.settings = {
-      General.EnableNetworkConfiguration = true;
-      Network = {
-        UseDNS = false;
-        IPv6AcceptRA = false;
+    networking.wireless.iwd = {
+      enable = true;
+      settings = {
+        General = {
+          EnableNetworkConfiguration = false;
+          DisablePowerSave = true;
+        };
+        Network = {
+          UseDNS = false;
+          IPv6AcceptRA = false;
+        };
       };
     };
     systemd.network.networks = builtins.mapAttrs (name: cfg: {
