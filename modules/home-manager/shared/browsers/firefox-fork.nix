@@ -96,7 +96,7 @@
         packages = with pkgs.nur.repos.rycee.firefox-addons; [
           ublock-origin
           vimium
-          auto-tab-discard
+          # auto-tab-discard
           bitwarden
           multi-account-containers
         ];
