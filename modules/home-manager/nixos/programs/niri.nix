@@ -29,6 +29,21 @@ in
       description = "Enable laptop options";
     };
 
+    outputs = lib.mkOption {
+      type = lib.types.attrs;
+      default = { };
+      description = "Monitor arrangement";
+    };
+
+    monitors = lib.mkOption {
+      type = lib.types.submodule {
+        options = {
+          main = lib.mkOption { type = lib.types.str; };
+          secondary = lib.mkOption { type = lib.types.str; };
+        };
+      };
+    };
+
     lock-command = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "The command to lock the screen";
@@ -100,23 +115,7 @@ in
         max-scroll-amount = "0%";
       };
 
-      outputs = {
-        "HDMI-A-1" = {
-          scale = 1.0;
-          position = {
-            x = 0;
-            y = 0;
-          };
-          focus-at-startup = true;
-        };
-        "eDP-1" = {
-          scale = 1.0;
-          position = {
-            x = 1920;
-            y = 0;
-          };
-        };
-      };
+      outputs = cfg.outputs;
 
       # outputs =
       #   let
@@ -207,7 +206,7 @@ in
               name = w.id;
               value = {
                 name = "${w.name}";
-                open-on-output = if w.monitor == "secondary" then "eDP-1" else "HDMI-A-1";
+                open-on-output = if w.monitor == "secondary" then cfg.monitors.secondary else cfg.monitors.main;
               };
             }) config.mtn.workspaces
           );

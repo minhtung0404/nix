@@ -16,6 +16,27 @@ in
       my-niri = {
         enable = true;
         enableLaptop = true;
+        monitors = {
+          main = "HDMI-A-1";
+          secondary = "eDP-1";
+        };
+        outputs = {
+          "HDMI-A-1" = {
+            scale = 1.0;
+            position = {
+              x = 0;
+              y = 0;
+            };
+            focus-at-startup = true;
+          };
+          "eDP-1" = {
+            scale = 1.0;
+            position = {
+              x = 1920;
+              y = 0;
+            };
+          };
+        };
       };
       my-waybar = {
         enable = true;

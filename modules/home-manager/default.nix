@@ -138,6 +138,7 @@ in
         id = "5";
         name = "chat";
         icon = "💬";
+        monitor = "secondary";
 
       }
       {
