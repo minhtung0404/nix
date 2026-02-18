@@ -121,6 +121,7 @@ in
 
         zotero
         libreoffice
+        onlyoffice-desktopeditors
 
         mpv # for anki
         anki-bin
@@ -209,7 +210,7 @@ in
 
       # Text
       "text/plain" = [ "kakoune.desktop" ];
-      "application/pdf" = [ "okularApplication_pdf.desktop" ];
+      "application/pdf" = [ "org.gnome.Evince.desktop" ];
 
       # Files
       "inode/directory" = [ "dolphin.desktop" ];
@@ -226,9 +227,9 @@ in
     xdg.desktopEntries."kakoune" = {
       name = "Kakoune";
       genericName = "Text Editor";
-      exec = ''${lib.getExe pkgs.kitty} --class kitty-float -o initial_window_width=150c -o initial_window_height=40c ${pkgs.writeShellScript "editor.sh" ''
+      exec = "${lib.getExe pkgs.kitty} --class kitty-float -o initial_window_width=150c -o initial_window_height=40c ${pkgs.writeShellScript "editor.sh" ''
         $EDITOR "$@"
-      ''} %U'';
+      ''} %U";
       # exec = "kakoune %U";
       terminal = false;
       mimeType = [ "text/plain" ];
