@@ -148,6 +148,8 @@ in
     '';
   };
 
+  virtualisation.waydroid.enable = true;
+
   networking.hostName = "mtnPC"; # Define your hostname.
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
