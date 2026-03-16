@@ -15,6 +15,7 @@ in
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./deluge.nix
+    ./rgb.nix
     {
       home-manager.users.minhtung0404 = import ./minhtung0404.nix;
     }
