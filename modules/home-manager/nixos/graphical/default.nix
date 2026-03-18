@@ -210,7 +210,7 @@ in
 
       # Text
       "text/plain" = [ "kakoune.desktop" ];
-      "application/pdf" = [ "org.gnome.Evince.desktop" ];
+      "application/pdf" = [ "org.kde.okular.desktop" ];
 
       # Files
       "inode/directory" = [ "dolphin.desktop" ];
