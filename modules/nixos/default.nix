@@ -9,9 +9,91 @@
 with lib;
 let
   cfg = config.mtn.common.linux;
+  # Modules
+  modules = {
+    ios =
+      { config, pkgs, ... }:
+      mkIf cfg.enable {
+        services.usbmuxd.enable = true;
+        services.usbmuxd.package = pkgs.usbmuxd2;
+        environment.systemPackages = with pkgs; [
+          libimobiledevice
+          ifuse
+        ];
+        users.users.${cfg.username}.extraGroups = [ config.services.usbmuxd.group ];
+        systemd.network.networks."05-ios-tethering" = {
+          matchConfig.Driver = "ipheth";
+          networkConfig.DHCP = "yes";
+          linkConfig.RequiredForOnline = "no";
+        };
+      };
+
+    graphics =
+      { config, pkgs, ... }:
+      {
+        hardware.graphics.enable = true;
+        hardware.graphics.enable32Bit = true;
+        # Monitor backlight
+        hardware.i2c.enable = true;
+        services.ddccontrol.enable = true;
+        environment.systemPackages = [
+          pkgs.luminance
+          pkgs.ddcutil
+        ];
+      };
+
+    wlr =
+      { lib, config, ... }:
+      mkIf cfg.enable {
+        # swaync disable notifications on screencast
+        xdg.portal.wlr.settings.screencast = {
+          exec_before = ''which swaync-client && swaync-client --inhibitor-add "xdg-desktop-portal-wlr" || true'';
+          exec_after = ''which swaync-client && swaync-client --inhibitor-remove "xdg-desktop-portal-wlr" || true'';
+        };
+
+        # Niri stuff
+        # https://github.com/sodiboo/niri-flake/blob/main/docs.md
+        programs.niri.enable = true;
+        # programs.niri.package = pkgs.niri-stable;
+        # Override gnome-keyring disabling
+        services.gnome.gnome-keyring.enable = lib.mkForce false;
+        # niri
+        nixpkgs.overlays = [ inputs.niri.overlays.niri ];
+        programs.niri.package = pkgs.niri-stable.override {
+          libdisplay-info = pkgs.libdisplay-info_0_2;
+        };
+      };
+
+    kwallet =
+      { pkgs, lib, ... }:
+      mkIf cfg.enable {
+        environment.systemPackages = [ pkgs.kdePackages.kwallet ];
+        services.dbus.packages = [ pkgs.kdePackages.kwallet ];
+        xdg.portal = {
+          extraPortals = [ pkgs.kdePackages.kwallet ];
+        };
+      };
+
+    virtualisation =
+      { pkgs, ... }:
+      mkIf cfg.enable {
+        virtualisation.podman = {
+          enable = true;
+          extraPackages = [ pkgs.slirp4netns ];
+          dockerCompat = true;
+          defaultNetwork.settings.dns_enabled = true;
+        };
+
+        virtualisation.oci-containers.backend = "podman";
+
+        virtualisation.virtualbox.host.enable = false;
+        users.extraGroups.vboxusers.members = [ cfg.username ];
+      };
+  };
+
 in
 {
-  imports = [
+  imports = with modules; [
     ../shared
     ../shared/services/kanata/linux.nix
     ../shared/services/edns/linux.nix
@@ -28,6 +110,11 @@ in
     }
     inputs.sops-nix.nixosModules.sops
     inputs.niri.nixosModules.niri
+    ios
+    graphics
+    wlr
+    kwallet
+    virtualisation
   ];
   options.mtn.common.linux = {
     enable = mkOption {
@@ -86,12 +173,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    # niri
-    nixpkgs.overlays = [ inputs.niri.overlays.niri ];
-    programs.niri.enable = true;
-    programs.niri.package = pkgs.niri-stable.override {
-      libdisplay-info = pkgs.libdisplay-info_0_2;
-    };
 
     # openssh
     services.openssh.enable = true;
