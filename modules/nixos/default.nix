@@ -171,132 +171,241 @@ in
       default = "minhtung0404";
     };
   };
-
-  config = mkIf cfg.enable {
-
-    # openssh
-    services.openssh.enable = true;
-
-    # battery
-    services.tlp = {
-      enable = true;
-      settings = {
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-
-        CPU_MIN_PERF_ON_AC = 0;
-        CPU_MAX_PERF_ON_AC = 100;
-        CPU_MIN_PERF_ON_BAT = 0;
-        CPU_MAX_PERF_ON_BAT = 20;
-
-        #Optional helps save long term battery health
-        START_CHARGE_THRESH_BAT0 = 40; # 40 and below it starts to charge
-        STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
-      };
-    };
-
-    services.udisks2.enable = true;
-
-    systemd.network.enable = true;
-    networking.dhcpcd.enable = lib.mkForce false;
-    networking.useDHCP = false;
-    networking.useNetworkd = true;
-    systemd.network.wait-online.enable = false;
-    networking.hostName = cfg.networking.hostname;
-    networking.wireless.iwd = {
-      enable = true;
-      settings = {
-        General = {
-          EnableNetworkConfiguration = false;
-          DisablePowerSave = true;
-        };
-        Network = {
-          UseDNS = false;
-          IPv6AcceptRA = false;
-        };
-      };
-    };
-    systemd.network.networks = builtins.mapAttrs (name: cfg: {
-      matchConfig.Name = cfg.match;
-      networkConfig.DHCP = "yes";
-      linkConfig.RequiredForOnline = if cfg.isRequired then "yes" else "no";
-    }) cfg.networking.networks;
-
-    # Leave DNS to systemd-resolved
-    services.resolved.enable = true;
-    services.resolved.settings.Resolve = {
-      Domains = cfg.networking.dnsServers;
-      FallbackDNS = cfg.networking.dnsServers;
-    };
-
-    # Firewall: only open to SSH now
-    networking.firewall.allowedTCPPorts = [ 22 ];
-    networking.firewall.allowedUDPPorts = [ 22 ];
-
-    # Network namespaces management
-    systemd.services."netns@" = {
-      description = "Network namespace %I";
-      before = [ "network.target" ];
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        ExecStart = "${pkgs.iproute2}/bin/ip netns add %I";
-        ExecStop = "${pkgs.iproute2}/bin/ip netns del %I";
-      };
-    };
-    # Portals
-    xdg.portal = {
-      enable = true;
-      wlr.enable = true;
-      xdgOpenUsePortal = true;
-      # gtk portal needed to make gtk apps happy
-      extraPortals = [
-        pkgs.kdePackages.xdg-desktop-portal-kde
-        pkgs.xdg-desktop-portal-gtk
+  config = mkIf cfg.enable (mkMerge [
+    {
+      # Plasma!
+      services.desktopManager.plasma6.enable = true;
+      environment.systemPackages = with pkgs; [
+        kdePackages.qtwebsockets
       ];
+    }
 
-      config.sway.default = [
-        "wlr"
-        "kde"
-        "kwallet"
-      ];
-      config.niri = {
-        default = [
-          "kde"
-          "gnome"
-          "gtk"
+    {
+      ## Boot Configuration
+      # Set kernel version to latest
+      boot.kernelPackages = mkDefault pkgs.linuxPackages_latest;
+      # Use the systemd-boot EFI boot loader.
+      boot = {
+        loader.timeout = 60;
+        loader.systemd-boot.enable = true;
+        loader.efi.canTouchEfiVariables = true;
+        supportedFilesystems.ntfs = true;
+      };
+      boot.initrd.systemd.enable = builtins.length (builtins.attrNames (cfg.luksDevices)) > 0;
+      # LUKS devices
+      boot.initrd.luks.devices = builtins.mapAttrs (name: path: {
+        device = path;
+        preLVM = true;
+        allowDiscards = true;
+
+        crypttabExtraOpts = [
+          "tpm2-device=auto"
+          "fido2-device=auto"
         ];
-        # "org.freedesktop.impl.portal.Access" = "gtk";
-        # "org.freedesktop.impl.portal.Notification" = "gtk";
-        "org.freedesktop.impl.portal.ScreenCast" = "gnome";
-        "org.freedesktop.impl.portal.Secret" = "kwallet";
-        "org.freedesktop.impl.portal.FileChooser" = "kde";
+      }) cfg.luksDevices;
+
+      ## Hardware-related
+
+      # Firmware stuff
+      services.fwupd.enable = true;
+
+      # Enable sound.
+      services.pipewire = {
+        enable = true;
+        # alsa is optional
+        alsa.enable = true;
+        alsa.support32Bit = true;
+
+        pulse.enable = true;
       };
-    };
-    # default settings
 
-    # Use the systemd-boot EFI boot loader.
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
+      # udev configurations
+      services.udev.packages = with pkgs; [
+        qmk-udev-rules # For keyboards
+      ];
+      # Bluetooth: just enable
+      hardware.bluetooth.enable = true;
+      hardware.bluetooth.package = pkgs.bluez5-experimental; # Why do we need experimental...?
+      hardware.bluetooth.settings.General.Experimental = true;
+      services.blueman.enable = true; # For a GUI
+      # ZRAM
+      zramSwap.enable = true;
 
-    # bluetooth
-    services.blueman.enable = true;
-    hardware.bluetooth.enable = true;
-    services.dbus.packages = [ pkgs.bluez ];
+      # Default packages
+      environment.systemPackages = with pkgs; [
+        kakoune # An editor
+        wget # A simple fetcher
 
-    # Set your time zone.
-    time.timeZone = "Europe/Paris";
+        ## System monitoring tools
+        usbutils # lsusb and friends
+        pciutils # lspci and friends
+        psmisc # killall, pstree, ...
+        lm_sensors # sensors
 
-    # Enable the X11 windowing system.
-    services.xserver.enable = true;
+        ## Security stuff
+        libsForQt5.qtkeychain
 
-    # Enable the GNOME Desktop Environment.
-    services.displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-    };
-  };
+        ## Wayland
+        kdePackages.qtwayland
+        kdePackages.okular
+        rtkit
+      ];
+
+      # Add a reliable terminal
+      programs.fish.enable = true;
+      # AppImages should run
+      programs.appimage = {
+        enable = true;
+        binfmt = true;
+      };
+      # PAM
+      security.pam.services.login.enableKwallet = true;
+      security.pam.services.lightdm.enableKwallet = true;
+      security.pam.services.swaylock = { };
+      # Printers
+      services.printing.enable = true;
+
+      # openssh
+      services.openssh.enable = true;
+
+      # battery
+      # services.tlp = {
+      #   enable = true;
+      #   settings = {
+      #     CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      #     CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+      #     CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      #     CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+
+      #     CPU_MIN_PERF_ON_AC = 0;
+      #     CPU_MAX_PERF_ON_AC = 100;
+      #     CPU_MIN_PERF_ON_BAT = 0;
+      #     CPU_MAX_PERF_ON_BAT = 20;
+
+      #     #Optional helps save long term battery health
+      #     START_CHARGE_THRESH_BAT0 = 40; # 40 and below it starts to charge
+      #     STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+      #   };
+      # };
+
+      # udisks
+      services.udisks2.enable = true;
+
+      ## Network configuration
+      systemd.network.enable = true;
+      systemd.network.wait-online.enable = false;
+      systemd.network.networks = builtins.mapAttrs (name: cfg: {
+        matchConfig.Name = cfg.match;
+        networkConfig.DHCP = "yes";
+        linkConfig.RequiredForOnline = if cfg.isRequired then "yes" else "no";
+      }) cfg.networking.networks;
+
+      networking = {
+        dhcpcd.enable = lib.mkForce false;
+        useDHCP = false;
+        useNetworkd = true;
+        hostName = cfg.networking.hostname;
+        wireless.iwd = {
+          enable = true;
+          settings = {
+            General = {
+              EnableNetworkConfiguration = false;
+              DisablePowerSave = true;
+            };
+            Network = {
+              UseDNS = false;
+              IPv6AcceptRA = false;
+            };
+          };
+        };
+      };
+
+      # Leave DNS to systemd-resolved
+      services.resolved.enable = true;
+      services.resolved.settings.Resolve = {
+        Domains = cfg.networking.dnsServers;
+        FallbackDNS = cfg.networking.dnsServers;
+      };
+
+      # Firewall: only open to SSH now
+      networking.firewall.allowedTCPPorts = [ 22 ];
+      networking.firewall.allowedUDPPorts = [ 22 ];
+
+      # Network namespaces management
+      systemd.services."netns@" = {
+        description = "Network namespace %I";
+        before = [ "network.target" ];
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStart = "${pkgs.iproute2}/bin/ip netns add %I";
+          ExecStop = "${pkgs.iproute2}/bin/ip netns del %I";
+        };
+      };
+
+      # Portals
+      xdg.portal = {
+        enable = true;
+        wlr.enable = true;
+        xdgOpenUsePortal = true;
+        # gtk portal needed to make gtk apps happy
+        extraPortals = [
+          pkgs.kdePackages.xdg-desktop-portal-kde
+          pkgs.xdg-desktop-portal-gtk
+        ];
+
+        config.sway.default = [
+          "wlr"
+          "kde"
+          "kwallet"
+        ];
+        config.niri = {
+          default = [
+            "kde"
+            "gnome"
+            "gtk"
+          ];
+          # "org.freedesktop.impl.portal.Access" = "gtk";
+          # "org.freedesktop.impl.portal.Notification" = "gtk";
+          "org.freedesktop.impl.portal.ScreenCast" = "gnome";
+          "org.freedesktop.impl.portal.Secret" = "kwallet";
+          "org.freedesktop.impl.portal.FileChooser" = "kde";
+        };
+      };
+      # D-Bus
+      services.dbus.packages = with pkgs; [ gcr ];
+
+      ## Environment
+      environment.variables = {
+        # Set default editor
+        EDITOR = "kak";
+        VISUAL = "kak";
+      };
+
+      # default settings
+      # Set your time zone.
+      time.timeZone = "Europe/Paris";
+      # Input methods (only fcitx5 works reliably on Wayland)
+      i18n.inputMethod = {
+        enable = true;
+        type = "fcitx5";
+        fcitx5.waylandFrontend = true;
+        fcitx5.addons = with pkgs; [
+          fcitx5-mozc
+          qt6Packages.fcitx5-unikey
+          fcitx5-gtk
+        ];
+      };
+
+      # Enable the X11 windowing system.
+      services.xserver.enable = true;
+
+      # Enable the GNOME Desktop Environment.
+      services.displayManager.sddm = {
+        enable = true;
+        wayland.enable = true;
+      };
+    }
+  ]);
 }
