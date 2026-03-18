@@ -17,11 +17,11 @@ in
         enable = true;
         enableLaptop = true;
         monitors = {
-          main = "HDMI-A-1";
+          main = "DP-2";
           secondary = "eDP-1";
         };
         outputs = {
-          "HDMI-A-1" = {
+          "DP-2" = {
             scale = 1.0;
             position = {
               x = 0;
