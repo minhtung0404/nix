@@ -72,7 +72,7 @@ in
   home.homeDirectory = home;
   home.packages = with pkgs; [
     texlive.combined.scheme-full
-    # bibtool
+    bibtool
     sops
     mattermost-desktop
   ];
