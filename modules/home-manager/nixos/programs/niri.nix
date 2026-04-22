@@ -271,6 +271,10 @@ in
           open-maximized = true;
           matches = [
             { app-id = "obsidian"; }
+            {
+              app-id = "electron";
+              title = ".*Obsidian.*";
+            }
           ];
         }
         {
