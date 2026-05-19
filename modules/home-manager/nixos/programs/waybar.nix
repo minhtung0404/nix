@@ -312,7 +312,7 @@ in
     lib.mkIf cfg.enable {
       enable = true;
       systemd.enable = true;
-      systemd.target = "sway-session.target";
+      systemd.targets = [ "sway-session.target" ];
       settings = cfg.makeBars barWith;
       style = ''
         * {

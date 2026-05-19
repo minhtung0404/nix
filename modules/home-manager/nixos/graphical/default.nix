@@ -126,7 +126,7 @@ in
         mpv # for anki
         anki-bin
 
-        wasistlos
+        karere
         zoom-us
 
         ## CLI stuff

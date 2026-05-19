@@ -3,28 +3,28 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks = {
+    settings = {
       "*.polytechnique.fr" = {
-        user = "tung.nguyen";
+        User = "tung.nguyen";
       };
       "telecom-sud" = {
-        hostname = "ssh.imtbs-tsp.eu";
-        user = "mnguyen1";
+        HostName = "ssh.imtbs-tsp.eu";
+        User = "mnguyen1";
       };
       "b313-* 3a401-*" = {
-        proxyJump = "telecom-sud";
-        user = "mnguyen1";
+        ProxyJump = "telecom-sud";
+        User = "mnguyen1";
       };
 
       "noname" = {
-        forwardAgent = true;
-        proxyJump = "mnguyen1@157.159.110.170";
-        identityFile = "~/.ssh/id_rsa";
-        hostname = "192.168.1.110";
-        port = 2222;
-        user = "mnguyen1";
+        ForwardAgent = true;
+        ProxyJump = "mnguyen1@157.159.110.170";
+        IdentityFile = "~/.ssh/id_rsa";
+        Hostname = "192.168.1.110";
+        Port = 2222;
+        User = "mnguyen1";
 
-        localForwards = [
+        LocalForward = [
           {
             bind.address = "127.0.0.1";
             bind.port = 9999;
@@ -35,15 +35,15 @@
       };
 
       "bran" = {
-        forwardAgent = true;
-        proxyCommand = "ssh mnguyen1@157.159.110.170 -W %h:%p -o \"StrictHostKeyChecking no\"";
-        user = "mnguyen1";
-        identityFile = "~/.ssh/id_rsa";
+        ForwardAgent = true;
+        ProxyCommand = "ssh mnguyen1@157.159.110.170 -W %h:%p -o \"StrictHostKeyChecking no\"";
+        User = "mnguyen1";
+        IdentityFile = "~/.ssh/id_rsa";
       };
 
       "tp-*" = {
-        hostname = "%h";
-        user = "mnguyen-23";
+        Hostname = "%h";
+        User = "mnguyen-23";
       };
     };
   };
