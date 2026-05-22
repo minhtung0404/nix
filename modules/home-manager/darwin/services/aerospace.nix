@@ -26,7 +26,7 @@ in
     };
     programs.aerospace = {
       enable = true;
-      userSettings = {
+      settings = {
         exec-on-workspace-change = [
           "/bin/bash"
           "-c"
