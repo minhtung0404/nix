@@ -117,20 +117,6 @@ in
 
       outputs = cfg.outputs;
 
-      # outputs =
-      #   let
-      #     eachMonitor = _: monitor: {
-      #       name = monitor.meta.niriName or monitor.name; # Niri might not find the monitor by name
-      #       value = {
-      #         mode = monitor.meta.mode;
-      #         position = monitor.meta.fixedPosition or null;
-      #         scale = monitor.scale or 1;
-      #         variable-refresh-rate = (monitor.adaptive_sync or "off") == "on";
-      #       };
-      #     };
-      #   in
-      #   lib.mapAttrs' eachMonitor config.common.monitors;
-
       spawn-at-startup = [
         # Wallpaper
         {

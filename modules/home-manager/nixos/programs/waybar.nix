@@ -68,9 +68,6 @@ in
               layer = "top";
               position = "top";
               modules-left = [
-                "sway/workspaces"
-                "sway/mode"
-                "sway/window"
                 "niri/workspaces"
                 "niri/window"
               ];
@@ -97,26 +94,6 @@ in
                   "battery#bat2"
                 ];
 
-              "sway/workspaces" = {
-                format = "{name}";
-              };
-              "sway/mode" = {
-                format = "<span style=\"italic\">{}</span>";
-              };
-              "sway/window" = {
-                max-length = 70;
-                format = "{title}";
-                "rewrite" = {
-                  "(.*) — Mozilla Firefox" = "[🌎] $1";
-                  "(.*) - Mozilla Thunderbird" = "[📧] $1";
-                  "(.*) - Kakoune" = "[⌨️] $1";
-                  "(.*) - fish" = "[>_] $1";
-                  "(.*) - Discord" = "[🗨️] $1";
-                  # ArmCord thing
-                  "• Discord \\| (.*)" = "[🗨️] $1";
-                  "\\((\\d+)\\) Discord \\| (.*)" = "[🗨️] {$1} $2";
-                };
-              };
               "niri/workspaces" = {
                 format = "{icon}{value}";
                 format-icons = {
@@ -148,9 +125,8 @@ in
                 spacing = 10;
               };
               "clock" = {
-                # format = "{:📅 %Y-%m-%d | 🕰️ %H:%M [%Z]}";
                 format = "📅 {0:%Y-%m-%d} |️ 🕰️ {0:%H:%M [%Z]}";
-                tooltip-format = "\n<span size='9pt' font_family='Noto Sans Mono CJK JP'>{calendar}</span>";
+                tooltip-format = "\n<span size='9pt' font_family='Noto Sans Mono'>{calendar}</span>";
                 timezones = lib.lists.unique [
                   osConfig.time.timeZone
                   "Europe/Zurich"
@@ -168,7 +144,7 @@ in
                     months = "<span color='#ffead3'><b>{}</b></span>";
                     days = "<span color='#ecc6d9'><b>{}</b></span>";
                     weeks = "<span color='#99ffdd'><b>W{}</b></span>";
-                    weekdays = "<span color='#ffcc66'><b>日 月 火 水 木 金 土</b></span>"; # See https://github.com/Alexays/Waybar/issues/3132
+                    weekdays = "<span color='#ffcc66'><b>Su Mo Tu We Th Fr Sa</b></span>"; # See https://github.com/Alexays/Waybar/issues/3132
                     today = "<span color='#ff6699'><b><u>{}</u></b></span>";
                   };
                 };
