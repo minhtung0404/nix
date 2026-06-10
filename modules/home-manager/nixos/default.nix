@@ -1,10 +1,16 @@
 {
+  pkgs,
   ...
 }:
 {
   imports = [
     ./graphical
     ./programs
+  ];
+
+  home.packages = with pkgs; [
+    rbw
+    pinentry-gnome3
   ];
 
   programs.fish.functions = {

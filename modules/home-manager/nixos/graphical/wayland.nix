@@ -67,15 +67,6 @@ let
   plasmaModule =
     { pkgs, ... }:
     {
-      home.packages = with pkgs.kdePackages; [
-        discover
-        kmail
-        kontact
-        akonadi
-        kdepim-runtime
-        kmail-account-wizard
-        akonadi-import-wizard
-      ];
       xdg.configFile."plasma-workspace/env/wayland.sh".source =
         pkgs.writeScript "plasma-wayland-env.sh" ''
           export NIXOS_OZONE_WL=1
@@ -138,10 +129,7 @@ with lib;
       terminal = "${lib.getExe config.programs.kitty.package}";
       theme = "Paper";
       plugins = with pkgs; [
-        rofi-bluetooth
-        rofi-calc
         rofi-rbw
-        rofi-power-menu
       ];
     };
 
@@ -157,25 +145,5 @@ with lib;
       latitude = "46.31";
       longitude = "6.38";
     };
-
-    # Notification system
-    # services.dunst = {
-    #   enable = true;
-    #   settings.global.follow = "keyboard";
-
-    #   settings.global.width = "(400, 800)";
-    #   settings.global.notification_limit = 5;
-
-    #   settings.global.font = "Monospace 12";
-
-    #   settings.global.dmenu = "${pkgs.bemenu}/bin/bemenu";
-    #   settings.global.browser = "${pkgs.firefox-wayland}/bin/firefox";
-
-    #   settings.global.mouse_left_click = "do_action, close_current";
-    #   settings.global.mouse_right_click = "close_current";
-    #   settings.global.mouse_middle_click = "close_all";
-
-    #   settings.experimental.per_monitor_dpi = "true";
-    # };
   };
 }
