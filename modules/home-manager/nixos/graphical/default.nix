@@ -109,17 +109,12 @@ in
         ## GUI stuff
         evince # PDF reader
         gparted
-        feh # For images?
         deluge # Torrent client
         pavucontrol # PulseAudio control panel
         # cinny-desktop
-        gajim
         # Audio
-        qpwgraph # Pipewire graph
-        audacity
         vlc
 
-        zotero
         libreoffice
         onlyoffice-desktopeditors
 
