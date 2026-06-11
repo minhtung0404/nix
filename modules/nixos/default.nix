@@ -191,7 +191,7 @@ in
         loader.efi.canTouchEfiVariables = true;
         supportedFilesystems.ntfs = true;
       };
-      boot.initrd.systemd.enable = builtins.length (builtins.attrNames (cfg.luksDevices)) > 0;
+      boot.initrd.systemd.enable = true;
       # LUKS devices
       boot.initrd.luks.devices = builtins.mapAttrs (name: path: {
         device = path;
