@@ -186,7 +186,7 @@ in
       boot.kernelPackages = mkDefault pkgs.linuxPackages_latest;
       # Use the systemd-boot EFI boot loader.
       boot = {
-        loader.timeout = 60;
+        loader.timeout = 10;
         loader.systemd-boot.enable = true;
         loader.efi.canTouchEfiVariables = true;
         supportedFilesystems.ntfs = true;
