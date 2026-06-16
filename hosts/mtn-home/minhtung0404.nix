@@ -53,7 +53,6 @@ in
       wallpaper = ../../images/kuriyama_mirai.png;
 
       startup = [
-        pkgs.mattermost-desktop
         pkgs.obsidian
         config.mtn.linux.graphical.defaults.webBrowser.package
       ];
