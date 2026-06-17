@@ -175,6 +175,7 @@ in
           ++ map (f [ "move-node-to-workspace ${name_to_workspace.chat}" ]) [
             "com.facebook.archon"
             "com.hnc.Discord"
+            "dev.vencord.vesktop"
             "ru.keepcoder.Telegram"
             "com.vng.zalo"
             "com.tdesktop.Telegram"

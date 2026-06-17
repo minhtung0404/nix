@@ -26,7 +26,6 @@ in
     home.packages = with pkgs; [
       coreutils
       curl
-      discord
       dust
       entr
       grc
@@ -103,6 +102,7 @@ in
 
       my-git.enable = true;
       my-ssh.enable = true;
+      my-discord.enable = true;
       my-fish = {
         enable = true;
         tide.enable = true;
