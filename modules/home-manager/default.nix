@@ -70,7 +70,11 @@ in
     programs.jq.enable = true;
     programs.jqp.enable = true;
 
-    programs.man.enable = true;
+    programs.man = {
+      enable = true;
+      package = pkgs.man;
+      generateCaches = true;
+    };
 
     programs.vscode.enable = true;
 
