@@ -76,8 +76,8 @@
 :root {
     --user-name: "King";
     --edited-message: " EDITED ✎ ";
-    --font-name: Poppins;
-    --font-size: 13px;
+    --font-name: "FiraCode";
+    --font-size: 16px;
     --group-chat-font: "Monoton"; /* change this to change the group chat's default font */
 
 
