@@ -285,20 +285,9 @@ in
         useDHCP = false;
         useNetworkd = true;
         hostName = cfg.networking.hostname;
-        wireless.iwd = {
-          enable = true;
-          settings = {
-            General = {
-              EnableNetworkConfiguration = false;
-              DisablePowerSave = true;
-            };
-            Network = {
-              UseDNS = false;
-              IPv6AcceptRA = false;
-            };
-          };
-        };
+        networkmanager.enable = true;
       };
+      programs.nm-applet.enable = true;
 
       # Leave DNS to systemd-resolved
       services.resolved.enable = true;

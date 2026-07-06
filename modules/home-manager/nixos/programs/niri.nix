@@ -149,6 +149,13 @@ in
             "xdg-desktop-portal.service"
           ];
         }
+        # nm-applet
+        {
+          command = [
+            "${pkgs.networkmanagerapplet}/bin/nm-applet"
+            "--indicator"
+          ];
+        }
       ];
 
       layout = {

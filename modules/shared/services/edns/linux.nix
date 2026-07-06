@@ -15,6 +15,6 @@ in
     ];
     networking.resolvconf.enable = lib.mkOverride 1000 false;
     networking.dhcpcd.extraConfig = "nohook resolv.conf";
-    networking.networkmanager.dns = "none";
+    # networking.networkmanager.dns = "none";
   };
 }

@@ -206,7 +206,7 @@ in
                 format-ethernet = "{ifname} ";
                 format-disconnected = "Disconnected ⚠";
                 interval = 7;
-                on-click = "${cfg.terminal} ${lib.getExe' pkgs.iwd "iwctl"}";
+                on-click = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
               };
               "bluetooth" = {
                 format = " {status}";
