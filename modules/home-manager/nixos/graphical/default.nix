@@ -205,7 +205,7 @@ in
 
       # Text
       "text/plain" = [ "kakoune.desktop" ];
-      "application/pdf" = [ "org.kde.okular.desktop" ];
+      "application/pdf" = [ "okularApplication_pdf.desktop" ];
 
       # Files
       "inode/directory" = [ "dolphin.desktop" ];
