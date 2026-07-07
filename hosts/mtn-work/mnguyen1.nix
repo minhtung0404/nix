@@ -39,7 +39,6 @@ in
         };
       };
       my-waybar = {
-        enable = true;
         fontSize = 15.0;
         enableMpd = true;
       };
