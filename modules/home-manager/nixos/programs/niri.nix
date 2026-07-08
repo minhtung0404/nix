@@ -139,23 +139,6 @@ in
             "wallpaper-blurred"
           ];
         }
-        # Waybar
-        {
-          command = [
-            "systemctl"
-            "--user"
-            "start"
-            "xdg-desktop-portal-gtk.service"
-            "xdg-desktop-portal.service"
-          ];
-        }
-        # nm-applet
-        {
-          command = [
-            "${pkgs.networkmanagerapplet}/bin/nm-applet"
-            "--indicator"
-          ];
-        }
       ];
 
       layout = {

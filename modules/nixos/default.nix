@@ -97,6 +97,7 @@ in
     ../shared
     ../shared/services/kanata/linux.nix
     ../shared/services/edns/linux.nix
+    ./kded6.nix
     inputs.home-manager.nixosModules.home-manager
     {
       home-manager = {
@@ -287,7 +288,6 @@ in
         hostName = cfg.networking.hostname;
         networkmanager.enable = true;
       };
-      programs.nm-applet.enable = true;
 
       # Leave DNS to systemd-resolved
       services.resolved.enable = true;
@@ -339,6 +339,7 @@ in
           "org.freedesktop.impl.portal.ScreenCast" = "gnome";
           "org.freedesktop.impl.portal.Secret" = "kwallet";
           "org.freedesktop.impl.portal.FileChooser" = "kde";
+          "org.freedesktop.impl.portal.OpenURI" = "kde";
         };
       };
       # D-Bus
