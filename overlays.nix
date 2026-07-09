@@ -1,11 +1,9 @@
 { nixpkgs, ... }@inputs:
 let
-  overlay-versioning = final: prev: {
-  };
+  overlay-versioning = final: prev: { };
 
-  overlay-libs = final: prev: { libs.crane = inputs.crane.mkLib final; };
-  overlay-packages = final: prev: {
-  };
+  overlay-libs = final: prev: { };
+  overlay-packages = final: prev: { };
 in
 [
   overlay-versioning

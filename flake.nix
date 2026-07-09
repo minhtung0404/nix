@@ -49,31 +49,36 @@
     inputs@{
       self,
       nixpkgs,
+      flake-parts,
       ...
     }:
     let
       myLib = import ./my-lib/default.nix { inherit self inputs; };
       system = "aarch64-darwin";
     in
-    with myLib;
-    {
-      overlays.default = nixpkgs.lib.composeManyExtensions (import ./overlays.nix inputs);
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      top: with myLib; {
+        flake = {
+          overlays.default = nixpkgs.lib.composeManyExtensions (import ./overlays.nix inputs);
 
-      nixosConfigurations = {
-        "mtnPC" = mkNixos "x86_64-linux" ./hosts/mtn-home/configuration.nix;
-        "mtnWork" = mkNixos "x86_64-linux" ./hosts/mtn-work/configuration.nix;
-      };
-      darwinConfigurations = {
-        "MacAir-PirateKing" = mkDarwin system ./hosts/macM1/configuration.nix;
-      };
+          nixosConfigurations = {
+            "mtnPC" = mkNixos "x86_64-linux" ./hosts/mtn-home/configuration.nix;
+            "mtnWork" = mkNixos "x86_64-linux" ./hosts/mtn-work/configuration.nix;
+          };
 
-      homeConfigurations = {
-        "minhtung0404" = mkHome system ./hosts/macM1/minhtung0404.nix;
-        "entertainment" = mkHome system ./home/darwin/entertainment.nix;
-      };
+          darwinConfigurations = {
+            "MacAir-PirateKing" = mkDarwin system ./hosts/macM1/configuration.nix;
+          };
 
-      nixosModules.default = ./modules/nixos;
-      homeManagerModules.default = ./modules/home-manager;
-      darwinModules.default = ./modules/darwin;
-    };
+          homeConfigurations = {
+            "minhtung0404" = mkHome system ./hosts/macM1/minhtung0404.nix;
+            "entertainment" = mkHome system ./home/darwin/entertainment.nix;
+          };
+
+          nixosModules.default = ./modules/nixos;
+          homeManagerModules.default = ./modules/home-manager;
+          darwinModules.default = ./modules/darwin;
+        };
+      }
+    );
 }
