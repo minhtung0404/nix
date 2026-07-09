@@ -42,8 +42,6 @@
     niri.url = "github:sodiboo/niri-flake";
     # niri.inputs.nixpkgs.follows = "nixpkgs";
 
-    # build tools
-    crane.url = "github:ipetkov/crane";
   };
   outputs =
     inputs@{
@@ -52,12 +50,8 @@
       flake-parts,
       ...
     }:
-    let
-      myLib = import ./my-lib/default.nix { inherit self inputs; };
-      system = "aarch64-darwin";
-    in
     flake-parts.lib.mkFlake { inherit inputs; } (
-      top: with myLib; {
+      top: with import ./my-lib/default.nix { inherit self inputs; }; {
         flake = {
           overlays.default = nixpkgs.lib.composeManyExtensions (import ./overlays.nix inputs);
 
@@ -67,12 +61,12 @@
           };
 
           darwinConfigurations = {
-            "MacAir-PirateKing" = mkDarwin system ./hosts/macM1/configuration.nix;
+            "MacAir-PirateKing" = mkDarwin "aarch64-darwin" ./hosts/macM1/configuration.nix;
           };
 
           homeConfigurations = {
-            "minhtung0404" = mkHome system ./hosts/macM1/minhtung0404.nix;
-            "entertainment" = mkHome system ./home/darwin/entertainment.nix;
+            "minhtung0404" = mkHome "aarch64-darwin" ./hosts/macM1/minhtung0404.nix;
+            "entertainment" = mkHome "aarch64-darwin" ./home/darwin/entertainment.nix;
           };
 
           nixosModules.default = ./modules/nixos;

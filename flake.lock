@@ -17,21 +17,6 @@
         "type": "github"
       }
     },
-    "crane": {
-      "locked": {
-        "lastModified": 1783102699,
-        "narHash": "sha256-7inE9/GtbWf3MkV6wj2lRr0RixOpWBZboAKTPAnRDxY=",
-        "owner": "ipetkov",
-        "repo": "crane",
-        "rev": "7605d0ca1a69331596d4ec0f2577fc566d17b3ad",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ipetkov",
-        "repo": "crane",
-        "type": "github"
-      }
-    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -311,7 +296,6 @@
     },
     "root": {
       "inputs": {
-        "crane": "crane",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "mtn-kakoune": "mtn-kakoune",
