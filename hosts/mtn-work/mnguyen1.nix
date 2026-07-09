@@ -72,5 +72,6 @@ in
     texlive.combined.scheme-full
     bibtool
     sops
+    google-chrome
   ];
 }
