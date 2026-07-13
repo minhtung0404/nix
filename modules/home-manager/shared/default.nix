@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ./browsers
+    # ./browsers
     ./editors
     ./programs
     ./shells

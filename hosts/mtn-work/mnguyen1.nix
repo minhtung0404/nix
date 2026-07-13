@@ -20,14 +20,14 @@ in
   };
 
   flake.modules.homeManager.mnguyen1 = { pkgs, config, ... }: {
-      imports = [
-self.modules.homeManager.cliTools
-      ];
+    imports = [
+      self.modules.homeManager.cliTools
+      self.modules.homeManager.zenBrowser
+    ];
     mtn = {
       hm.enable = true;
       username = user;
       programs = {
-        my-zenbrowser.enable = true;
         my-niri = {
           enable = true;
           enableLaptop = true;
