@@ -12,13 +12,5 @@ in
         Your username for logging
       '';
     };
-    editor = mkOption {
-      type = types.str;
-      default = "kak";
-      example = "kak";
-      description = ''
-        Your favorite editor
-      '';
-    };
   };
 }

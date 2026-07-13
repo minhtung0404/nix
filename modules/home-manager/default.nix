@@ -10,7 +10,7 @@ in
 {
   imports = [
     ./config.nix
-    ./shared
+    ./workspaces.nix
   ];
   options = {
     mtn.hm = {

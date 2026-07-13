@@ -88,7 +88,7 @@
                     cursor_shape = "block";
                     enable_audio_bell = false;
                     hide_window_decorations = true;
-                    editor = config.mtn.editor;
+                    # editor = config.systemConstants.editor;
                     dynamic_background_opacity = true;
 
                     allow_remote_control = true;

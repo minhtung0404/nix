@@ -34,11 +34,10 @@
           push = {
             autoSetupRemote = true;
           };
-          core = {
-            editor = config.mtn.editor;
-          };
+          # core = {
+          #   editor = config.mtn.editor;
+          # };
         };
       };
     };
 }
-
