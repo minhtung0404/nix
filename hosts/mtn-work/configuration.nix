@@ -21,13 +21,11 @@ in
   };
 
   flake.modules.nixos.mtnWork = { pkgs, ... }: {
-    imports = [
-      ./hardware-configuration.nix
-      {
-        home-manager.users.mnguyen1 = import ./mnguyen1.nix;
-      }
-    ];
-
+      imports = [
+          {
+          home-manager.users.${username} = import ./mnguyen1.nix;
+          }
+      ];
     mtn = {
       services = {
         my-kanata = {

@@ -2,55 +2,58 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-  config,
-  lib,
-  pkgs,
-  modulesPath,
-  ...
-}:
+  flake.modules.nixos.mtnWork =
+    {
+      config,
+      lib,
+      pkgs,
+      modulesPath,
+      ...
+    }:
 
-{
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+    {
+      imports = [
+        (modulesPath + "/installer/scan/not-detected.nix")
+      ];
 
-  boot.initrd.availableKernelModules = [
-    "nvme"
-    "xhci_pci"
-    "thunderbolt"
-    "usb_storage"
-    "sd_mod"
-  ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
+      boot.initrd.availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "thunderbolt"
+        "usb_storage"
+        "sd_mod"
+      ];
+      boot.initrd.kernelModules = [ ];
+      boot.kernelModules = [ "kvm-amd" ];
+      boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/c7b9a6cc-fa40-4757-a11a-4f43fae8bd69";
-    fsType = "ext4";
-  };
+      fileSystems."/" = {
+        device = "/dev/disk/by-uuid/c7b9a6cc-fa40-4757-a11a-4f43fae8bd69";
+        fsType = "ext4";
+      };
 
-  boot.initrd.luks.devices."luks-a0558bd1-d419-4fa2-89b5-b3c5a213393c".device =
-    "/dev/disk/by-uuid/a0558bd1-d419-4fa2-89b5-b3c5a213393c";
+      boot.initrd.luks.devices."luks-a0558bd1-d419-4fa2-89b5-b3c5a213393c".device =
+        "/dev/disk/by-uuid/a0558bd1-d419-4fa2-89b5-b3c5a213393c";
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/3BAE-ADF8";
-    fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
-    ];
-  };
+      fileSystems."/boot" = {
+        device = "/dev/disk/by-uuid/3BAE-ADF8";
+        fsType = "vfat";
+        options = [
+          "fmask=0077"
+          "dmask=0077"
+        ];
+      };
 
-  swapDevices = [ ];
+      swapDevices = [ ];
 
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp194s0.useDHCP = lib.mkDefault true;
+      # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+      # (the default) this is the recommended approach. When using systemd-networkd it's
+      # still possible to use this option, but it's recommended to use it in conjunction
+      # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+      networking.useDHCP = lib.mkDefault true;
+      # networking.interfaces.wlp194s0.useDHCP = lib.mkDefault true;
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+      nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+      hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    };
 }
