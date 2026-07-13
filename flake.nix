@@ -57,6 +57,7 @@
           ./hosts/mtn-work/configuration.nix
           ./hosts/mtn-work/hardware-configuration.nix
           ./hosts/mtn-work/mnguyen1.nix
+          ./modules/home-manager/cli-tools.nix
         ];
         flake = {
           overlays.default = nixpkgs.lib.composeManyExtensions (import ./overlays.nix inputs);

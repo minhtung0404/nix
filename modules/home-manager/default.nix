@@ -24,27 +24,8 @@ in
     programs.home-manager.enable = true;
 
     home.packages = with pkgs; [
-      coreutils
-      curl
-      dust
-      entr
-      grc
-      btop
-      lazygit
-      nerd-fonts.fira-code
-      nixfmt
       obsidian
-      podman
-      ripgrep
-      stylua
       telegram-desktop
-      tldr
-
-      mtn-kakoune
-      gnumake
-      unzip
-      zip
-      deluge
     ];
 
     home.sessionVariables = {
