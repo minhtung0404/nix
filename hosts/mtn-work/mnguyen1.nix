@@ -12,7 +12,6 @@ in
   flake.modules.nixos.mnguyen1 = { ... }: {
     home-manager.users.${user} = {
       imports = [
-        ../../modules/home-manager/nixos
         self.homeManagerModules.default
         self.modules.homeManager.mnguyen1
       ];
@@ -31,6 +30,7 @@ in
       self.modules.homeManager.kitty
       self.modules.homeManager.niri
       self.modules.homeManager.waybar
+      self.modules.homeManager.graphical
     ];
     mtn = {
       hm.enable = true;

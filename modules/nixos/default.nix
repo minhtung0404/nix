@@ -100,9 +100,6 @@ in
     inputs.home-manager.nixosModules.home-manager
     {
       home-manager = {
-        sharedModules = [
-          ../home-manager/nixos
-        ];
         extraSpecialArgs = {
           sops = config.sops;
         };
