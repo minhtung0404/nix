@@ -24,6 +24,7 @@ in
       self.modules.homeManager.cliTools
       self.modules.homeManager.zenBrowser
       self.modules.homeManager.kakoune
+      self.modules.homeManager.vesktop
     ];
     mtn = {
       hm.enable = true;

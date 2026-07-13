@@ -1,5 +1,9 @@
 {
-  flake.modules.homeManager.cliTools = { pkgs, ... }: {
+  flake.modules.homeManager.cliTools = { self, pkgs, ... }: {
+    imports = [
+      self.modules.homeManager.git
+      self.modules.homeManager.ssh
+    ];
     home.packages = with pkgs; [
       coreutils
       curl
@@ -64,6 +68,5 @@
     };
 
     services.tldr-update.enable = true;
-
   };
 }

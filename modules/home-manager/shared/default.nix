@@ -1,8 +1,7 @@
 { ... }:
 {
   imports = [
-    # ./editors
-    ./programs
+    # ./programs
     ./shells
     ./terminals
     ./services
