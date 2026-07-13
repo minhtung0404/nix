@@ -28,6 +28,7 @@ in
       self.modules.homeManager.gsync
       self.modules.homeManager.fish
       self.modules.homeManager.fishTide
+      self.modules.homeManager.kitty
     ];
     mtn = {
       hm.enable = true;

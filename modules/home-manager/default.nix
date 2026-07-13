@@ -36,7 +36,6 @@ in
 
     mtn.programs = {
       my-kitty = {
-        enable = true;
         fontSize = 16;
         cmd = "cmd";
       };

@@ -21,7 +21,7 @@
       wraps = "nixos-rebuild";
     };
   };
-  mtn.programs.my-kitty.mod = "alt+shift";
+  # mtn.programs.my-kitty.mod = "alt+shift";
   mtn.programs.my-niri.enable = true;
 
   # services.caffeine.enable = true;
