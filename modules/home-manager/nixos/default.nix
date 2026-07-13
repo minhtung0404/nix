@@ -5,7 +5,6 @@
 {
   imports = [
     ./graphical
-    ./programs
   ];
 
   home.packages = with pkgs; [

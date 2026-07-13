@@ -29,6 +29,8 @@ in
       self.modules.homeManager.fish
       self.modules.homeManager.fishTide
       self.modules.homeManager.kitty
+      self.modules.homeManager.niri
+      self.modules.homeManager.waybar
     ];
     mtn = {
       hm.enable = true;
