@@ -26,6 +26,8 @@ in
       self.modules.homeManager.kakoune
       self.modules.homeManager.vesktop
       self.modules.homeManager.gsync
+      self.modules.homeManager.fish
+      self.modules.homeManager.fishTide
     ];
     mtn = {
       hm.enable = true;

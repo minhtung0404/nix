@@ -41,11 +41,6 @@ in
         cmd = "cmd";
       };
 
-      my-fish = {
-        enable = true;
-        tide.enable = true;
-      };
-
       my-kakoune.enable-fish-session = true;
     };
 
