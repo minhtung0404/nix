@@ -16,16 +16,17 @@ in
     };
     modules = [
       self.modules.nixos.mtnWork
+      self.modules.nixos.mnguyen1
       self.nixosModules.default
     ];
   };
 
   flake.modules.nixos.mtnWork = { pkgs, ... }: {
-      imports = [
-          {
-          home-manager.users.${username} = import ./mnguyen1.nix;
-          }
-      ];
+    # imports = [
+    #   {
+    #     home-manager.users.${username} = import ./mnguyen1.nix;
+    #   }
+    # ];
     mtn = {
       services = {
         my-kanata = {

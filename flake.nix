@@ -56,6 +56,7 @@
           inputs.flake-parts.flakeModules.modules
           ./hosts/mtn-work/configuration.nix
           ./hosts/mtn-work/hardware-configuration.nix
+          ./hosts/mtn-work/mnguyen1.nix
         ];
         flake = {
           overlays.default = nixpkgs.lib.composeManyExtensions (import ./overlays.nix inputs);
