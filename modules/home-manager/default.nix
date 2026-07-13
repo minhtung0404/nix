@@ -34,50 +34,6 @@ in
 
     home.shell.enableFishIntegration = true;
 
-    programs.bat = {
-      enable = true;
-      config = {
-        theme = "GitHub";
-      };
-      # extraPackages = with pkgs.bat-extras; [
-      #   batgrep
-      # ];
-    };
-
-    programs.eza.enable = true;
-
-    programs.fd.enable = true;
-
-    programs.jq.enable = true;
-    programs.jqp.enable = true;
-
-    programs.man = {
-      enable = true;
-      package = pkgs.man;
-      generateCaches = true;
-    };
-
-    programs.vscode.enable = true;
-
-    programs.nushell.enable = true;
-
-    programs.zoxide = {
-      enable = true;
-      options = [ "--cmd j" ];
-    };
-
-    programs.fzf = {
-      enable = true;
-    };
-
-    programs.direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-      config.global.load_dotenv = true;
-    };
-
-    services.tldr-update.enable = true;
-
     mtn.programs = {
       my-kitty = {
         enable = true;

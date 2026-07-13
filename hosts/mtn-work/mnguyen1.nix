@@ -20,6 +20,9 @@ in
   };
 
   flake.modules.homeManager.mnguyen1 = { pkgs, config, ... }: {
+      imports = [
+self.modules.homeManager.cliTools
+      ];
     mtn = {
       hm.enable = true;
       username = user;

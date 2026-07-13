@@ -42,6 +42,7 @@
     niri.url = "github:sodiboo/niri-flake";
     # niri.inputs.nixpkgs.follows = "nixpkgs";
 
+    importTree.url = "github:vic/import-tree";
   };
   outputs =
     inputs@{
@@ -54,11 +55,9 @@
       top: with import ./my-lib/default.nix { inherit self inputs; }; {
         imports = [
           inputs.flake-parts.flakeModules.modules
-          ./hosts/mtn-work/configuration.nix
-          ./hosts/mtn-work/hardware-configuration.nix
-          ./hosts/mtn-work/mnguyen1.nix
-          ./modules/home-manager/cli-tools.nix
-        ];
+        ]
+        ++ (inputs.importTree ./modules/programs).imports
+        ++ (inputs.importTree ./hosts/mtn-work).imports;
         flake = {
           overlays.default = nixpkgs.lib.composeManyExtensions (import ./overlays.nix inputs);
 
