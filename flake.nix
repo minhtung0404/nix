@@ -52,12 +52,16 @@
     }:
     flake-parts.lib.mkFlake { inherit inputs; } (
       top: with import ./my-lib/default.nix { inherit self inputs; }; {
+        imports = [
+          inputs.flake-parts.flakeModules.modules
+          ./hosts/mtn-work/configuration.nix
+        ];
         flake = {
           overlays.default = nixpkgs.lib.composeManyExtensions (import ./overlays.nix inputs);
 
           nixosConfigurations = {
             "mtnPC" = mkNixos "x86_64-linux" ./hosts/mtn-home/configuration.nix;
-            "mtnWork" = mkNixos "x86_64-linux" ./hosts/mtn-work/configuration.nix;
+            # "mtnWork" = mkNixos "x86_64-linux" ./hosts/mtn-work/configuration.nix;
           };
 
           darwinConfigurations = {
