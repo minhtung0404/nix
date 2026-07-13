@@ -23,6 +23,7 @@ in
     imports = [
       self.modules.homeManager.cliTools
       self.modules.homeManager.zenBrowser
+      self.modules.homeManager.kakoune
     ];
     mtn = {
       hm.enable = true;
