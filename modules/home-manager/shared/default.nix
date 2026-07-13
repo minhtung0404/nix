@@ -1,10 +1,9 @@
 { ... }:
 {
   imports = [
-    # ./programs
     ./shells
     ./terminals
-    ./services
+    # ./services
     ./workspaces.nix
   ];
 }

@@ -25,6 +25,7 @@ in
       self.modules.homeManager.zenBrowser
       self.modules.homeManager.kakoune
       self.modules.homeManager.vesktop
+      self.modules.homeManager.gsync
     ];
     mtn = {
       hm.enable = true;
@@ -59,10 +60,6 @@ in
           fontSize = 15.0;
           enableMpd = true;
         };
-      };
-
-      services = {
-        my-gdrive.enable = true;
       };
 
       linux.graphical = {
