@@ -1,11 +1,8 @@
 {
   flake.modules.generic.constants = { lib, ... }: {
-    options.systemConstants = lib.mkOption {
+    options.mtn.constants = lib.mkOption {
       type = lib.types.attrsOf lib.types.unspecified;
       default = { };
-    };
-
-    config.mtn = {
     };
   };
 }

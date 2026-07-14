@@ -9,7 +9,7 @@ let
 in
 {
   imports = [
-    ./config.nix
+    # ./config.nix
     # ./workspaces.nix
   ];
   options = {

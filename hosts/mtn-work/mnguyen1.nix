@@ -36,7 +36,7 @@ in
     ];
     mtn = {
       hm.enable = true;
-      username = user;
+      constants.username = user;
       programs = {
         my-niri = {
           enable = true;
