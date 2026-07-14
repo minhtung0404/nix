@@ -94,18 +94,6 @@ in
 
     networking.hostName = "mtnWork"; # Define your hostname.
 
-    # Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.mnguyen1 = {
-      isNormalUser = true;
-      extraGroups = [
-        "wheel"
-      ]; # Enable ‘sudo’ for the user.
-      packages = with pkgs; [
-        tree
-      ];
-      shell = pkgs.fish;
-    };
-
     system.stateVersion = "26.05";
   };
 }

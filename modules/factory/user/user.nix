@@ -48,8 +48,10 @@
 
       };
 
-    homeManager."${username}" = {
+    homeManager."${username}" = { pkgs, lib, ... }: {
       home.username = "${username}";
+      home.homeDirectory =
+        if pkgs.stdenv.isDarwin then (lib.mkForce "/Users/${username}") else "/home/${username}";
     };
   };
 }

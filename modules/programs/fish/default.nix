@@ -8,7 +8,7 @@
       ...
     }:
     let
-      user = config.mtn.constants.username;
+      user = config.home.username;
     in
     {
       mtn.programs.my-fish.tide = {

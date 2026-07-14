@@ -6,18 +6,8 @@
       lib,
       ...
     }:
-    let
-      cfg = config.mtn.hm;
-    in
     {
-      options = {
-        mtn.hm = {
-          enable = lib.mkEnableOption "hm";
-          darwin = lib.mkEnableOption "hm-darwin";
-        };
-      };
-
-      config = lib.mkIf cfg.enable {
+      config = {
         home.stateVersion = "26.05";
         programs.home-manager.enable = true;
 
