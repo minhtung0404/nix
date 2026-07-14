@@ -78,7 +78,7 @@
             "entertainment" = mkHome "aarch64-darwin" ./home/darwin/entertainment.nix;
           };
 
-          homeManagerModules.default = ./modules/home-manager;
+          # homeManagerModules.default = ./modules/home-manager;
           darwinModules.default = ./modules/darwin;
         };
       }

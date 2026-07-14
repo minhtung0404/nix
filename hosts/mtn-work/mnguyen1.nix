@@ -12,7 +12,7 @@ in
   flake.modules.nixos.mnguyen1 = { ... }: {
     home-manager.users.${user} = {
       imports = [
-        self.homeManagerModules.default
+        self.modules.homeManager.default
         self.modules.homeManager.mnguyen1
       ];
     };
