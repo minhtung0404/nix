@@ -62,7 +62,6 @@
 
           nixosConfigurations = {
             "mtnPC" = mkNixos "x86_64-linux" ./hosts/mtn-home/configuration.nix;
-            # "mtnWork" = mkNixos "x86_64-linux" ./hosts/mtn-work/configuration.nix;
           };
 
           darwinConfigurations = {
@@ -74,7 +73,6 @@
             "entertainment" = mkHome "aarch64-darwin" ./home/darwin/entertainment.nix;
           };
 
-          # homeManagerModules.default = ./modules/home-manager;
           darwinModules.default = ./modules/darwin;
         };
       }
