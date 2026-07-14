@@ -18,21 +18,9 @@ in
           ...
         }:
         {
-          imports = [
-            self.modules.homeManager.system-default
-            self.modules.homeManager.default
-
-            self.modules.homeManager.cliTools
-            self.modules.homeManager.zenBrowser
-            self.modules.homeManager.kakoune
-            self.modules.homeManager.vesktop
-            self.modules.homeManager.gsync
-            self.modules.homeManager.fish
-            self.modules.homeManager.fishTide
-            self.modules.homeManager.kitty
-            self.modules.homeManager.scrollingDesktop
-            self.modules.homeManager.waybar
-            self.modules.homeManager.graphical
+          imports = with self.modules.homeManager; [
+            system-desktop
+            default
           ];
           mtn = {
             programs = {

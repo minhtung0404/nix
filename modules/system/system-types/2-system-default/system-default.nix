@@ -5,7 +5,7 @@
     imports =
       with inputs.self.modules.nixos;
       [
-        # system-minimal
+        system-minimal
         # home-manager
         # secrets
       ]
@@ -19,7 +19,7 @@
     imports =
       with inputs.self.modules.darwin;
       [
-        # system-minimal
+        system-minimal
         # home-manager
         # homebrew
         # secrets
@@ -37,7 +37,7 @@
     imports =
       with inputs.self.modules.homeManager;
       [
-        # system-minimal
+        system-minimal
         # secrets
       ]
       ++ [ inputs.self.modules.generic.constants ];

@@ -11,15 +11,10 @@ in
 
   flake.modules.nixos.mtnWork = { pkgs, ... }: {
     imports = [
-      self.modules.nixos.system-default
+      self.modules.nixos.system-desktop
+
       self.modules.nixos.mnguyen1
       self.modules.nixos.default
-      self.modules.nixos.kanata
-      self.modules.nixos.gdrive
-      self.modules.nixos.battery
-
-      self.modules.generic.sops
-      self.modules.generic.edns
     ];
     home-manager.users.${username} = {
       imports = [
@@ -66,7 +61,5 @@ in
     };
 
     networking.hostName = "mtnWork"; # Define your hostname.
-
-    system.stateVersion = "26.05";
   };
 }
