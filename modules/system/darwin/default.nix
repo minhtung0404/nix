@@ -1,0 +1,62 @@
+{
+  flake.modules.darwin.default =
+    {
+      config,
+      inputs,
+      lib,
+      pkgs,
+      ...
+    }:
+    {
+      imports = [
+        inputs.home-manager.darwinModules.home-manager
+        {
+          home-manager.sharedModules = [
+            ../home-manager/darwin
+          ];
+        }
+        inputs.nix-homebrew.darwinModules.nix-homebrew
+        {
+          nix-homebrew = {
+            enable = true;
+            enableRosetta = true;
+            autoMigrate = true;
+          };
+        }
+        inputs.sops-nix.darwinModules.sops
+      ];
+
+      homebrew = {
+        enable = true;
+
+        brews = [ "mas" ];
+
+        casks = [
+          "scroll-reverser"
+          "hammerspoon"
+        ];
+
+        masApps = {
+          "Bitwarden" = 1352778147;
+        };
+
+        onActivation.cleanup = "zap";
+      };
+
+      launchd.daemons.dnscrypt-proxy.serviceConfig.UserName = lib.mkForce "root";
+
+      services.tailscale.enable = true;
+
+      system.activationScripts = {
+        postActivation = {
+          text = lib.mkOrder 1600 ''
+            echo "-----------------------------------------------"
+            echo "Permission required ..."
+            echo "kanata: Please enable Input Mornitoring/Full Disk Access for ${config.mtn.services.my-kanata.package}/bin/kanata"
+            echo "rclone: Please enable Full Disk Access for ${pkgs.rclone}/bin/rclone"
+          '';
+        };
+      };
+
+    };
+}
