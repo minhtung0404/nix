@@ -21,6 +21,11 @@ in
       self.modules.generic.sops
       self.modules.generic.edns
     ];
+    home-manager.users.${username} = {
+      imports = [
+        self.modules.homeManager.copyPaste
+      ];
+    };
     mtn = {
       constants.username = username;
       services = {
