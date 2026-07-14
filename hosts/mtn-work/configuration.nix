@@ -18,6 +18,8 @@ in
       self.modules.nixos.mtnWork
       self.modules.nixos.mnguyen1
       self.modules.nixos.default
+      self.modules.generic.sops
+      self.modules.generic.edns
     ];
   };
 
@@ -38,7 +40,7 @@ in
           ];
         };
         edns = {
-          enable = true;
+          # enable = true;
           ipv6 = true;
         };
       };

@@ -12,9 +12,8 @@
   };
 
   imports = [
-    ./config.nix
-    ./services/edns
-    ./programs/sops.nix
+    # ./services/edns
+    # ./programs/sops.nix
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;

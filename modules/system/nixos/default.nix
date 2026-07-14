@@ -97,7 +97,7 @@
       imports = with modules; [
         ../../shared
         ../../shared/services/kanata/linux.nix
-        ../../shared/services/edns/linux.nix
+        # ../../shared/services/edns/linux.nix
         inputs.home-manager.nixosModules.home-manager
         {
           home-manager = {
