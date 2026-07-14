@@ -58,6 +58,7 @@
         ]
         ++ (inputs.importTree ./modules/programs).imports
         ++ (inputs.importTree ./modules/services).imports
+        ++ (inputs.importTree ./modules/system).imports
         ++ (inputs.importTree ./hosts/mtn-work).imports;
         flake = {
           overlays.default = nixpkgs.lib.composeManyExtensions (import ./overlays.nix inputs);
@@ -76,7 +77,6 @@
             "entertainment" = mkHome "aarch64-darwin" ./home/darwin/entertainment.nix;
           };
 
-          nixosModules.default = ./modules/nixos;
           homeManagerModules.default = ./modules/home-manager;
           darwinModules.default = ./modules/darwin;
         };

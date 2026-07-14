@@ -17,7 +17,7 @@ in
     modules = [
       self.modules.nixos.mtnWork
       self.modules.nixos.mnguyen1
-      self.nixosModules.default
+      self.modules.nixos.default
     ];
   };
 

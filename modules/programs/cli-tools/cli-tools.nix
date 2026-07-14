@@ -3,6 +3,7 @@
     imports = [
       self.modules.homeManager.git
       self.modules.homeManager.ssh
+      self.modules.homeManager.rebuild
     ];
     home.packages = with pkgs; [
       coreutils
