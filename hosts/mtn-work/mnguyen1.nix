@@ -20,6 +20,8 @@ in
 
   flake.modules.homeManager.mnguyen1 = { pkgs, config, ... }: {
     imports = [
+      self.modules.homeManager.system-default
+
       self.modules.homeManager.cliTools
       self.modules.homeManager.zenBrowser
       self.modules.homeManager.kakoune
@@ -28,7 +30,7 @@ in
       self.modules.homeManager.fish
       self.modules.homeManager.fishTide
       self.modules.homeManager.kitty
-      self.modules.homeManager.niri
+      self.modules.homeManager.scrollingDesktop
       self.modules.homeManager.waybar
       self.modules.homeManager.graphical
     ];

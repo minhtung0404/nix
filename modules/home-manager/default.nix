@@ -10,7 +10,7 @@ in
 {
   imports = [
     ./config.nix
-    ./workspaces.nix
+    # ./workspaces.nix
   ];
   options = {
     mtn.hm = {
@@ -43,47 +43,5 @@ in
       my-kakoune.enable-fish-session = true;
     };
 
-    mtn.workspaces = [
-      {
-        id = "1";
-        name = "web";
-        icon = "🌐";
-      }
-      {
-        id = "2";
-        name = "work";
-        icon = "💻";
-      }
-      {
-        id = "3";
-        name = "notes";
-        icon = "📝";
-
-      }
-      {
-        id = "4";
-        name = "mail";
-        icon = "📩";
-
-      }
-      {
-        id = "5";
-        name = "chat";
-        icon = "💬";
-        monitor = "secondary";
-
-      }
-      {
-        id = "6";
-        name = "games";
-        icon = "🎮";
-      }
-      {
-        id = "7";
-        name = "other";
-        icon = "🔣";
-        monitor = "secondary";
-      }
-    ];
   };
 }

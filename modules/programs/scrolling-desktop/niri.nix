@@ -1,6 +1,7 @@
 {
   flake.modules.homeManager.niri =
     {
+      self,
       config,
       osConfig,
       lib,

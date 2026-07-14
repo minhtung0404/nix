@@ -5,13 +5,13 @@
     imports =
       with inputs.self.modules.nixos;
       [
-        system-minimal
-        home-manager
-        secrets
+        # system-minimal
+        # home-manager
+        # secrets
       ]
       ++ (with inputs.self.modules.generic; [
-        systemConstants
-        pkgs-by-name
+        constants
+        # pkgs-by-name
       ]);
   };
 
@@ -19,14 +19,14 @@
     imports =
       with inputs.self.modules.darwin;
       [
-        system-minimal
-        home-manager
-        homebrew
-        secrets
+        # system-minimal
+        # home-manager
+        # homebrew
+        # secrets
       ]
       ++ (with inputs.self.modules.generic; [
-        systemConstants
-        pkgs-by-name
+        constants
+        # pkgs-by-name
       ]);
   };
 
@@ -37,9 +37,9 @@
     imports =
       with inputs.self.modules.homeManager;
       [
-        system-minimal
-        secrets
+        # system-minimal
+        # secrets
       ]
-      ++ [ inputs.self.modules.generic.systemConstants ];
+      ++ [ inputs.self.modules.generic.constants ];
   };
 }

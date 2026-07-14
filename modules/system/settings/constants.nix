@@ -5,8 +5,7 @@
       default = { };
     };
 
-    config.systemConstants = {
-
+    config.mtn = {
     };
   };
 }
