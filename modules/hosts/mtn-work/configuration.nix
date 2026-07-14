@@ -1,6 +1,5 @@
 {
-  pkgs,
-  inputs,
+  config,
   self,
   ...
 }:
@@ -8,16 +7,7 @@ let
   username = "mnguyen1";
 in
 {
-  flake.nixosConfigurations.mtnWork = inputs.nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
-    specialArgs = {
-      inherit self inputs;
-      myLib = import ../../my-lib/default.nix { inherit self inputs; };
-    };
-    modules = [
-      self.modules.nixos.mtnWork
-    ];
-  };
+  flake.nixosConfigurations = config.flake.lib.mkNixos "x86_64-linux" "mtnWork";
 
   flake.modules.nixos.mtnWork = { pkgs, ... }: {
     imports = [
