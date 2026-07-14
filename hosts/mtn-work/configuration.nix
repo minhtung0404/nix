@@ -20,6 +20,7 @@ in
       self.modules.nixos.default
       self.modules.generic.sops
       self.modules.generic.edns
+      self.modules.nixos.kanata
     ];
   };
 
@@ -33,7 +34,6 @@ in
       services = {
         my-kanata = {
           enable = true;
-          linux = true;
           configFile = [
             "gm610_linux"
             "apple_linux"
