@@ -56,8 +56,7 @@
         imports = [
           inputs.flake-parts.flakeModules.modules
         ]
-        ++ (inputs.importTree ./modules).imports
-        ++ (inputs.importTree ./hosts/mtn-work).imports;
+        ++ (inputs.importTree ./modules).imports;
         flake = {
           overlays.default = nixpkgs.lib.composeManyExtensions (import ./overlays.nix inputs);
 

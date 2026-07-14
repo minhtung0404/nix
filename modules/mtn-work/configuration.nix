@@ -16,21 +16,22 @@ in
     };
     modules = [
       self.modules.nixos.mtnWork
-      self.modules.nixos.mnguyen1
-      self.modules.nixos.default
-      self.modules.generic.sops
-      self.modules.generic.edns
-      self.modules.nixos.kanata
     ];
   };
 
   flake.modules.nixos.mtnWork = { pkgs, ... }: {
-    # imports = [
-    #   {
-    #     home-manager.users.${username} = import ./mnguyen1.nix;
-    #   }
-    # ];
+    imports = [
+      self.modules.nixos.system-default
+      self.modules.nixos.mnguyen1
+      self.modules.nixos.default
+      self.modules.nixos.kanata
+      self.modules.nixos.gdrive
+
+      self.modules.generic.sops
+      self.modules.generic.edns
+    ];
     mtn = {
+      constants.username = username;
       services = {
         my-kanata = {
           enable = true;
@@ -100,24 +101,6 @@ in
     # powerManagement.powertop.enable = true;
     services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
     systemd.sleep.settings.Sleep.HibernateDelaySec = "4h";
-
-    sops.secrets = {
-      "veracrypt/drive" = {
-        owner = username;
-      };
-      "rclone-crypt/obscured-passwd1" = {
-        owner = username;
-        sopsFile = ../secrets/rclone.yaml;
-      };
-      "rclone-crypt/obscured-passwd2" = {
-        owner = username;
-        sopsFile = ../secrets/rclone.yaml;
-      };
-      "rclone-crypt/token" = {
-        owner = username;
-        sopsFile = ../secrets/rclone.yaml;
-      };
-    };
 
     networking.hostName = "mtnWork"; # Define your hostname.
 
