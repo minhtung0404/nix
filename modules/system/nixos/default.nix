@@ -96,7 +96,8 @@
     in
     {
       imports = with modules; [
-        ../../shared
+        self.modules.nixos.homeManager
+        self.modules.generic.nixpkgs
         inputs.home-manager.nixosModules.home-manager
         {
           home-manager = {
@@ -249,7 +250,11 @@
           ];
 
           # Add a reliable terminal
-          programs.fish.enable = true;
+          programs.fish = {
+            enable = true;
+            vendor.completions.enable = true;
+          };
+
           # AppImages should run
           programs.appimage = {
             enable = true;
