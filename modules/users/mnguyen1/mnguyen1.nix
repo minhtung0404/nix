@@ -20,7 +20,6 @@ in
         {
           imports = with self.modules.homeManager; [
             system-desktop
-            default
           ];
           mtn = {
             programs = {
