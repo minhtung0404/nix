@@ -14,7 +14,6 @@ in
       self.modules.nixos.system-desktop
 
       self.modules.nixos.mnguyen1
-      self.modules.nixos.default
     ];
     home-manager.users.${username} = {
       imports = [
@@ -37,25 +36,17 @@ in
         };
       };
 
-      common.linux = {
-        enable = true;
-
-        networking = {
-          hostname = "mtnWork";
-          networks = {
-            "10-wired" = {
-              match = "enp*";
-              isRequired = true;
-            };
-            "20-wireless".match = "wlan*";
+      nixos.networking = {
+        hostname = "mtnWork";
+        networks = {
+          "10-wired" = {
+            match = "enp*";
+            isRequired = true;
           };
-          dnsServers = [ "127.0.0.1" ];
+          "20-wireless".match = "wlan*";
         };
-
-        username = username;
+        dnsServers = [ "127.0.0.1" ];
       };
     };
-
-    networking.hostName = "mtnWork"; # Define your hostname.
   };
 }

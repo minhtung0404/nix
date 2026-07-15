@@ -1,4 +1,33 @@
 {
+  flake.modules.nixos.cliTools = { pkgs, ... }: {
+    environment.systemPackages = with pkgs; [
+      kakoune # An editor
+      wget # A simple fetcher
+
+      ## System monitoring tools
+      usbutils # lsusb and friends
+      pciutils # lspci and friends
+      psmisc # killall, pstree, ...
+      lm_sensors # sensors
+
+      wget
+    ];
+  };
+
+  flake.modules.darwin.cliTools = { pkgs, ... }: {
+    environment.systemPackages = with pkgs; [
+      kakoune # An editor
+      wget # A simple fetcher
+
+      ## System monitoring tools
+      usbutils # lsusb and friends
+      pciutils # lspci and friends
+      psmisc # killall, pstree, ...
+      lm_sensors # sensors
+
+      wget
+    ];
+  };
   flake.modules.homeManager.cliTools = { self, pkgs, ... }: {
     imports = [
       self.modules.homeManager.git

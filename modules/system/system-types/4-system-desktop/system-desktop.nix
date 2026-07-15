@@ -5,12 +5,61 @@
 {
   # expansion of cli system for desktop use
 
-  flake.modules.nixos.system-desktop = {
+  flake.modules.nixos.system-desktop = { pkgs, ... }: {
     imports = with inputs.self.modules.nixos; [
       system-cli
 
+      scrollingDesktop
+      displayManager
       kanata
       battery
+      ios
+      graphics
+      monitorBacklight
+      bluetooth
+      boot
+      firmware
+      sound
+      kwallet
+      virtualisation
+      screencast
+      network
+      udev
+      zram
+      appimage
+      pam
+      printing
+      udisk2
+      openssh
+      portal
+      xserver
+      inputMethods
+      dbus
+      plasma
+      {
+        # Default packages
+        environment.systemPackages = with pkgs; [
+          ## Security stuff
+          libsForQt5.qtkeychain
+
+          ## Wayland
+          kdePackages.qtwayland
+          kdePackages.okular
+          rtkit
+        ];
+
+        ## Environment
+        environment.variables = {
+          # Set default editor
+          EDITOR = "kak";
+          VISUAL = "kak";
+        };
+
+        # default settings
+        # Set your time zone.
+        time.timeZone = "Europe/Paris";
+
+      }
     ];
   };
 

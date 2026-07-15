@@ -6,8 +6,9 @@
       with inputs.self.modules.nixos;
       [
         system-default
+        homeManager
 
-        # cliTools
+        cliTools
       ]
       ++ (with inputs.self.modules.generic; [
         sops
@@ -20,7 +21,7 @@
     imports = with inputs.self.modules.darwin; [
       system-default
 
-      # cliTools
+      cliTools
     ];
   };
 

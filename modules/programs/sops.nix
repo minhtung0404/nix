@@ -1,6 +1,7 @@
 {
   flake.modules.generic.sops =
     {
+      inputs,
       config,
       lib,
       ...
@@ -10,16 +11,22 @@
       cfg = config.mtn.programs.sops;
     in
     {
+      imports = [
+        inputs.sops-nix.nixosModules.sops
+      ];
       options.mtn.programs.sops = {
-        enable = mkEnableOption "Enable sops configuration";
         file = mkOption {
           type = types.path;
           description = "Path to the default sops file";
         };
       };
-      config = lib.mkIf cfg.enable {
+      config = {
         sops.defaultSopsFile = cfg.file;
-        # sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+        home-manager = {
+          extraSpecialArgs = {
+            sops = config.sops;
+          };
+        };
       };
     };
 }

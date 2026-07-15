@@ -1,4 +1,10 @@
 {
+  flake.modules.nixos.niri = { inputs, ... }: {
+    imports = [
+      inputs.niri.nixosModules.niri
+    ];
+  };
+
   flake.modules.homeManager.niri =
     {
       self,
@@ -326,7 +332,7 @@
 
               # Some basic spawns
               "Mod+Return".action = spawn (lib.getExe config.mtn.linux.graphical.defaults.terminal.package);
-              "Mod+Space".action = spawn "rofi" "-show" "drun";
+              "Mod+Space".action = spawn "${lib.getExe pkgs.rofi}" "-show" "drun";
               "Mod+R".action = sh app-menu;
               "Mod+Semicolon".action = spawn cfg.lock-command;
               "Mod+Shift+P".action = spawn "rofi-rbw-script";
