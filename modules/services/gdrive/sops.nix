@@ -5,6 +5,7 @@
       username = config.mtn.constants.username;
     in
     {
+      programs.sops.enable = true;
       sops.secrets = {
         "rclone-crypt/obscured-passwd1" = {
           owner = username;

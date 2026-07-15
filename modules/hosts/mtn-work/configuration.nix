@@ -36,10 +36,6 @@ in
           ipv6 = true;
         };
       };
-      programs.sops = {
-        enable = true;
-        file = ./secrets.yaml;
-      };
 
       common.linux = {
         enable = true;
