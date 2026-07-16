@@ -17,13 +17,11 @@
         types
         ;
       cfg = config.mtn.services.my-sketchybar;
-      username = config.mtn.username;
+      username = config.home.username;
 
     in
     {
       options.mtn.services.my-sketchybar = {
-        enable = mkEnableOption "my-sketchybar";
-
         package = mkPackageOption pkgs "sketchybar" { };
 
         extraPackages = mkOption {
@@ -41,7 +39,7 @@
         };
       };
 
-      config = mkIf cfg.enable {
+      config = {
         programs.sketchybar = {
           enable = true;
           config = ''

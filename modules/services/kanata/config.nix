@@ -18,7 +18,6 @@
     in
     {
       options.mtn.services.my-kanata = {
-        enable = mkEnableOption "my-kanata";
         package = mkPackageOption pkgs "kanata-with-cmd" { };
 
         extraPackages = mkOption {

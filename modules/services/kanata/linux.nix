@@ -15,7 +15,7 @@
     in
     {
       imports = [ self.modules.generic.kanata ];
-      config = mkIf (cfg.enable && pkgs.stdenv.isLinux) {
+      config = {
         systemd.services.kanata =
 
           let

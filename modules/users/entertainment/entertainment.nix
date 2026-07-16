@@ -15,6 +15,10 @@ in
           system-desktop
           macosDefaults
           macosDock
+          aerospace
+          sketchybar
+          hammerspoon
+
         ];
         mtn = {
           programs = {

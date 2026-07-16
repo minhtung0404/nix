@@ -1,6 +1,7 @@
 {
   flake.modules.homeManager.aerospace =
     {
+      self,
       config,
       pkgs,
       lib,
@@ -10,12 +11,14 @@
       cfg = config.mtn.services.my-aerospace;
     in
     {
+      imports = [
+        self.modules.generic.workspaces
+      ];
       options.mtn.services.my-aerospace = {
-        enable = lib.mkEnableOption "my-aerospace";
         package = lib.mkPackageOption pkgs "aerospace" { };
       };
 
-      config = lib.mkIf cfg.enable {
+      config = {
         launchd.agents.aerospace = lib.mkForce {
           enable = true;
           config = {

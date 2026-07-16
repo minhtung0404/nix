@@ -34,7 +34,7 @@
       };
     in
     {
-      config = lib.mkIf config.mtn.hm.darwin {
+      config = {
         targets.darwin.defaults = {
           "org.hammerspoon.Hammerspoon" = {
             MJConfigFile = "${hs-config}/init.lua";

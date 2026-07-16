@@ -16,7 +16,7 @@
     in
     {
       imports = [ self.modules.generic.kanata ];
-      config = mkIf (cfg.enable && cfg.darwin) {
+      config = {
         environment.launchDaemons =
           let
             catString = lib.strings.concatMapStrings (
