@@ -45,7 +45,6 @@
         };
 
         system.primaryUser = lib.mkIf isAdmin "${username}";
-
       };
 
     homeManager."${username}" = { pkgs, lib, ... }: {

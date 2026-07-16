@@ -27,6 +27,8 @@
 
     mkDarwin = system: name: {
       ${name} = inputs.nix-darwin.lib.darwinSystem {
+        system = system;
+        specialArgs = { inherit self inputs; };
         modules = [
           inputs.self.modules.darwin.${name}
           { nixpkgs.hostPlatform = lib.mkDefault system; }

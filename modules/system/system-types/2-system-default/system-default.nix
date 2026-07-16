@@ -6,12 +6,9 @@
       with inputs.self.modules.nixos;
       [
         system-minimal
-        # home-manager
-        # secrets
       ]
       ++ (with inputs.self.modules.generic; [
         constants
-        # pkgs-by-name
       ]);
   };
 
@@ -20,13 +17,10 @@
       with inputs.self.modules.darwin;
       [
         system-minimal
-        # home-manager
-        # homebrew
-        # secrets
+        homebrew
       ]
       ++ (with inputs.self.modules.generic; [
         constants
-        # pkgs-by-name
       ]);
   };
 
@@ -38,7 +32,6 @@
       with inputs.self.modules.homeManager;
       [
         system-minimal
-        # secrets
       ]
       ++ [ inputs.self.modules.generic.constants ];
   };

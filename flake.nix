@@ -64,10 +64,6 @@
             "mtnPC" = mkNixos "x86_64-linux" ./hosts/mtn-home/configuration.nix;
           };
 
-          darwinConfigurations = {
-            "MacAir-PirateKing" = mkDarwin "aarch64-darwin" ./hosts/macM1/configuration.nix;
-          };
-
           homeConfigurations = {
             "minhtung0404" = mkHome "aarch64-darwin" ./hosts/macM1/minhtung0404.nix;
             "entertainment" = mkHome "aarch64-darwin" ./home/darwin/entertainment.nix;

@@ -1,4 +1,31 @@
 {
+  flake.modules.nixos.sops =
+    {
+      config,
+      inputs,
+      self,
+      ...
+    }:
+    {
+      imports = [
+        inputs.sops-nix.nixosModules.sops
+        self.modules.generic.sops
+      ];
+
+      home-manager = {
+        extraSpecialArgs = {
+          sops = config.sops;
+        };
+      };
+    };
+
+  flake.modules.darwin.sops = { inputs, self, ... }: {
+    imports = [
+      inputs.sops-nix.darwinModules.sops
+      self.modules.generic.sops
+    ];
+  };
+
   flake.modules.generic.sops =
     {
       inputs,
@@ -11,9 +38,6 @@
       cfg = config.mtn.programs.sops;
     in
     {
-      imports = [
-        inputs.sops-nix.nixosModules.sops
-      ];
       options.mtn.programs.sops = {
         file = mkOption {
           type = types.path;
@@ -21,12 +45,8 @@
         };
       };
       config = {
+        services.openssh.enable = true;
         sops.defaultSopsFile = cfg.file;
-        home-manager = {
-          extraSpecialArgs = {
-            sops = config.sops;
-          };
-        };
       };
     };
 }

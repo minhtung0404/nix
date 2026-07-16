@@ -20,6 +20,10 @@ in
         {
           imports = with self.modules.homeManager; [
             system-desktop
+            scrollingDesktop
+            waybar
+            graphical
+
           ];
           mtn = {
             programs = {

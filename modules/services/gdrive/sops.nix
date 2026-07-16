@@ -1,5 +1,5 @@
-{
-  flake.modules.nixos.gdrive =
+let
+  gsyncSecrets =
     { config, ... }:
     let
       username = config.mtn.constants.username;
@@ -21,4 +21,9 @@
       };
 
     };
+in
+{
+  flake.modules.nixos.gsync = gsyncSecrets;
+
+  flake.modules.darwin.gsync = gsyncSecrets;
 }

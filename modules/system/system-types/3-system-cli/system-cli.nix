@@ -2,26 +2,26 @@
   # import all essential nix-tools which are used in all modules of a specific class
 
   flake.modules.nixos.system-cli = {
-    imports =
-      with inputs.self.modules.nixos;
-      [
-        system-default
-        homeManager
+    imports = with inputs.self.modules.nixos; [
+      system-default
+      homeManager
 
-        cliTools
-      ]
-      ++ (with inputs.self.modules.generic; [
-        sops
-        edns
-        gdrive
-      ]);
+      cliTools
+      sops
+      gsync
+      edns
+    ];
   };
 
   flake.modules.darwin.system-cli = {
     imports = with inputs.self.modules.darwin; [
       system-default
+      homeManager
 
       cliTools
+      sops
+      gsync
+      edns
     ];
   };
 

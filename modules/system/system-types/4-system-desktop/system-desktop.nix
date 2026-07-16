@@ -66,6 +66,8 @@
   flake.modules.darwin.system-desktop = {
     imports = with inputs.self.modules.darwin; [
       system-cli
+
+      kanata
     ];
   };
 
@@ -77,9 +79,6 @@
       kakoune
       vesktop
       kitty
-      scrollingDesktop
-      waybar
-      graphical
     ];
 
     home.packages = with pkgs; [
