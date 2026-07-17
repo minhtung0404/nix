@@ -24,7 +24,6 @@ in
       constants.username = username;
       services = {
         my-kanata = {
-          enable = true;
           configFile = [
             "gm610_linux"
             "apple_linux"
