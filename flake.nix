@@ -51,26 +51,15 @@
       flake-parts,
       ...
     }:
-    flake-parts.lib.mkFlake { inherit inputs; } (
-      top: with import ./my-lib/default.nix { inherit self inputs; }; {
-        imports = [
-          inputs.flake-parts.flakeModules.modules
-        ]
-        ++ (inputs.importTree ./modules).imports;
-        flake = {
-          overlays.default = nixpkgs.lib.composeManyExtensions (import ./overlays.nix inputs);
+    flake-parts.lib.mkFlake { inherit inputs; } (top: {
+      imports = [
+        inputs.flake-parts.flakeModules.modules
+      ]
+      ++ (inputs.importTree ./modules).imports;
+      flake = {
+        overlays.default = nixpkgs.lib.composeManyExtensions (import ./overlays.nix inputs);
 
-          nixosConfigurations = {
-            "mtnPC" = mkNixos "x86_64-linux" ./hosts/mtn-home/configuration.nix;
-          };
-
-          homeConfigurations = {
-            "minhtung0404" = mkHome "aarch64-darwin" ./hosts/macM1/minhtung0404.nix;
-            "entertainment" = mkHome "aarch64-darwin" ./home/darwin/entertainment.nix;
-          };
-
-          darwinModules.default = ./modules/darwin;
-        };
-      }
-    );
+        darwinModules.default = ./modules/darwin;
+      };
+    });
 }
