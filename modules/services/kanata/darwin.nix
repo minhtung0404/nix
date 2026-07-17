@@ -41,6 +41,24 @@
               <string>-c</string>
               <string>${kanataConfig}/${name}.kbd</string>
             '') cfg.configFile;
+
+            startKanata = pkgs.writeScript "start-kanata" ''
+              #!/usr/bin/env bash
+              set -euo pipefail
+              export LAPTOP=macair
+
+              # Wait for the Karabiner VirtualHID daemon
+              until pgrep -f Karabiner-VirtualHIDDevice-Daemon >/dev/null; do
+                sleep 0.5
+              done
+
+              # Give DriverKit a moment to create the virtual device
+              sleep 1
+
+              ${cfg.package}/bin/kanata ${
+                lib.strings.concatMapStrings (name: " -c ${kanataConfig}/${name}.kbd ") cfg.configFile
+              }
+            '';
           in
           {
             "com.nixos.kanata.plist" = {
@@ -59,8 +77,7 @@
                     </dict>
                     <key>ProgramArguments</key>
                     <array>
-                      <string>${cfg.package}/bin/kanata</string>
-                      ${configFiles}
+                      <string>${startKanata}</string>
                     </array>
                     <key>RunAtLoad</key>
                     <true/>
