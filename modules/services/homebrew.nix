@@ -1,4 +1,7 @@
 {
+  flake-file.inputs = {
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+  };
   flake.modules.darwin.homebrew = { inputs, ... }: {
     imports = [
       inputs.nix-homebrew.darwinModules.nix-homebrew

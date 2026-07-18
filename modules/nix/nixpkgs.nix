@@ -1,4 +1,8 @@
 {
+  flake-file.inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  };
+
   flake.modules.generic.nixpkgs = { self, ... }: {
     nixpkgs = {
       config.allowUnfree = true;

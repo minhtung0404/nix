@@ -1,4 +1,16 @@
 {
+  flake-file.inputs = {
+    # kakoune
+    mtn-kakoune = {
+      url = "github:minhtung0404/kakoune-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
+  };
+
   flake.modules.homeManager.kakoune =
     {
       config,
