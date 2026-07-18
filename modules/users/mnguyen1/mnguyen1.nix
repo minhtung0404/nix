@@ -27,6 +27,7 @@ in
           ];
           mtn = {
             programs = {
+              my-kitty.mod = "alt+shift";
               my-niri = {
                 enable = true;
                 enableLaptop = true;
