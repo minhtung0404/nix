@@ -87,17 +87,8 @@
           libxkbcommon
           kdePackages.dolphin
         ];
-        systemd.user.services.swaync.Install.WantedBy = [ "niri.service" ];
-        systemd.user.services.swaync.Unit.After = [ "niri.service" ];
         systemd.user.targets.tray.Unit.After = [ "niri.service" ];
         systemd.user.targets.xwayland.Unit.After = [ "niri.service" ];
-
-        mtn.programs.my-waybar = {
-          enable = true;
-          enableLaptopBars = lib.mkDefault cfg.enableLaptop;
-        };
-        systemd.user.services.waybar.Unit.After = [ "niri.service" ];
-        systemd.user.services.waybar.Install.WantedBy = [ "niri.service" ];
 
         systemd.user.services.xwayland.Unit.ConsistsOf = [ "niri.service" ];
 
@@ -151,6 +142,12 @@
                 "fill"
                 "-n"
                 "wallpaper-blurred"
+              ];
+            }
+            {
+              command = [
+                # "${lib.getExe pkgs.myNoctaliaShell}"
+                # "${lib.getExe self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia-shell}"
               ];
             }
           ];

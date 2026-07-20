@@ -21,9 +21,7 @@ in
           imports = with self.modules.homeManager; [
             system-desktop
             scrollingDesktop
-            waybar
             graphical
-
           ];
           mtn = {
             programs = {
@@ -52,10 +50,6 @@ in
                     };
                   };
                 };
-              };
-              my-waybar = {
-                fontSize = 15.0;
-                enableMpd = true;
               };
             };
 

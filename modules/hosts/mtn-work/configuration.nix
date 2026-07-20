@@ -1,15 +1,16 @@
 {
   config,
-  self,
   ...
 }:
 let
+  system = "x86_64-linux";
+  hostname = "mtnWork";
   username = "mnguyen1";
 in
 {
-  flake.nixosConfigurations = config.flake.lib.mkNixos "x86_64-linux" "mtnWork";
+  flake.nixosConfigurations = config.flake.lib.mkNixos system hostname;
 
-  flake.modules.nixos.mtnWork = { pkgs, ... }: {
+  flake.modules.nixos.${hostname} = { self, pkgs, ... }: {
     imports = [
       self.modules.nixos.system-desktop
 
@@ -36,7 +37,7 @@ in
       };
 
       nixos.networking = {
-        hostname = "mtnWork";
+        hostname = hostname;
         networks = {
           "10-wired" = {
             match = "enp*";
