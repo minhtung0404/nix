@@ -1,6 +1,7 @@
 {
   flake.modules.generic.workspaces =
     {
+      config,
       lib,
       ...
     }:
@@ -36,7 +37,15 @@
         default = [ ];
         example = lib.litteralExpression "[ ]";
         description = ''
-          List of workspace for Sketchybar + Aerospace
+          List of workspace for scrolling desktop
+        '';
+      };
+      options.mtn.nameToWorkspace = lib.mkOption {
+        type = lib.types.attrsOf lib.types.str;
+        default = { };
+        example = lib.litteralExpression "{ }";
+        description = ''
+          Map from workspace name to workspace id
         '';
       };
 
@@ -82,5 +91,11 @@
           monitor = "secondary";
         }
       ];
+      config.mtn.nameToWorkspace = lib.listToAttrs (
+        map (s: {
+          name = s.name;
+          value = s.id;
+        }) config.mtn.workspaces
+      );
     };
 }

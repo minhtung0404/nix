@@ -65,7 +65,7 @@
           marginHorizontal = 0.25;
           marginVertical = 0.25;
           monitors = [ ];
-          outerCorners = true;
+          outerCorners = false;
           position = "top";
           showCapsule = false;
           showOutline = false;
@@ -97,7 +97,7 @@
                 followFocusedScreen = false;
                 hideUnoccupied = true;
                 id = "Workspace";
-                labelMode = "index+name";
+                labelMode = "name";
                 showApplications = false;
                 showLabelsOnlyWhenOccupied = true;
               }

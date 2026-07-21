@@ -16,15 +16,15 @@
 
       # Niri stuff
       # https://github.com/sodiboo/niri-flake/blob/main/docs.md
-      programs.niri.enable = true;
-      # programs.niri.package = pkgs.niri-stable;
-      # Override gnome-keyring disabling
-      services.gnome.gnome-keyring.enable = lib.mkForce false;
-      # niri
-      nixpkgs.overlays = [ inputs.niri.overlays.niri ];
-      programs.niri.package = pkgs.niri-stable.override {
-        libdisplay-info = pkgs.libdisplay-info_0_2;
-      };
+      # programs.niri.enable = true;
+      # # programs.niri.package = pkgs.niri-stable;
+      # # Override gnome-keyring disabling
+      # services.gnome.gnome-keyring.enable = lib.mkForce false;
+      # # niri
+      # nixpkgs.overlays = [ inputs.niri.overlays.niri ];
+      # programs.niri.package = pkgs.niri-stable.override {
+      #   libdisplay-info = pkgs.libdisplay-info_0_2;
+      # };
     };
 
 }

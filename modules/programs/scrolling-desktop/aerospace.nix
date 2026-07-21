@@ -157,12 +157,7 @@
                     "run" = action;
                   }
                 );
-                name_to_workspace = lib.listToAttrs (
-                  map (s: {
-                    name = s.name;
-                    value = s.id;
-                  }) config.mtn.workspaces
-                );
+                name_to_workspace = config.mtn.nameToWorkspace;
               in
               map (f [ "layout floating" ]) [ "com.apple.systempreferences" ]
               ++ map (f [ "move-node-to-workspace ${name_to_workspace.web}" ]) [

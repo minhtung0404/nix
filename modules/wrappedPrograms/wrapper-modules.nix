@@ -12,6 +12,7 @@
     wrappers.control_type = "build";
     wrappers.packages = {
       noctalia-shell = true;
+      niri = true;
     };
   };
 }

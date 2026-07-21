@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.portal = { pkgs, ... }: {
+  flake.modules.nixos.portal = { pkgs, lib, ... }: {
     # Portals
     xdg.portal = {
       enable = true;
@@ -17,7 +17,7 @@
         "kwallet"
       ];
       config.niri = {
-        default = [
+        default = lib.mkForce [
           "kde"
           "gnome"
           "gtk"
@@ -25,7 +25,7 @@
         # "org.freedesktop.impl.portal.Access" = "gtk";
         # "org.freedesktop.impl.portal.Notification" = "gtk";
         "org.freedesktop.impl.portal.ScreenCast" = "gnome";
-        "org.freedesktop.impl.portal.Secret" = "kwallet";
+        "org.freedesktop.impl.portal.Secret" = lib.mkForce "kwallet";
         "org.freedesktop.impl.portal.FileChooser" = "kde";
         "org.freedesktop.impl.portal.OpenURI" = "kde";
       };

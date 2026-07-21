@@ -20,37 +20,37 @@ in
         {
           imports = with self.modules.homeManager; [
             system-desktop
-            scrollingDesktop
+            # scrollingDesktop
             graphical
           ];
           mtn = {
             programs = {
               my-kitty.mod = "alt+shift";
-              my-niri = {
-                enable = true;
-                enableLaptop = true;
-                monitors = {
-                  main = "DP-2";
-                  secondary = "eDP-1";
-                };
-                outputs = {
-                  "DP-2" = {
-                    scale = 1.0;
-                    position = {
-                      x = 0;
-                      y = 0;
-                    };
-                    focus-at-startup = true;
-                  };
-                  "eDP-1" = {
-                    scale = 1.0;
-                    position = {
-                      x = 1920;
-                      y = 0;
-                    };
-                  };
-                };
-              };
+              # my-niri = {
+              #   enable = true;
+              #   enableLaptop = true;
+              #   monitors = {
+              #     main = "DP-2";
+              #     secondary = "eDP-1";
+              #   };
+              #   outputs = {
+              #     "DP-2" = {
+              #       scale = 1.0;
+              #       position = {
+              #         x = 0;
+              #         y = 0;
+              #       };
+              #       focus-at-startup = true;
+              #     };
+              #     "eDP-1" = {
+              #       scale = 1.0;
+              #       position = {
+              #         x = 1920;
+              #         y = 0;
+              #       };
+              #     };
+              #   };
+              # };
             };
 
             linux.graphical = {
