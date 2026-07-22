@@ -7,49 +7,22 @@
       lib,
       ...
     }:
-    let
-      inherit (lib)
-        mkIf
-        ;
-      cfg = config.mtn.services.my-kanata;
-    in
     {
-      imports = [ self.modules.generic.kanata ];
+      imports = [
+        self.wrappers.kanata.install
+      ];
       config = {
-        systemd.services.kanata =
+        systemd.services.kanata = {
+          description = "Service for kanata keyboard";
+          wantedBy = [ "multi-user.target" ];
 
-          let
-            catString = lib.strings.concatMapStrings (
-              name:
-              let
-                main = ./default_configs/${name}.kbd;
-                common = ./default_configs/common.kbd;
-              in
-              ''
-                cat ${main} ${common} > $out/${name}.kbd
-              ''
-            ) cfg.configFile;
-            kanataConfig = pkgs.stdenv.mkDerivation {
-              name = "kanata-config";
-              phases = [ "installPhase" ];
-              installPhase = ''
-                mkdir -p $out
-                ${catString}
-              '';
-            };
-            argument = lib.strings.concatMapStrings (name: "-c ${kanataConfig}/${name}.kbd ") cfg.configFile;
-          in
-          {
-            description = "Service for kanata keyboard";
-            wantedBy = [ "multi-user.target" ];
-
-            serviceConfig = {
-              Type = "simple";
-              ExecStart = "${cfg.package}/bin/kanata ${argument}";
-              Restart = "on-failure";
-              Environment = [ "LAPTOP=pc" ];
-            };
+          serviceConfig = {
+            Type = "simple";
+            ExecStart = lib.getExe config.wrappers.kanata.wrapper;
+            Restart = "on-failure";
+            Environment = [ "LAPTOP=pc" ];
           };
+        };
       };
     };
 }

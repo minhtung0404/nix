@@ -13,6 +13,7 @@
     wrappers.packages = {
       noctalia-shell = true;
       niri = true;
+      kanata = true;
     };
   };
 }

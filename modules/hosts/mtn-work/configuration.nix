@@ -55,18 +55,17 @@ in
             };
           };
         };
+
       };
+      wrappers.kanata.configFile = [
+        "gm610_linux"
+        "apple_linux"
+      ];
 
       mtn = {
         constants.username = username;
 
         services = {
-          my-kanata = {
-            configFile = [
-              "gm610_linux"
-              "apple_linux"
-            ];
-          };
           edns = {
             # enable = true;
             ipv6 = true;

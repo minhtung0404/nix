@@ -1,0 +1,79 @@
+(environment (OS darwin)
+
+(defalias
+  cmd lmet
+  alt lalt
+  open_web (cmd open -a LibreWolf.app)
+  open_discord (cmd open -a Discord.app)
+  open_telegram (cmd open -a Telegram.app)
+  open_vscode (cmd open -a "Visual Studio Code.app")
+  open_obsidian (cmd open -a Obsidian.app)
+  open_kitty (cmd open -a kitty.app)
+  fn-mac fn
+  fn (tap-hold-press 200 200 fn (layer-while-held fn_layer))
+)
+
+)
+
+(environment (OS linux)
+
+(defalias
+  cmd lalt
+  alt lmet
+  open_web XX
+  open_discord XX
+  open_telegram XX
+  open_vscode XX
+  open_obsidian XX
+  open_kitty XX
+  fn-mac XX
+  fn XX
+)
+)
+
+(environment (OS linux)
+(defoverrides
+  (lalt a) (lctl a)
+  (lalt c) (lctl c)
+  (lalt s) (lctl s)
+  (lalt t) (lctl t)
+  (lalt v) (lctl v)
+  (lalt w) (lctl w)
+  (lalt x) (lctl x)
+  (lalt z) (lctl z)
+)
+)
+
+(defalias
+  eoc (tap-hold-press 200 200 esc lctl)
+  ctl (tap-hold-press 200 200 @fn-mac (layer-while-held fn_layer))
+)
+
+(deflayer base
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @eoc a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  @ctl @alt @cmd           spc            @alt @cmd rctl
+  @fn  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+)
+
+(deflayermap fn_layer
+  f1 brdn
+  f2 brup
+  f7 prev
+  f8 pp
+  f9 next
+  f10 mute
+  f11 vold
+  f12 volu
+  esc lrld-next
+  1 brdn
+  2 brup
+  0 mute
+  - vold
+  = volu
+  spc @fn-mac
+  ___ XX
+)
+
