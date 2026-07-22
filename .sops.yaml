@@ -4,7 +4,7 @@ keys:
   - &mba_minhtung0404 age13dtrv5nadfqvp43e97hh0d23vyzd3qgkqpzn7f0mtm4j5shkkg4swa85sh
   - &mba age1xq7sqcawstlz7ygmsheap6nv0efransz27l94sqwdrjntvnvrp5sef5t9j
   - &mtn_home age17ckhlhhqdxegvpwlghztrcghn26ty4kl5wdruzk8r88e8392kqsqq20dma
-  - &mtn_work age14j6hz6dzx8mjyvtzdc7he4qcjr482gwzsfmt5ccuthwgg82r944q5llcx2
+  - &mtn_work age1jp2y2wnjwvsn3452qw20ds05f0mhdq0s3tkdk4j6u3srq825nazqxykz04
 creation_rules:
   - path_regex: .*\.yaml$
     key_groups:
@@ -13,26 +13,3 @@ creation_rules:
       - *mtn_work
       - *mba_minhtung0404
       - *mba
-  - path_regex: hosts/secrets/.*\.yaml$
-    key_groups:
-    - age:
-      - *mtn_home
-      - *mtn_work
-      - *mba_minhtung0404
-      - *mba
-  - path_regex: hosts/macM1/secrets.yaml$
-    key_groups:
-    - age:
-      - *mtn_home
-      - *mba_minhtung0404
-      - *mba
-  - path_regex: hosts/mtn-home/secrets.yaml$
-    key_groups:
-    - age:
-      - *mtn_home
-  - path_regex: hosts/mtn-work/secrets.yaml$
-    key_groups:
-    - age:
-      - *mtn_home
-      - *mtn_work
-
