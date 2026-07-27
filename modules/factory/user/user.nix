@@ -17,6 +17,7 @@
           home = "/home/${username}";
           extraGroups = lib.optionals isAdmin [
             "wheel"
+            "networkmanager"
           ];
           shell = pkgs.fish;
         };

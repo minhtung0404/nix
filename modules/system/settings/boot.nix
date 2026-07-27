@@ -16,7 +16,7 @@
       config = {
         ## Boot Configuration
         # Set kernel version to latest
-        boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+        boot.kernelPackages = lib.mkDefault pkgs.linuxPackages;
         # Use the systemd-boot EFI boot loader.
         boot = {
           loader.timeout = 10;

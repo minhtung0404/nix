@@ -70,8 +70,6 @@
 
     programs.vscode.enable = true;
 
-    programs.nushell.enable = true;
-
     programs.zoxide = {
       enable = true;
       options = [ "--cmd j" ];
