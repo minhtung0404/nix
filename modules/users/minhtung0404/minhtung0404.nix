@@ -18,6 +18,7 @@ in
           home-manager.users.${username} = {
             imports = with self.modules.homeManager; [
               system-desktop
+              tex
               scrollingDesktop
               waybar
               graphical
@@ -82,8 +83,6 @@ in
                   };
 
                   home.packages = with pkgs; [
-                    texlive.combined.scheme-full
-                    bibtool
                     sops
                   ];
                 }
@@ -109,6 +108,8 @@ in
               aerospace
               sketchybar
               hammerspoon
+
+              tex
             ];
 
             mtn = {
@@ -125,7 +126,6 @@ in
             };
 
             home.packages = with pkgs; [
-              texlive.combined.scheme-full
               sops
             ];
           };

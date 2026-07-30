@@ -20,8 +20,9 @@ in
     {
       imports = [
         self.modules.nixos.system-desktop
-
         self.modules.nixos.mnguyen1
+
+        self.modules.nixos.vm
       ];
       home-manager.users.${username} = {
         imports = [
