@@ -22,7 +22,6 @@
       sound
       kwallet
       virtualisation
-      screencast
       network
       udev
       zram
@@ -36,6 +35,7 @@
       inputMethods
       dbus
       plasma
+      kded6
       {
         # Default packages
         environment.systemPackages = with pkgs; [
