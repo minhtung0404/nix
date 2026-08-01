@@ -94,27 +94,18 @@
             cfg.defaults.terminal.package
 
             ## GUI stuff
-            evince # PDF reader
             gparted
             deluge # Torrent client
-            pavucontrol # PulseAudio control panel
-            # cinny-desktop
             # Audio
             vlc
 
-            libreoffice
             onlyoffice-desktopeditors
-
-            mpv # for anki
-            anki-bin
 
             karere
             zoom-us
 
             ## CLI stuff
             dex # .desktop file management, startup
-            # sct # Display color temperature
-            xdg-utils # Open stuff
           ]
           ++ cfg.startup
         );
@@ -124,21 +115,9 @@
         xdg.mimeApps.enable = true;
 
         xdg.mimeApps.associations.added = {
-          "x-scheme-handler/mailto" = [
-            "thunderbird.desktop"
-            "org.gnome.Evolution.desktop"
-          ];
-          "application/pdf" = [ "org.gnome.Evince.desktop" ];
           "text/plain" = [ "kakoune.desktop" ];
 
           # Other Thunderbird stuff
-          "x-scheme-handler/mid" = [ "thunderbird.desktop" ];
-          "x-scheme-handler/news" = [ "thunderbird.desktop" ];
-          "x-scheme-handler/snews" = [ "thunderbird.desktop" ];
-          "x-scheme-handler/nntp" = [ "thunderbird.desktop" ];
-          "x-scheme-handler/feed" = [ "thunderbird.desktop" ];
-          "application/rss+xml" = [ "thunderbird.desktop" ];
-          "application/x-extension-rss" = [ "thunderbird.desktop" ];
           "x-scheme-handler/tg2" = [ "org.telegram.desktop.desktop" ];
           "x-scheme-handler/tonsite2" = [ "org.telegram.desktop.desktop" ];
 
@@ -151,23 +130,6 @@
           "application/x-extension-xht" = [ (desktopFileOf cfg.defaults.webBrowser) ];
         };
         xdg.mimeApps.defaultApplications = {
-          # Email
-          "x-scheme-handler/mailto" = [
-            "thunderbird.desktop"
-            "org.gnome.Evolution.desktop"
-          ];
-          "x-scheme-handler/webcal" = [ "thunderbird.desktop" ];
-          "x-scheme-handler/webcals" = [ "thunderbird.desktop" ];
-
-          # Other Thunderbird stuff
-          "x-scheme-handler/mid" = [ "thunderbird.desktop" ];
-          "x-scheme-handler/news" = [ "thunderbird.desktop" ];
-          "x-scheme-handler/snews" = [ "thunderbird.desktop" ];
-          "x-scheme-handler/nntp" = [ "thunderbird.desktop" ];
-          "x-scheme-handler/feed" = [ "thunderbird.desktop" ];
-          "application/rss+xml" = [ "thunderbird.desktop" ];
-          "application/x-extension-rss" = [ "thunderbird.desktop" ];
-
           # Default web browser stuff
           "text/html" = [ (desktopFileOf cfg.defaults.webBrowser) ];
           "x-scheme-handler/chrome" = [ (desktopFileOf cfg.defaults.webBrowser) ];
@@ -273,45 +235,7 @@
             };
             autoStartup = listToAttrs (map f cfg.startup);
           in
-          autoStartup
-          // {
-            ## Polkit UI
-            "autostart/polkit.desktop".text = ''
-              ${builtins.readFile "${pkgs.pantheon.pantheon-agent-polkit}/etc/xdg/autostart/io.elementary.desktop.agent-polkit.desktop"}
-              OnlyShowIn=sway;
-            '';
-          };
-        # IBus configuration
-        # dconf.settings."desktop/ibus/general" = {
-        #   engines-order = hm.gvariant.mkArray hm.gvariant.type.string [ "xkb:jp::jpn" "mozc-jp" "Bamboo" ];
-        #   reload-engines = hm.gvariant.mkArray hm.gvariant.type.string [ "xkb:jp::jpn" "mozc-jp" "Bamboo" ];
-        # };
-        # dconf.settings."desktop/ibus/general/hotkey" = {
-        #   triggers = hm.gvariant.mkArray hm.gvariant.type.string [ "<Super>z" ];
-        # };
-
-        # Some graphical targets
-        systemd.user.targets = {
-          # For system trays, usually after graphical-session and graphical-session-pre
-          tray = {
-            Unit.Description = lib.mkDefault "System tray";
-            Unit.After = [ "graphical-session-pre.target" ];
-            Unit.Before = [ "graphical-session.target" ];
-            Unit.BindsTo = [ "graphical-session.target" ];
-            Install.WantedBy = [ "graphical-session.target" ];
-          };
-          # XWayland target
-          xwayland = {
-            Unit.Description = "XWayland support";
-            Unit.After = [ "graphical-session-pre.target" ];
-            Unit.Before = [
-              "graphical-session.target"
-              "xdg-desktop-autostart.target"
-            ];
-            Unit.BindsTo = [ "graphical-session.target" ];
-            Install.WantedBy = [ "graphical-session.target" ];
-          };
-        };
+          autoStartup;
       };
     };
 }

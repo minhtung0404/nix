@@ -73,10 +73,8 @@
               QT_QPA_PLATFORM = "wayland";
               QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
               QT_IM_MODULE = "fcitx";
+              XDG_MENU_PREFIX = "plasma-";
             };
-            # // lib.optionalAttrs osConfig.services.desktopManager.plasma6.enable {
-            #   XDG_MENU_PREFIX = "plasma-";
-            # };
             input = {
               keyboard = {
                 xkb = {
@@ -112,6 +110,17 @@
                 "${config.wallpaper}"
                 "-m"
                 "fill"
+              ]
+              [
+                "dbus-update-activation-environment"
+                "--systemd"
+                "WAYLAND_DISPLAY"
+                "DISPLAY"
+                "XDG_CURRENT_DESKTOP"
+                "XDG_SESSION_TYPE"
+                "XDG_MENU_PREFIX"
+                "PATH"
+                "XDG_DATA_DIRS"
               ]
             ];
 

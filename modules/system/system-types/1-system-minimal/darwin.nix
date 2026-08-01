@@ -1,4 +1,4 @@
-{ ... }: {
+{
   flake-file.inputs = {
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
