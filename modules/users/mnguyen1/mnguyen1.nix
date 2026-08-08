@@ -20,8 +20,8 @@ in
         {
           imports = with self.modules.homeManager; [
             system-desktop
+            nixosDesktop
             tex
-            graphical
           ];
           mtn = {
             programs = {
@@ -29,9 +29,6 @@ in
             };
 
             linux.graphical = {
-              type = "wayland";
-              wallpaper = config.mtn.constants.mirai;
-
               startup = [
                 pkgs.obsidian
                 config.mtn.linux.graphical.defaults.webBrowser.package
@@ -47,7 +44,6 @@ in
           };
 
           home.packages = with pkgs; [
-            sops
             google-chrome
           ];
         };

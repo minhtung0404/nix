@@ -96,6 +96,7 @@
     imports = with inputs.self.modules.homeManager; [
       system-cli
 
+      graphical
       zenBrowser
       kakoune
       vesktop
@@ -115,6 +116,35 @@
 
       my-kakoune.enable-fish-session = true;
     };
+
+  };
+
+  flake.modules.homeManager.nixosDesktop = { pkgs, ... }: {
+    imports = with inputs.self.modules.homeManager; [
+      graphical
+      nixosMime
+      nixosStartup
+      nixosGtk
+      nixosQt
+    ];
+
+    home.packages = with pkgs; [
+      obsidian
+      telegram-desktop
+      ## GUI stuff
+      gparted
+      deluge # Torrent client
+      # Audio
+      vlc
+
+      onlyoffice-desktopeditors
+
+      karere
+      zoom-us
+
+      ## CLI stuff
+      dex # .desktop file management, startup
+    ];
 
   };
 }

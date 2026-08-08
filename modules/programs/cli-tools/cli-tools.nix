@@ -44,6 +44,7 @@
       gnumake
       unzip
       zip
+      sops
     ];
 
     home.shell.enableFishIntegration = true;
