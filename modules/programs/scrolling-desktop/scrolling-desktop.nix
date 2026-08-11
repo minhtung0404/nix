@@ -10,6 +10,7 @@
       imports = [
         self.wrappers.niri.install
         self.wrappers.noctalia-shell.install
+        self.wrappers.kitty.install
       ];
       programs.niri = {
         enable = true;
@@ -17,9 +18,10 @@
       };
       wrappers.niri = {
         noctalia = config.wrappers.noctalia-shell.wrapper;
-        terminal = pkgs.kitty;
+        terminal = config.wrappers.kitty.wrapper;
         wallpaper = config.mtn.constants.mirai;
       };
+      wrappers.kitty.fontSize = 16;
     };
 
   flake.modules.homeManager.scrollingDesktop = { self, ... }: {

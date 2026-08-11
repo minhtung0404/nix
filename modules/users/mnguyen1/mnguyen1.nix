@@ -24,10 +24,6 @@ in
             tex
           ];
           mtn = {
-            programs = {
-              my-kitty.mod = "alt+shift";
-            };
-
             linux.graphical = {
               startup = [
                 pkgs.obsidian

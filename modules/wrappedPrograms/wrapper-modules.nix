@@ -14,6 +14,7 @@
       noctalia-shell = true;
       niri = true;
       kanata = true;
+      kitty = true;
     };
   };
 }
