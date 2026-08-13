@@ -17,7 +17,7 @@
         fontSize = lib.mkOption {
           type = lib.types.int;
           description = "Font size";
-          default = 21;
+          default = 16;
         };
 
         theme = lib.mkOption {
