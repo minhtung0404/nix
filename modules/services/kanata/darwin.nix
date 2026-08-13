@@ -8,40 +8,16 @@
       lib,
       ...
     }:
-    let
-      inherit (lib)
-        mkIf
-        ;
-      cfg = config.mtn.services.my-kanata;
-    in
     {
-      imports = [ self.modules.generic.kanata ];
+      imports = [ self.wrappers.kanata.install ];
       config = {
+        system.activationScripts.postActivation.text = lib.mkOrder 1600 ''
+          echo "-----------------------------------------------"
+          echo "Permission required ..."
+          echo "kanata: Please enable Input Monitoring/Accessibility for bash in ${lib.getExe config.wrappers.kanata.wrapper}"
+        '';
         environment.launchDaemons =
           let
-            catString = lib.strings.concatMapStrings (
-              name:
-              let
-                main = ./default_configs/${name}.kbd;
-                common = ./default_configs/common.kbd;
-              in
-              ''
-                cat ${main} ${common} > $out/${name}.kbd
-              ''
-            ) cfg.configFile;
-            kanataConfig = pkgs.stdenv.mkDerivation {
-              name = "kanata-config";
-              phases = [ "installPhase" ];
-              installPhase = ''
-                mkdir -p $out
-                ${catString}
-              '';
-            };
-            configFiles = lib.strings.concatMapStrings (name: ''
-              <string>-c</string>
-              <string>${kanataConfig}/${name}.kbd</string>
-            '') cfg.configFile;
-
             startKanata = pkgs.writeScript "start-kanata" ''
               #!/usr/bin/env bash
               set -euo pipefail
@@ -55,9 +31,8 @@
               # Give DriverKit a moment to create the virtual device
               sleep 1
 
-              ${cfg.package}/bin/kanata ${
-                lib.strings.concatMapStrings (name: " -c ${kanataConfig}/${name}.kbd ") cfg.configFile
-              }
+
+              exec -a "$0" ${lib.getExe config.wrappers.kanata.wrapper}
             '';
           in
           {

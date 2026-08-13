@@ -112,18 +112,22 @@ in
               tex
             ];
 
-            mtn = {
-              programs = {
-                my-dock = {
-                  apps = [
-                    "${config.home.homeDirectory}/Applications/Home Manager Apps/Zen Browser (Beta).app/"
-                    "/System/Applications/Mail.app/"
-                    "/System/Volumes/Data/Applications/VeraCrypt.app/"
-                    "${config.home.homeDirectory}/Applications/Home Manager Apps/Obsidian.app/"
-                  ];
+            mtn =
+              let
+                home = config.home-manager.users.${username}.home.homeDirectory;
+              in
+              {
+                programs = {
+                  my-dock = {
+                    apps = [
+                      "${home}/Applications/Home Manager Apps/Zen Browser (Beta).app/"
+                      "/System/Applications/Mail.app/"
+                      "/System/Volumes/Data/Applications/VeraCrypt.app/"
+                      "${home}/Applications/Home Manager Apps/Obsidian.app/"
+                    ];
+                  };
                 };
               };
-            };
 
             home.packages = with pkgs; [
               sops

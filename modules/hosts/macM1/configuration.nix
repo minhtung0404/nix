@@ -17,14 +17,13 @@
       ];
 
       system.primaryUser = "minhtung0404";
+      wrappers.kanata.configFile = [
+        "apple"
+        "gm610"
+      ];
       mtn = {
         constants.username = "minhtung0404";
         services = {
-          my-kanata.configFile = [
-            "apple"
-            "gm610"
-          ];
-
           edns = {
             ipv6 = true;
           };
