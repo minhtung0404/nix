@@ -13,6 +13,7 @@
     {
       imports = [
         self.modules.generic.workspaces
+        self.wrappers.kitty.install
       ];
       options.mtn.services.my-aerospace = {
         package = lib.mkPackageOption pkgs "aerospace" { };
@@ -60,7 +61,7 @@
             };
 
             mode.main.binding = {
-              cmd-enter = "exec-and-forget ${pkgs.kitty}/Applications/kitty.app/Contents/MacOS/kitty --single-instance --directory=~";
+              cmd-enter = "exec-and-forget ${lib.getExe config.wrappers.kitty.wrapper} --single-instance --directory=~";
 
               alt-slash = "layout tiles horizontal vertical";
               alt-comma = "layout accordion horizontal vertical";
