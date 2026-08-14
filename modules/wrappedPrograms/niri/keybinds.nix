@@ -1,7 +1,5 @@
-{ self, ... }:
 {
   flake.wrappers.niri = { config, lib, ... }: {
-    settings.input.mod-key = "Alt";
     settings.binds =
       let
         noctaliaExe = lib.getExe config.noctalia;

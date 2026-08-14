@@ -1,11 +1,25 @@
+
 (environment (OS darwin)
+
+(defalias
+  fn-mac fn
+  fn (tap-hold-press 200 200 fn (layer-while-held fn_layer))
+)
+)
+
+(environment (OS linux)
+
+(defalias
+  fn-mac XX
+  fn XX
+)
+)
 
 (defalias
   cmd lmet
   alt lalt
-  fn-mac fn
-  fn (tap-hold-press 200 200 fn (layer-while-held fn_layer))
-)
+  eoc (tap-hold-press 200 200 esc lctl)
+  ctl (tap-hold-press 200 200 @fn-mac (layer-while-held fn_layer))
 )
 
 (environment (OS darwin)
@@ -23,17 +37,16 @@
 
 (environment (OS linux)
 
-(defalias
-  cmd lalt
-  alt lmet
-  fn-mac XX
-  fn XX
+(defoverrides
+  (lmet a) (lctl a)
+  (lmet c) (lctl c)
+  (lmet s) (lctl s)
+  (lmet t) (lctl t)
+  (lmet v) (lctl v)
+  (lmet w) (lctl w)
+  (lmet x) (lctl x)
+  (lmet z) (lctl z)
 )
-)
-
-(defalias
-  eoc (tap-hold-press 200 200 esc lctl)
-  ctl (tap-hold-press 200 200 @fn-mac (layer-while-held fn_layer))
 )
 
 (deflayer base
