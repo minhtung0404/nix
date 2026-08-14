@@ -3,16 +3,22 @@
 (defalias
   cmd lmet
   alt lalt
-  open_web (cmd open -a LibreWolf.app)
-  open_discord (cmd open -a Discord.app)
-  open_telegram (cmd open -a Telegram.app)
-  open_vscode (cmd open -a "Visual Studio Code.app")
-  open_obsidian (cmd open -a Obsidian.app)
-  open_kitty (cmd open -a kitty.app)
   fn-mac fn
   fn (tap-hold-press 200 200 fn (layer-while-held fn_layer))
 )
+)
 
+(environment (OS darwin)
+(defoverrides
+  (lctl a) (lmet a)
+  (lctl c) (lmet c)
+  (lctl s) (lmet s)
+  (lctl t) (lmet t)
+  (lctl v) (lmet v)
+  (lctl w) (lmet w)
+  (lctl x) (lmet x)
+  (lctl z) (lmet z)
+)
 )
 
 (environment (OS linux)
@@ -20,27 +26,8 @@
 (defalias
   cmd lalt
   alt lmet
-  open_web XX
-  open_discord XX
-  open_telegram XX
-  open_vscode XX
-  open_obsidian XX
-  open_kitty XX
   fn-mac XX
   fn XX
-)
-)
-
-(environment (OS linux)
-(defoverrides
-  (lalt a) (lctl a)
-  (lalt c) (lctl c)
-  (lalt s) (lctl s)
-  (lalt t) (lctl t)
-  (lalt v) (lctl v)
-  (lalt w) (lctl w)
-  (lalt x) (lctl x)
-  (lalt z) (lctl z)
 )
 )
 
