@@ -65,9 +65,6 @@
             "f2" = "goto_layout fat";
             "f3" = "goto_layout tall";
             "f4" = "combine : launch --location=split : clear";
-
-            "ctrl+t" = "combine : new_tab : clear";
-            "cmd+t" = "combine : new_tab : clear";
           };
           settings = {
             background_opacity = "0.85";
