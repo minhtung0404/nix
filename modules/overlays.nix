@@ -1,17 +1,19 @@
-{ inputs, ... }: {
+{ self, inputs, ... }: {
   flake.overlays.default = inputs.nixpkgs.lib.composeManyExtensions (
     let
       overlay-versioning = final: prev: { };
 
       overlay-libs = final: prev: { };
-      overlay-packages = final: prev: { };
+      overlay-packages = final: prev: {
+        kakoune = self.packages.${final.stdenv.hostPlatform.system}.kak;
+      };
     in
     [
       overlay-versioning
       overlay-libs
       overlay-packages
       inputs.nur.overlays.default
-      inputs.mtn-kakoune.overlays.default
+      # inputs.mtn-kakoune.overlays.default
     ]
   );
 }

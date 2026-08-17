@@ -40,7 +40,6 @@
       stylua
       tldr
 
-      mtn-kakoune
       gnumake
       unzip
       zip
