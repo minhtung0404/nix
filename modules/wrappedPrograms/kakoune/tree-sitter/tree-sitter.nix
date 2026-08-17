@@ -79,7 +79,7 @@
 
           toLanguageConf =
             name: lang:
-            (builtins.removeAttrs lang [
+            (removeAttrs lang [
               "grammar"
               "queries"
             ])
@@ -123,7 +123,7 @@
           constructFiles."config.toml" = {
             content = builtins.toJSON {
               highlight.groups = builtins.sort (a: b: a < b) (
-                builtins.map toScm (builtins.attrNames allGroups ++ builtins.attrNames aliases)
+                map toScm (builtins.attrNames allGroups ++ builtins.attrNames aliases)
               );
               language = builtins.mapAttrs toLanguageConf config.languages;
               grammar = builtins.mapAttrs toGrammarConf config.languages;
