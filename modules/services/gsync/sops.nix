@@ -1,25 +1,29 @@
 let
   gsyncSecrets =
-    { config, ... }:
+    { config, lib, ... }:
     let
       username = config.mtn.constants.username;
     in
     {
-      sops.secrets = {
-        "rclone-crypt/obscured-passwd1" = {
-          owner = username;
-          sopsFile = ./rclone.yaml;
-        };
-        "rclone-crypt/obscured-passwd2" = {
-          owner = username;
-          sopsFile = ./rclone.yaml;
-        };
-        "rclone-crypt/token" = {
-          owner = username;
-          sopsFile = ./rclone.yaml;
-        };
-      };
-
+      sops.secrets =
+        lib.pipe
+          [
+            "rclone-crypt/obscured-passwd1"
+            "rclone-crypt/obscured-passwd2"
+            "rclone-crypt/token"
+            "rclone-crypt/gdrive_client_id"
+            "rclone-crypt/gdrive_client_secret"
+          ]
+          [
+            (map (name: {
+              name = name;
+              value = {
+                owner = username;
+                sopsFile = ./rclone.yaml;
+              };
+            }))
+            builtins.listToAttrs
+          ];
     };
 in
 {

@@ -52,6 +52,8 @@
               };
               secrets = {
                 token = sops.secrets."rclone-crypt/token".path;
+                client_id = sops.secrets."rclone-crypt/gdrive_client_id".path;
+                client_secret = sops.secrets."rclone-crypt/gdrive_client_secret".path;
               };
             };
             crypt = {
