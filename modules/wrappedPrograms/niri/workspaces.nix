@@ -72,7 +72,7 @@
         open-on-workspace = "${config.mtn.nameToWorkspace.notes} - notes";
         open-maximized = true;
         matches = [
-          { app-id = "obsidian"; }
+          { app-id = "md.Obsidian"; }
           {
             app-id = "electron";
             title = ".*Obsidian.*";
