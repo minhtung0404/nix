@@ -19,6 +19,7 @@
       sops.secrets."wg-deluge.conf" = {
         owner = "root";
         mode = "0400";
+        sopsFile = ./secrets.yaml;
         reloadUnits = [ "${wg}.service" ];
       };
       # setting up wireguard interface within network namespace
