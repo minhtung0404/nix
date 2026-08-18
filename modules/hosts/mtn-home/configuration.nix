@@ -9,10 +9,12 @@
   ...
 }:
 let
+  system = "x86_64-linux";
+  hostname = "mtnPC";
   username = "minhtung0404";
 in
 {
-  flake.nixosConfigurations = config.flake.lib.mkNixos "x86_64-linux" "mtnPC";
+  flake.nixosConfigurations = config.flake.lib.mkNixos system hostname;
 
   flake.modules.nixos.mtnPC = { pkgs, ... }: {
     imports = [
@@ -21,28 +23,49 @@ in
       self.modules.nixos.minhtung0404
     ];
 
-    home-manager.users.${username} = {
-      imports = [
-        self.modules.homeManager.copyPaste
-      ];
+    wrappers.niri = {
+      monitors = {
+        main = "DP-1";
+        secondary = "HDMI-A-1";
+      };
+      monitorOutputs = {
+        "DP-1" = {
+          scale = 1.0;
+          position = _: {
+            props = {
+              x = 0;
+              y = 0;
+            };
+          };
+          focus-at-startup = _: { };
+          variable-refresh-rate = _: { };
+        };
+        "HDMI-A-1" = {
+          scale = 1.0;
+          position = _: {
+            props = {
+              x = 2560;
+              y = 0;
+            };
+          };
+        };
+      };
     };
+    wrappers.kanata.configFile = [
+      "gm610_linux"
+    ];
 
     mtn = {
       constants.username = username;
       programs.sops.file = ./secrets.yaml;
       services = {
-        my-kanata = {
-          configFile = [
-            "gm610_linux"
-          ];
-        };
         edns = {
           ipv6 = true;
         };
       };
 
       nixos.networking = {
-        hostname = "mtnPC";
+        hostname = hostname;
         networks = {
           "10-wired" = {
             match = "enp*";

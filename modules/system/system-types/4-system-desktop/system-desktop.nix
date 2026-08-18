@@ -119,6 +119,7 @@
     }:
     {
       imports = with inputs.self.modules.homeManager; [
+        copyPaste
         nixosMime
         nixosStartup
         nixosGtk

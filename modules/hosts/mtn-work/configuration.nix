@@ -68,7 +68,6 @@ in
 
         services = {
           edns = {
-            # enable = true;
             ipv6 = true;
           };
         };

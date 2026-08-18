@@ -18,75 +18,25 @@ in
           home-manager.users.${username} = {
             imports = with self.modules.homeManager; [
               system-desktop
+              nixosDesktop
               tex
-              scrollingDesktop
-              waybar
-              graphical
-              (
-                {
-                  pkgs,
-                  config,
-                  self,
-                  ...
-                }:
-                {
-                  mtn = {
-                    programs = {
-                      my-kitty.mod = "alt+shift";
-                      my-niri = {
-                        enable = true;
-                        monitors = {
-                          main = "DP-1";
-                          secondary = "HDMI-A-1";
-                        };
-                        outputs = {
-                          "DP-1" = {
-                            scale = 1.0;
-                            position = {
-                              x = 0;
-                              y = 0;
-                            };
-                            focus-at-startup = true;
-                            variable-refresh-rate = true;
-                          };
-                          "HDMI-A-1" = {
-                            scale = 1.0;
-                            position = {
-                              x = 2560;
-                              y = 0;
-                            };
-                          };
-                        };
-                      };
-                      my-waybar = {
-                        fontSize = 15.0;
-                        enableMpd = true;
-                      };
-                    };
+              ({ pkgs, config, ... }: {
+                mtn = {
+                  linux.graphical = {
+                    startup = [
+                      pkgs.obsidian
+                      config.mtn.linux.graphical.defaults.webBrowser.package
+                    ];
 
-                    linux.graphical = {
-                      type = "wayland";
-                      wallpaper = config.mtn.constants.mirai;
-
-                      startup = [
-                        pkgs.obsidian
-                        config.mtn.linux.graphical.defaults.webBrowser.package
-                      ];
-
-                      defaults = {
-                        webBrowser = {
-                          package = config.programs.zen-browser.finalPackage;
-                          desktopFile = "zen.desktop";
-                        };
+                    defaults = {
+                      webBrowser = {
+                        package = config.programs.zen-browser.finalPackage;
+                        desktopFile = "zen.desktop";
                       };
                     };
                   };
-
-                  home.packages = with pkgs; [
-                    sops
-                  ];
-                }
-              )
+                };
+              })
             ];
 
           };

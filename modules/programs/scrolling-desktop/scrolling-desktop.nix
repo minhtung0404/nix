@@ -3,7 +3,7 @@
     {
       self,
       config,
-      pkgs,
+      lib,
       ...
     }:
     {
@@ -16,6 +16,7 @@
         enable = true;
         package = config.wrappers.niri.wrapper;
       };
+      services.displayManager.defaultSession = lib.mkForce "niri";
       wrappers.niri = {
         noctalia = config.wrappers.noctalia-shell.wrapper;
         terminal = config.wrappers.kitty.wrapper;
