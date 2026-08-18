@@ -29,7 +29,7 @@
         mod = lib.mkOption {
           type = lib.types.str;
           description = "kitty mod";
-          default = if pkgs.stdenv.isDarwin then "cmd+shift" else "alt+shift";
+          default = "cmd+shift";
         };
       };
 

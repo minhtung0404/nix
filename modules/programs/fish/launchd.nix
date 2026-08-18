@@ -29,7 +29,7 @@
       '';
     in
     {
-      programs.fish.functions = lib.mkIf pkgs.stdenv.isDarwin {
+      programs.fish.functions = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
         lctl-load = {
           body = loadBody "load";
           wraps = "launchctl";

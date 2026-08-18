@@ -41,7 +41,7 @@
           };
         };
       }
-      (lib.mkIf pkgs.stdenv.isLinux {
+      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
         programs.rclone = {
           enable = true;
           remotes = {

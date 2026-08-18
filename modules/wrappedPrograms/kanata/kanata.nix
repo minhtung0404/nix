@@ -32,7 +32,7 @@
         };
 
         env = {
-          OS = if config.pkgs.stdenv.isLinux then "linux" else "darwin";
+          OS = if config.pkgs.stdenv.hostPlatform.isLinux then "linux" else "darwin";
         };
 
         constructFiles = builtins.listToAttrs (
