@@ -31,6 +31,7 @@
                   ''
                 else
                   "# No lang-id remap needed";
+              langExtras = cfg.languageExtras."${lang}" or { };
             in
             {
               name = "${lang}.kak";
@@ -45,7 +46,7 @@
                       }
                       ${lang-id}
                       ${
-                        if lang.formatOnSave or true then
+                        if langExtras.formatOnSave or true then
                           ''
                             # Format the document if possible
                             hook window -group lsp-formatting BufWritePre .* %{ lsp-formatting-sync }
@@ -54,7 +55,7 @@
                           ""
                       }
                       ${
-                        if lang.semanticTokens or true then
+                        if langExtras.semanticTokens or true then
                           ''
                             # Semantic tokens
                             hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
@@ -68,7 +69,7 @@
                           ""
                       }
                       ${
-                        if lang.inlayHints or true then
+                        if langExtras.inlayHints or true then
                           ''
                             # Enable inlay hints
                             lsp-inlay-hints-enable window
@@ -87,7 +88,7 @@
           # (lib.mapAttrsToList (_: server: server.filetypes))
           lib.flatten
           lib.unique
-          (builtins.map perLangConfig)
+          (map perLangConfig)
           builtins.listToAttrs
         ];
     };

@@ -1,5 +1,8 @@
 {
   flake.wrappers.kakoune = { pkgs, ... }: {
+    kak-lsp.languageExtras = {
+      latex.formatOnSave = false;
+    };
     kak-lsp.languageServers = {
       texlab = {
         package = pkgs.texlab;

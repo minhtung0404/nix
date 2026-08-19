@@ -4,7 +4,6 @@
       config,
       pkgs,
       lib,
-      wlib,
       ...
     }:
     let
@@ -20,6 +19,29 @@
           type = lib.types.attrsOf lib.types.str;
           default = { };
           description = "Map from language to ID";
+        };
+        languageExtras = lib.mkOption {
+          type = lib.types.attrsOf (
+            lib.types.submodule {
+              options = {
+                formatOnSave = lib.mkOption {
+                  type = lib.types.bool;
+                  description = "Enable format files on save";
+                  default = true;
+                };
+                semanticTokens = lib.mkOption {
+                  type = lib.types.bool;
+                  description = "Enable semantic token";
+                  default = true;
+                };
+                inlayHints = lib.mkOption {
+                  type = lib.types.bool;
+                  description = "Enable inlay hints";
+                  default = true;
+                };
+              };
+            }
+          );
         };
         languageServers = lib.mkOption {
           type = lib.types.attrsOf (
@@ -111,7 +133,7 @@
                 (lib.mapAttrsToList (_: server: server.filetypes))
                 lib.flatten
                 lib.unique
-                (builtins.map (lang: "require-module kak-lsp-${lang}"))
+                (map (lang: "require-module kak-lsp-${lang}"))
                 (lib.concatStringsSep "\n")
               ]}
               ## Faces
