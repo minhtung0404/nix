@@ -41,14 +41,14 @@
         };
       };
 
-      ltex-ls = {
-        package = pkgs.ltex-ls;
+      ltex-ls-plus = {
+        package = pkgs.ltex-ls-plus;
         filetypes = [
           "latex"
           "typst"
         ];
         settings = {
-          command = "ltex-ls";
+          command = "ltex-ls-plus";
           args = [ "--log-file=/tmp" ];
           root_globs = [
             "main.tex"
