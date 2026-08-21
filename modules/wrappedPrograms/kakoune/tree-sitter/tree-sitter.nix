@@ -134,7 +134,7 @@
             relPath = "ts.kak";
             content = ''
               # Enable kak-tree-sitter
-              # eval %sh{kak-tree-sitter -kds --init $kak_session --config ${
+              eval %sh{kak-tree-sitter -kds --init $kak_session --config ${
                 config.constructFiles."config.toml".path
               }}
               map global normal <c-t> ": enter-user-mode tree-sitter<ret>"
