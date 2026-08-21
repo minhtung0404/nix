@@ -27,7 +27,7 @@
               "%f"
             ];
 
-            build.forwardSearchAfter = true;
+            # build.forwardSearchAfter = true;
             build.onSave = true;
 
             forwardSearch = {
