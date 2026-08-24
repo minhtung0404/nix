@@ -45,6 +45,7 @@
       zip
       sops
       devenv
+      bitwarden-cli
     ];
 
     home.shell.enableFishIntegration = true;
