@@ -44,6 +44,7 @@
       unzip
       zip
       sops
+      devenv
     ];
 
     home.shell.enableFishIntegration = true;
