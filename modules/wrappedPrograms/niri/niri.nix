@@ -31,7 +31,7 @@
 
       config = {
         settings = {
-          # xwayland-satellite.path = "${lib.getExe pkgs.xwayland-satellite}";
+          xwayland-satellite.path = "${lib.getExe pkgs.xwayland-satellite}";
           environment = {
             QT_QPA_PLATFORM = "wayland";
             QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
