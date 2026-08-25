@@ -8,10 +8,7 @@
         workspaceConfig = lib.listToAttrs (
           map (w: {
             name = "${w.id} - ${w.name}";
-            value = {
-              open-on-output =
-                if w.monitor == "secondary" then config.monitors.secondary else config.monitors.main;
-            };
+            value = { };
           }) config.mtn.workspaces
         );
       in

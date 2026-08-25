@@ -13,8 +13,6 @@ in
   flake.modules.nixos.${hostname} =
     {
       self,
-      pkgs,
-      config,
       ...
     }:
     {
@@ -29,34 +27,60 @@ in
           self.modules.homeManager.copyPaste
         ];
       };
-      wrappers.niri = {
-        enableLaptop = true;
-        monitors = {
-          main = "DP-2";
-          secondary = "eDP-1";
-        };
+      wrappers.kanshi = {
         monitorOutputs = {
-          "DP-2" = {
-            scale = 1.0;
-            position = _: {
-              props = {
-                x = 0;
-                y = 0;
-              };
-            };
-            focus-at-startup = _: { };
-          };
           "eDP-1" = {
             scale = 1.0;
-            position = _: {
-              props = {
-                x = 1920;
-                y = 0;
-              };
+            position = {
+              x = 0;
+              y = 0;
             };
+            alias = "internal";
+          };
+          "Lenovo Group Limited R27qe Gen2 UTP04ABB" = {
+            scale = 1.0;
+            position = {
+              x = -2560;
+              y = 0;
+            };
+            alias = "home-lenovo";
+          };
+          "DP-2" = {
+            scale = 1.0;
+            position = {
+              x = -1920;
+              y = 0;
+            };
+            alias = "work";
           };
         };
+        profile = {
+          alone = {
+            output = {
+              "$internal" = {
+                enable = true;
+              };
+            };
+            main = "eDP-1";
+            secondary = "eDP-1";
+          };
 
+          home = {
+            output = {
+              "$home-lenovo" = {
+                enable = true;
+              };
+              "$internal" = {
+                enable = true;
+              };
+            };
+            main = "Lenovo Group Limited R27qe Gen2 UTP04ABB";
+            secondary = "eDP-1";
+          };
+        };
+      };
+      wrappers.niri = {
+        enableLaptop = true;
       };
       wrappers.kanata.configFile = [
         "gm610_linux"

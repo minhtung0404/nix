@@ -1,8 +1,7 @@
-{ self, ... }: {
+{
   flake.wrappers.niri =
     {
       config,
-      # osConfig,
       lib,
       wlib,
       pkgs,
@@ -27,26 +26,6 @@
           ];
           description = "Path to the wallpaper file";
           default = "";
-        };
-
-        monitorOutputs = lib.mkOption {
-          type = lib.types.attrs;
-          default = { };
-          description = "Monitor arrangement";
-        };
-
-        monitors = lib.mkOption {
-          type = lib.types.submodule {
-            options = {
-              main = lib.mkOption { type = lib.types.str; };
-              secondary = lib.mkOption { type = lib.types.str; };
-            };
-          };
-          default = {
-            main = "DP-2";
-            secondary = "eDP-1";
-          };
-
         };
 
         terminal = lib.mkOption {
@@ -99,8 +78,6 @@
                 };
               };
             };
-
-            outputs = config.monitorOutputs;
 
             spawn-at-startup = [
               noctaliaExe
