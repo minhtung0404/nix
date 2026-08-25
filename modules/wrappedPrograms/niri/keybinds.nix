@@ -1,11 +1,10 @@
 {
-  flake.wrappers.niri = { config, lib, ... }: {
+  flake.wrappers.niri = {
     settings.binds =
       let
-        noctaliaExe = lib.getExe config.noctalia;
         nocFn = type: action: {
           spawn = [
-            "${noctaliaExe}"
+            "noctalia-shell"
             "ipc"
             "call"
             type
@@ -25,7 +24,7 @@
         "Mod+Shift+Slash".show-hotkey-overlay = _: { };
 
         # Some basic spawns
-        "Mod+Return".spawn = (lib.getExe config.terminal);
+        "Mod+Return".spawn = "kitty";
         "Mod+Space" = nocFn "launcher" "toggle";
         "Mod+Semicolon" = nocFn "lockScreen" "lock";
 

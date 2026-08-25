@@ -13,10 +13,20 @@
         self.wrappers.kitty.install
         self.wrappers.kanshi.install
       ];
+
       programs.niri = {
         enable = true;
         package = config.wrappers.niri.wrapper;
       };
+      services.displayManager.defaultSession = lib.mkForce "niri";
+      wrappers.niri = {
+        wallpaper = config.mtn.constants.mirai;
+        runtimePkgs = [
+          config.wrappers.noctalia-shell.wrapper
+          config.wrappers.kitty.wrapper
+        ];
+      };
+
       services.kanshi = {
         enable = true;
         package = config.wrappers.kanshi.wrapper;
@@ -25,12 +35,7 @@
       wrappers.kanshi = {
         runtimePkgs = [ config.wrappers.niri.wrapper ];
       };
-      services.displayManager.defaultSession = lib.mkForce "niri";
-      wrappers.niri = {
-        noctalia = config.wrappers.noctalia-shell.wrapper;
-        terminal = config.wrappers.kitty.wrapper;
-        wallpaper = config.mtn.constants.mirai;
-      };
+
       wrappers.kitty.fontSize = 16;
     };
 

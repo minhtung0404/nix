@@ -13,6 +13,13 @@
       inherit pkgs;
       kak-tree-sitter = self.packages.${system}.kak-tree-sitter;
     };
+    packages.niri = self.wrappers.niri.wrap {
+      inherit pkgs;
+      runtimePkgs = [
+        self.packages.${system}.noctalia-shell
+        self.packages.${system}.kitty
+      ];
+    };
     packages.kanshi = self.wrappers.kanshi.wrap {
       inherit pkgs;
       monitorOutputs = {
@@ -59,7 +66,6 @@
     wrappers.control_type = "build";
     wrappers.packages = {
       noctalia-shell = true;
-      niri = true;
       kanata = true;
       kitty = true;
       kak-tree-sitter = true;
