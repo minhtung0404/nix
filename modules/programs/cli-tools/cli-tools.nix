@@ -2,6 +2,7 @@
   flake.modules.nixos.cliTools = { pkgs, ... }: {
     environment.systemPackages = with pkgs; [
       kakoune # An editor
+      kak-tree-sitter
       wget # A simple fetcher
 
       ## System monitoring tools
@@ -16,6 +17,7 @@
     environment.systemPackages = with pkgs; [
       # An editor
       kakoune
+      kak-tree-sitter
       wget # A simple fetcher
     ];
   };
