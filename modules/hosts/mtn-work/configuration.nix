@@ -45,7 +45,7 @@ in
             };
             alias = "home-lenovo";
           };
-          "DP-2" = {
+          "Philips Consumer Electronics Company PHL 241B7Q 0x00002D97" = {
             scale = 1.0;
             position = {
               x = -1920;
@@ -75,6 +75,18 @@ in
               };
             };
             main = "Lenovo Group Limited R27qe Gen2 UTP04ABB";
+            secondary = "eDP-1";
+          };
+          work = {
+            output = {
+              "$work" = {
+                enable = true;
+              };
+              "$internal" = {
+                enable = true;
+              };
+            };
+            main = "Philips Consumer Electronics Company PHL 241B7Q 0x00002D97";
             secondary = "eDP-1";
           };
         };
