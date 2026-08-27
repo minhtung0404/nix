@@ -6,7 +6,6 @@
       overlay-libs = final: prev: { };
       overlay-packages = final: prev: {
         kakoune = self.packages.${final.stdenv.hostPlatform.system}.kak;
-        kak-tree-sitter = self.packages.${final.stdenv.hostPlatform.system}.kak-tree-sitter;
       };
     in
     [

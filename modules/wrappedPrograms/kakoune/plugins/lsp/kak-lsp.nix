@@ -2,8 +2,6 @@
   flake.wrappers.kakoune =
     {
       config,
-      pkgs,
-      lib,
       ...
     }:
     {

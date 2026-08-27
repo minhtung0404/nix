@@ -1,5 +1,10 @@
 {
   flake.wrappers.kakoune = { pkgs, ... }: {
+    kak-tree-sitter.languages.latex = {
+      package = pkgs.tree-sitter-grammars.tree-sitter-latex;
+      helixSrc = "latex";
+    };
+
     kak-lsp.languageExtras = {
       latex.formatOnSave = false;
     };

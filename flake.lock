@@ -200,6 +200,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1785967620,
+        "narHash": "sha256-IItrdb7Puk05RqOBWZYFC5X6Wl1sJmCfh5MWVHw5iMM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b7c2ada94fe99c15b0dbcf4d11fd7850b957a436",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nur": {
       "inputs": {
         "flake-parts": [
@@ -235,6 +251,7 @@
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "sops-nix": "sops-nix",
+        "treesitter-kanata": "treesitter-kanata",
         "wrappers": "wrappers",
         "zen-browser": "zen-browser"
       }
@@ -256,6 +273,24 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "treesitter-kanata": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1786094474,
+        "narHash": "sha256-MTMHmlTU+fFiuU0uNVi2RBXMV1BlSoqb70AIQxg8rnw=",
+        "owner": "pbcdev210",
+        "repo": "treesitter-kanata",
+        "rev": "76658aa31e4eecf5bc054c514f126df5bcc3d183",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pbcdev210",
+        "repo": "treesitter-kanata",
         "type": "github"
       }
     },

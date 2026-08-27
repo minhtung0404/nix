@@ -11,7 +11,6 @@
   perSystem = { pkgs, system, ... }: {
     packages.kak = self.wrappers.kakoune.wrap {
       inherit pkgs;
-      kak-tree-sitter = self.packages.${system}.kak-tree-sitter;
     };
     packages.niri = self.wrappers.niri.wrap {
       inherit pkgs;
@@ -68,7 +67,6 @@
       noctalia-shell = true;
       kanata = true;
       kitty = true;
-      kak-tree-sitter = true;
       kak-lsp = true;
     };
   };
