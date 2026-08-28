@@ -23,7 +23,7 @@
         theme = lib.mkOption {
           type = lib.types.str;
           description = "kitty theme";
-          default = "rose-pine-dawn";
+          default = "everforest_light_soft";
         };
 
         mod = lib.mkOption {
