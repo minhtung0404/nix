@@ -48,6 +48,8 @@
       sops
       devenv
       bitwarden-cli
+
+      claude-code
     ];
 
     home.shell.enableFishIntegration = true;
