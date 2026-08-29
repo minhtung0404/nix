@@ -1,8 +1,12 @@
 {
-  flake.wrappers.kakoune = { pkgs, ... }: {
+  flake.wrappers.kakoune = { config, pkgs, ... }: {
     kak-tree-sitter.languages.nix = {
       package = pkgs.tree-sitter-grammars.tree-sitter-nix;
-      helixSrc = "nix";
+      queries = {
+        src = config.kak-tree-sitter.src.helix;
+        path = "runtime/queries/nix";
+      };
+
     };
 
     kak-lsp.languageServers.nixd = {

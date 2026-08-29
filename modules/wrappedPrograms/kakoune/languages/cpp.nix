@@ -1,8 +1,11 @@
 {
-  flake.wrappers.kakoune = { pkgs, ... }: {
+  flake.wrappers.kakoune = { config, pkgs, ... }: {
     kak-tree-sitter.languages.cpp = {
       package = pkgs.tree-sitter-grammars.tree-sitter-cpp;
-      helixSrc = "cpp";
+      queries = {
+        src = config.kak-tree-sitter.src.kak-tree-sitter;
+        path = "runtime/queries/cpp";
+      };
     };
 
     kak-lsp.languageServers.clangd = {

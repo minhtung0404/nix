@@ -12,6 +12,11 @@
           default = pkgs.kak-tree-sitter;
         };
 
+        src = lib.mkOption {
+          type = lib.types.attrsOf lib.types.package;
+          default = { };
+        };
+
         highlighterGroups = lib.mkOption {
           type = lib.types.attrsOf lib.types.str;
           default = { };
@@ -62,17 +67,26 @@
 
         languages = lib.mkOption {
           type = lib.types.attrsOf (
-            lib.types.submodule {
-              options = {
-                package = lib.mkOption {
-                  type = lib.types.package;
+            lib.types.submodule (
+              { config, ... }: {
+                options = {
+                  package = lib.mkOption {
+                    type = lib.types.package;
+                    description = "The tree-sitter package";
+                  };
+                  queries.src = lib.mkOption {
+                    type = lib.types.package;
+                    default = config.package;
+                    description = "The repo to use";
+                  };
+                  queries.path = lib.mkOption {
+                    type = lib.types.str;
+                    description = "Path to the queries";
+                    default = "queries";
+                  };
                 };
-                helixSrc = lib.mkOption {
-                  type = lib.types.nullOr lib.types.str;
-                  default = null;
-                };
-              };
-            }
+              }
+            )
           );
           default = { };
         };

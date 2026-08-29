@@ -1,8 +1,11 @@
 {
-  flake.wrappers.kakoune = { pkgs, ... }: {
+  flake.wrappers.kakoune = { config, pkgs, ... }: {
     kak-tree-sitter.languages.latex = {
       package = pkgs.tree-sitter-grammars.tree-sitter-latex;
-      helixSrc = "latex";
+      queries = {
+        src = config.kak-tree-sitter.src.helix;
+        path = "runtime/queries/latex";
+      };
     };
 
     kak-lsp.languageExtras = {

@@ -9,13 +9,6 @@
     {
       config =
         let
-          helix-src = pkgs.fetchFromGitHub {
-            owner = "helix-editor";
-            repo = "helix";
-            rev = "25.07.1";
-            hash = "sha256-RFSzGAcB0mMg/02ykYfTWXzQjLFu2CJ4BkS5HZ/6pBo=";
-          };
-
           cfg = config.kak-tree-sitter;
           allGroups = lib.attrsets.recursiveUpdate cfg.highlighterGroups cfg.extraHighlighterGroups;
 
@@ -28,11 +21,7 @@
           };
 
           toLanguageConf = name: lang: {
-            queries.source.local.path =
-              if lang.helixSrc == null then
-                "${lang.package}/queries"
-              else
-                "${helix-src}/runtime/queries/${lang.helixSrc}";
+            queries.source.local.path = "${lang.queries.src}/${lang.queries.path}";
           };
 
           toTs = name: "ts_${lib.strings.concatStringsSep "_" (lib.strings.splitString "." name)}";
