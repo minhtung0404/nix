@@ -7,6 +7,7 @@
       homeManager
 
       cliTools
+      copyPaste
       sops
       gsync
       edns

@@ -113,13 +113,10 @@
   flake.modules.homeManager.nixosDesktop =
     {
       pkgs,
-      self,
-      config,
       ...
     }:
     {
       imports = with inputs.self.modules.homeManager; [
-        copyPaste
         nixosMime
         nixosStartup
         nixosGtk
@@ -127,8 +124,6 @@
       ];
 
       home.packages = with pkgs; [
-        obsidian
-        telegram-desktop
         ## GUI stuff
         gparted
         deluge # Torrent client

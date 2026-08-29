@@ -2,7 +2,6 @@
   flake.modules.nixos.cliTools = { pkgs, ... }: {
     environment.systemPackages = with pkgs; [
       kakoune # An editor
-      kak-tree-sitter
       wget # A simple fetcher
 
       ## System monitoring tools
@@ -17,7 +16,6 @@
     environment.systemPackages = with pkgs; [
       # An editor
       kakoune
-      kak-tree-sitter
       wget # A simple fetcher
     ];
   };
@@ -28,27 +26,55 @@
       self.modules.homeManager.rebuild
     ];
     home.packages = with pkgs; [
+      ## Core / shell utilities
       coreutils
-      curl
-      dust
       entr
       grc
-      btop
-      lazygit
-      nerd-fonts.fira-code
-      nixfmt
-      podman
-      ripgrep
-      stylua
       tldr
 
+      ## Search & file tools
+      dust
+      fd
+      ripgrep
+
+      ## Data / JSON tools
+      jq
+      jqp
+
+      ## System monitoring
+      btop
+
+      ## Git
+      lazygit
+
+      ## Networking
+      curl
+
+      ## Formatters
+      nixfmt
+
+      ## Build tools
       gnumake
+
+      ## Archives
       unzip
       zip
+
+      ## Editors
+      vscode
+
+      ## Secrets & security
       sops
-      devenv
       bitwarden-cli
 
+      ## Dev environments / containers
+      devenv
+      podman
+
+      ## Fonts
+      nerd-fonts.fira-code
+
+      ## AI
       claude-code
     ];
 
@@ -63,18 +89,11 @@
 
     programs.eza.enable = true;
 
-    programs.fd.enable = true;
-
-    programs.jq.enable = true;
-    programs.jqp.enable = true;
-
     programs.man = {
       enable = true;
       package = pkgs.man;
       generateCaches = true;
     };
-
-    programs.vscode.enable = true;
 
     programs.zoxide = {
       enable = true;
@@ -88,7 +107,6 @@
     programs.direnv = {
       enable = true;
       nix-direnv.enable = true;
-      config.global.load_dotenv = true;
     };
 
     services.tldr-update.enable = true;
