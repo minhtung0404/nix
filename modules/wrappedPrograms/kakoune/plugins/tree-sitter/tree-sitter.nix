@@ -76,7 +76,7 @@
             content = ''
               provide-module kak-tree-sitter %◍
                 # Enable kak-tree-sitter
-                eval %sh{kak-tree-sitter -kds --init $kak_session --config ${
+                eval %sh{kak-tree-sitter -kds -vvv --init $kak_session --config ${
                   config.constructFiles."kak-tree-sitter.toml".path
                 }}
                 map global normal <c-t> ": enter-user-mode tree-sitter<ret>"
