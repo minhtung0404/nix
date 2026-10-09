@@ -46,6 +46,7 @@
           kdePackages.qtwayland
           kdePackages.okular
           rtkit
+          jetbrains.idea
         ];
 
         ## Environment

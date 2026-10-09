@@ -21,6 +21,7 @@ in
         self.modules.nixos.mnguyen1
 
         self.modules.nixos.vm
+        self.modules.nixos.steam
       ];
       home-manager.users.${username} = {
         imports = [
