@@ -23,33 +23,41 @@ in
       self.modules.nixos.minhtung0404
     ];
 
-    wrappers.niri = {
-      monitors = {
-        main = "DP-1";
-        secondary = "HDMI-A-1";
-      };
+    wrappers.kanshi = {
       monitorOutputs = {
-        "DP-1" = {
+        "Dell Inc. DELL SE2216H 2V32306IAVTI" = {
           scale = 1.0;
-          position = _: {
-            props = {
-              x = 0;
-              y = 0;
-            };
+          position = {
+            x = 0;
+            y = 0;
           };
-          focus-at-startup = _: { };
-          variable-refresh-rate = _: { };
+          alias = "home-dell";
         };
-        "HDMI-A-1" = {
+        "Lenovo Group Limited R27qe Gen2 UTP04ABB" = {
           scale = 1.0;
-          position = _: {
-            props = {
-              x = 2560;
-              y = 0;
-            };
+          position = {
+            x = -2560;
+            y = 0;
           };
+          alias = "home-lenovo";
         };
       };
+      profile = {
+        dual = {
+          output = {
+            "$home-lenovo" = {
+              enable = true;
+            };
+            "$home-dell" = {
+              enable = true;
+            };
+          };
+          main = "Lenovo Group Limited R27qe Gen2 UTP04ABB";
+          secondary = "Dell Inc. DELL SE2216H 2V32306IAVTI";
+        };
+      };
+    };
+    wrappers.niri = {
     };
     wrappers.kanata.configFile = [
       "gm610_linux"
