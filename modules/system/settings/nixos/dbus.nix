@@ -1,6 +1,6 @@
 {
   flake.modules.nixos.dbus = { pkgs, ... }: {
     # D-Bus
-    services.dbus.packages = with pkgs; [ gcr ];
+    services.dbus.packages = with pkgs; [ gcr_4 ];
   };
 }
