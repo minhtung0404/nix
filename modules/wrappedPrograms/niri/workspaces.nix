@@ -70,6 +70,7 @@
         open-maximized = true;
         matches = [
           { app-id = "md.Obsidian"; }
+          { app-id = "md.obsidian.Obsidian"; }
           {
             app-id = "electron";
             title = ".*Obsidian.*";
