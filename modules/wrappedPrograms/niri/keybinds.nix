@@ -89,6 +89,7 @@
         "Mod+Shift+W".switch-preset-window-height = _: { };
         "Mod+Ctrl+W".reset-window-height = _: { };
         "Mod+Shift+F".maximize-column = _: { };
+        "Mod+Alt+F".fullscreen-window = _: { };
         "Mod+E".center-column = _: { };
 
         "Mod+Minus".set-column-width = "-10%";
