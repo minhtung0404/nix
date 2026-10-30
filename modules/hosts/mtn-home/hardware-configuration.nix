@@ -2,7 +2,7 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-  flake.modules.nixos.mtnPC =
+  den.aspects.mtnPC.nixos =
     {
       config,
       lib,

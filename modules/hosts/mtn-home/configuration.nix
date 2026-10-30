@@ -3,24 +3,20 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 {
-  pkgs,
-  config,
   self,
   ...
 }:
 let
-  system = "x86_64-linux";
   hostname = "mtnPC";
   username = "minhtung0404";
 in
 {
-  flake.nixosConfigurations = config.flake.lib.mkNixos system hostname;
+  den.hosts.x86_64-linux.${hostname}.users.${username} = { };
 
-  flake.modules.nixos.mtnPC = { pkgs, ... }: {
+  den.aspects.${hostname}.nixos = { pkgs, ... }: {
     imports = [
       self.modules.nixos.system-desktop
       self.modules.nixos.deluge
-      self.modules.nixos.minhtung0404
     ];
 
     wrappers.kanshi = {

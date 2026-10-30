@@ -1,16 +1,20 @@
 {
-  lib,
-  self,
+  den,
   ...
 }:
 let
   user = "entertainment";
 in
 {
-  flake.modules = lib.mkMerge [
-    (self.factory.user user false)
-    {
-      homeManager.${user} = { config, self, ... }: {
+  den.aspects.${user} = {
+    includes = [
+      den.batteries.define-user
+      (den.batteries.user-shell "fish")
+    ];
+
+    homeManager =
+      { config, self, ... }:
+      {
         imports = with self.modules.homeManager; [
           system-desktop
           macosDefaults
@@ -34,6 +38,5 @@ in
           };
         };
       };
-    }
-  ];
+  };
 }

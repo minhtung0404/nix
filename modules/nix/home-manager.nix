@@ -1,4 +1,6 @@
 let
+  # the home-manager nixos/darwin module itself is imported by den
+  # for every host that has a user with the homeManager class
   homeManagerConfig =
     {
       self,
@@ -26,31 +28,7 @@ in
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  flake.modules.nixos.homeManager =
-    {
-      self,
-      inputs,
-      overlays,
-      ...
-    }:
-    {
-      imports = [
-        inputs.home-manager.nixosModules.home-manager
-        homeManagerConfig
-      ];
-    };
+  flake.modules.nixos.homeManager = homeManagerConfig;
 
-  flake.modules.darwin.homeManager =
-    {
-      self,
-      inputs,
-      overlays,
-      ...
-    }:
-    {
-      imports = [
-        inputs.home-manager.darwinModules.home-manager
-        homeManagerConfig
-      ];
-    };
+  flake.modules.darwin.homeManager = homeManagerConfig;
 }

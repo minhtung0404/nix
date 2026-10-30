@@ -1,7 +1,10 @@
-{ config, ... }: {
-  flake.darwinConfigurations = config.flake.lib.mkDarwin "aarch64-darwin" "mtnM1";
+{
+  den.hosts.aarch64-darwin.mtnM1.users = {
+    minhtung0404 = { };
+    entertainment = { };
+  };
 
-  flake.modules.darwin.mtnM1 =
+  den.aspects.mtnM1.darwin =
     {
       pkgs,
       config,
@@ -11,9 +14,6 @@
     {
       imports = [
         self.modules.darwin.system-desktop
-
-        self.modules.darwin.minhtung0404
-        self.modules.darwin.entertainment
       ];
 
       system.primaryUser = "minhtung0404";

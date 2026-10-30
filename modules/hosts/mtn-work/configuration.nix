@@ -1,16 +1,11 @@
-{
-  config,
-  ...
-}:
 let
-  system = "x86_64-linux";
   hostname = "mtnWork";
   username = "mnguyen1";
 in
 {
-  flake.nixosConfigurations = config.flake.lib.mkNixos system hostname;
+  den.hosts.x86_64-linux.${hostname}.users.${username} = { };
 
-  flake.modules.nixos.${hostname} =
+  den.aspects.${hostname}.nixos =
     {
       self,
       ...
@@ -18,7 +13,6 @@ in
     {
       imports = [
         self.modules.nixos.system-desktop
-        self.modules.nixos.mnguyen1
 
         self.modules.nixos.vm
         self.modules.nixos.steam
