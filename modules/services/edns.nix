@@ -1,8 +1,5 @@
 {
-  flake.modules.nixos.edns = { lib, self, ... }: {
-    imports = [
-      self.modules.generic.edns
-    ];
+  den.aspects.edns.nixos = { lib, ... }: {
     networking.nameservers = [
       "127.0.0.1"
       "::1"
@@ -11,14 +8,12 @@
     networking.dhcpcd.extraConfig = "nohook resolv.conf";
   };
 
-  flake.modules.darwin.edns = { lib, self, ... }: {
-    imports = [
-      self.modules.generic.edns
-    ];
+  den.aspects.edns.darwin = { lib, ... }: {
     launchd.daemons.dnscrypt-proxy.serviceConfig.UserName = lib.mkForce "root";
   };
 
-  flake.modules.generic.edns =
+  # shared by nixos and darwin
+  den.aspects.edns.os =
     {
       pkgs,
       config,

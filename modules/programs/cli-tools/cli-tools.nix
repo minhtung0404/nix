@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.cliTools = { pkgs, ... }: {
+  den.aspects.cliTools.nixos = { pkgs, ... }: {
     environment.systemPackages = with pkgs; [
       kakoune # An editor
       wget # A simple fetcher
@@ -12,14 +12,16 @@
     ];
   };
 
-  flake.modules.darwin.cliTools = { pkgs, ... }: {
+  den.aspects.cliTools.darwin = { pkgs, ... }: {
     environment.systemPackages = with pkgs; [
       # An editor
       kakoune
       wget # A simple fetcher
     ];
   };
-  flake.modules.homeManager.cliTools = { self, pkgs, ... }: {
+  # homeManager on a host-included aspect is dropped by den; to-users routes it
+  # to every user of the host
+  den.aspects.cliTools.provides.to-users.homeManager = { self, pkgs, ... }: {
     imports = [
       self.modules.homeManager.git
       self.modules.homeManager.ssh

@@ -8,6 +8,7 @@ in
       den.batteries.define-user
       den.batteries.primary-user
       (den.batteries.user-shell "fish")
+      den.aspects.gsync
     ];
 
     # home-manager config that differs per host OS still lives in the OS

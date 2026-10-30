@@ -1,6 +1,11 @@
 { inputs, den, ... }: {
   # den side of this tier; the flake.modules below move into it step by step
-  den.aspects.system-cli.includes = [ den.aspects.fish ];
+  den.aspects.system-cli.includes = with den.aspects; [
+    fish
+    cliTools
+    sops
+    edns
+  ];
 
   # import all essential nix-tools which are used in all modules of a specific class
 
@@ -8,11 +13,6 @@
     imports = with inputs.self.modules.nixos; [
       system-default
       homeManager
-
-      cliTools
-      sops
-      gsync
-      edns
     ];
   };
 
@@ -20,11 +20,6 @@
     imports = with inputs.self.modules.darwin; [
       system-default
       homeManager
-
-      cliTools
-      sops
-      gsync
-      edns
     ];
   };
 
@@ -34,9 +29,6 @@
   flake.modules.homeManager.system-cli = {
     imports = with inputs.self.modules.homeManager; [
       system-default
-
-      cliTools
-      gsync
     ];
 
     home.sessionVariables = {

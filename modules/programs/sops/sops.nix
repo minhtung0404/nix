@@ -4,34 +4,25 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  flake.modules.nixos.sops =
+  den.aspects.sops.nixos =
     {
-      config,
       inputs,
-      self,
       ...
     }:
     {
       imports = [
         inputs.sops-nix.nixosModules.sops
-        self.modules.generic.sops
       ];
-
-      home-manager = {
-        extraSpecialArgs = {
-          sops = config.sops;
-        };
-      };
     };
 
-  flake.modules.darwin.sops = { inputs, self, ... }: {
+  den.aspects.sops.darwin = { inputs, ... }: {
     imports = [
       inputs.sops-nix.darwinModules.sops
-      self.modules.generic.sops
     ];
   };
 
-  flake.modules.generic.sops =
+  # shared by nixos and darwin
+  den.aspects.sops.os =
     {
       inputs,
       config,
