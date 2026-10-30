@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.fishTide =
+  den.aspects.fish.provides.to-users.homeManager =
     {
       config,
       pkgs,

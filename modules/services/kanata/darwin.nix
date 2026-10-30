@@ -1,5 +1,5 @@
 {
-  flake.modules.darwin.kanata =
+  den.aspects.kanata.darwin =
     {
       self,
       kanata,

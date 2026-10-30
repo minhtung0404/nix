@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.kanata =
+  den.aspects.kanata.nixos =
     {
       self,
       config,

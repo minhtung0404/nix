@@ -1,11 +1,13 @@
 {
-  flake.modules.nixos.fish = {
+  den.aspects.fish.nixos = {
     programs.fish = {
       enable = true;
       vendor.completions.enable = true;
     };
   };
-  flake.modules.homeManager.fish =
+  # homeManager on a host-included aspect is dropped by den; to-users routes it
+  # to every user of the host
+  den.aspects.fish.provides.to-users.homeManager =
     {
       pkgs,
       config,

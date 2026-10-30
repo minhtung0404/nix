@@ -1,9 +1,16 @@
 {
   inputs,
+  den,
   ...
 }:
 {
   # expansion of cli system for desktop use
+
+  # den side of this tier; the flake.modules below move into it step by step
+  den.aspects.system-desktop.includes = [
+    den.aspects.system-cli
+    den.aspects.kanata
+  ];
 
   flake.modules.nixos.system-desktop = { pkgs, ... }: {
     imports = with inputs.self.modules.nixos; [
@@ -11,7 +18,6 @@
 
       scrollingDesktop
       displayManager
-      kanata
       battery
       ios
       graphics
@@ -76,7 +82,6 @@
       imports = with inputs.self.modules.darwin; [
         system-cli
 
-        kanata
       ];
       services.tailscale.enable = true;
 

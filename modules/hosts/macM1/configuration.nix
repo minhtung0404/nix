@@ -1,8 +1,11 @@
+{ den, ... }:
 {
   den.hosts.aarch64-darwin.mtnM1.users = {
     minhtung0404 = { };
     entertainment = { };
   };
+
+  den.aspects.mtnM1.includes = [ den.aspects.system-desktop ];
 
   den.aspects.mtnM1.darwin =
     {
