@@ -14,8 +14,6 @@
 
   flake.modules.nixos.system-desktop = { pkgs, ... }: {
     imports = with inputs.self.modules.nixos; [
-      system-cli
-
       scrollingDesktop
       displayManager
       battery
@@ -79,10 +77,6 @@
       ...
     }:
     {
-      imports = with inputs.self.modules.darwin; [
-        system-cli
-
-      ];
       services.tailscale.enable = true;
 
       system.activationScripts = {
@@ -98,8 +92,6 @@
 
   flake.modules.homeManager.system-desktop = { pkgs, ... }: {
     imports = with inputs.self.modules.homeManager; [
-      system-cli
-
       zenBrowser
       kakoune
       vesktop

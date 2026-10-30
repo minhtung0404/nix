@@ -1,38 +1,23 @@
-{ inputs, ... }: {
-  # import all essential nix-tools which are used in all modules of a specific class
+{ den, self, ... }:
+{
+  # import all essential nix-tools which are used in all hosts
 
-  flake.modules.nixos.system-default = {
-    imports =
-      with inputs.self.modules.nixos;
-      [
-        system-minimal
-      ]
-      ++ (with inputs.self.modules.generic; [
-        constants
-      ]);
-  };
+  den.aspects.system-default = {
+    includes = [
+      den.aspects.system-minimal
+      den.aspects.homebrew
+    ];
 
-  flake.modules.darwin.system-default = {
-    imports =
-      with inputs.self.modules.darwin;
-      [
-        system-minimal
-        homebrew
-      ]
-      ++ (with inputs.self.modules.generic; [
-        constants
-      ]);
-  };
+    # mtn.constants is still a flake.modules.generic module (to be replaced by
+    # den's host/user context)
+    # NOTE: must be a function; a plain `os.imports = [ … ]` attrset causes an
+    # infinite recursion on darwin hosts
+    os = { ... }: {
+      imports = [ self.modules.generic.constants ];
+    };
 
-  # impermanence is not added by default to home-manager, because of missing Darwin implementation
-  # for linux home-manager stand-alone configurations it has to be added manualy
-
-  flake.modules.homeManager.system-default = {
-    imports =
-      with inputs.self.modules.homeManager;
-      [
-        system-minimal
-      ]
-      ++ [ inputs.self.modules.generic.constants ];
+    # homeManager on a host-included aspect is dropped by den; to-users routes it
+    # to every user of the host
+    provides.to-users.homeManager.imports = [ self.modules.generic.constants ];
   };
 }

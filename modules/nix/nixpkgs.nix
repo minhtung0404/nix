@@ -1,5 +1,6 @@
 {
-  flake.modules.generic.nixpkgs = { self, ... }: {
+  # shared by nixos and darwin
+  den.aspects.nixpkgs.os = { self, ... }: {
     nixpkgs = {
       config.allowUnfree = true;
       overlays = [ self.overlays.default ];

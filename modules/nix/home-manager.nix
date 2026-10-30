@@ -28,7 +28,6 @@ in
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  flake.modules.nixos.homeManager = homeManagerConfig;
-
-  flake.modules.darwin.homeManager = homeManagerConfig;
+  # shared by nixos and darwin
+  den.aspects.home-manager.os = homeManagerConfig;
 }

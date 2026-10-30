@@ -1,14 +1,18 @@
+{ den, ... }:
 {
-  # default settings needed for all nixosConfigurations
+  # default settings needed for all hosts
 
-  flake.modules.nixos.system-minimal =
-    { pkgs, self, ... }:
-    {
-      imports = [
-        self.modules.generic.nixpkgs
-      ];
-      system.stateVersion = "26.05";
+  den.default = {
+    nixos.system.stateVersion = "26.05";
+    darwin.system.stateVersion = 6;
+    homeManager.home.stateVersion = "26.05";
+  };
 
+  den.aspects.system-minimal = {
+    includes = [ den.aspects.nixpkgs ];
+
+    # shared by nixos and darwin
+    os = {
       nix.settings = {
         substituters = [
           # high priority since it's almost always used
@@ -40,6 +44,10 @@
         warn-dirty = false
         keep-outputs = true
       '';
-
     };
+
+    # homeManager on a host-included aspect is dropped by den; to-users routes it
+    # to every user of the host
+    provides.to-users.homeManager.programs.home-manager.enable = true;
+  };
 }
