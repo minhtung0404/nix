@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.macosDefaults =
+  den.aspects.macosDefaults.homeManager =
     {
       lib,
       ...

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.portal = { pkgs, lib, ... }: {
+  den.aspects.portal.nixos = { pkgs, lib, ... }: {
     # Portals
     xdg.portal = {
       enable = true;

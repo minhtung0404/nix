@@ -1,4 +1,8 @@
-{ self, ... }: {
+{ config, ... }:
+let
+  inherit (config.mtn) images;
+in
+{
   flake.wrappers.noctalia-shell =
     {
       config,
@@ -9,7 +13,6 @@
     {
       imports = [
         wlib.wrapperModules.noctalia-shell
-        self.modules.generic.constants
       ];
 
       env = {
@@ -254,7 +257,7 @@
           allowPanelsOnScreenWithoutBar = true;
           animationDisabled = false;
           animationSpeed = 1;
-          avatarImage = config.mtn.constants.amira_squared;
+          avatarImage = images.amira_squared;
           boxRadiusRatio = 1;
           compactLockScreen = false;
           dimmerOpacity = 0.15;
@@ -461,7 +464,7 @@
         };
         wallpaper = {
           enabled = false;
-          default.path = config.mtn.constants.mirai;
+          default.path = images.mirai;
         };
       };
     };

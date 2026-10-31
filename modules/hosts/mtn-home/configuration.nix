@@ -2,11 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{
-  self,
-  den,
-  ...
-}:
+{ den, ... }:
 let
   hostname = "mtnPC";
   username = "minhtung0404";
@@ -15,14 +11,12 @@ in
   den.hosts.x86_64-linux.${hostname}.users.${username} = { };
 
   den.aspects.${hostname} = {
-    includes = [ den.aspects.system-desktop ];
+    includes = with den.aspects; [
+      system-desktop
+      deluge
+    ];
 
     nixos = { pkgs, ... }: {
-      imports = [
-        self.modules.nixos.system-desktop
-        self.modules.nixos.deluge
-      ];
-
       wrappers.kanshi = {
         monitorOutputs = {
           "Dell Inc. DELL SE2216H 2V32306IAVTI" = {
@@ -64,7 +58,6 @@ in
       ];
 
       mtn = {
-        constants.username = username;
         programs.sops.file = ./secrets.yaml;
         services = {
           edns = {
@@ -73,7 +66,6 @@ in
         };
 
         nixos.networking = {
-          hostname = hostname;
           networks = {
             "10-wired" = {
               match = "enp*";

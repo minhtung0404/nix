@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.kwallet =
+  den.aspects.kwallet.nixos =
     { pkgs, lib, ... }:
     {
       environment.systemPackages = [ pkgs.kdePackages.kwallet ];

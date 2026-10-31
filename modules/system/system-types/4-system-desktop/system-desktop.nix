@@ -1,19 +1,61 @@
 {
-  inputs,
   den,
+  lib,
   ...
 }:
+let
+  # desktop home on nixos hosts
+  nixosDesktop = {
+    includes = with den.aspects; [
+      copyPaste
+      nixosMime
+      nixosStartup
+      nixosGtk
+      nixosQt
+    ];
+
+    homeManager =
+      { pkgs, ... }:
+      {
+        home.packages = with pkgs; [
+          ## GUI stuff
+          gparted
+          deluge # Torrent client
+          # Audio
+          vlc
+
+          onlyoffice-desktopeditors
+
+          karere
+          zoom-us
+
+          ## CLI stuff
+          dex # .desktop file management, startup
+        ];
+      };
+  };
+
+  # desktop home on darwin hosts
+  macosDesktop = {
+    includes = with den.aspects; [
+      macosDefaults
+      macosDock
+      aerospace
+      sketchybar
+      hammerspoon
+      macosDefaultApps
+      lctl
+    ];
+  };
+in
 {
   # expansion of cli system for desktop use
 
-  # den side of this tier; the flake.modules below move into it step by step
-  den.aspects.system-desktop.includes = [
-    den.aspects.system-cli
-    den.aspects.kanata
-  ];
+  den.aspects.system-desktop = {
+    includes = with den.aspects; [
+      system-cli
+      kanata
 
-  flake.modules.nixos.system-desktop = { pkgs, ... }: {
-    imports = with inputs.self.modules.nixos; [
       scrollingDesktop
       displayManager
       battery
@@ -40,6 +82,38 @@
       dbus
       plasma
       kded6
+
+      # desktop home: reaches the users that include den.batteries.host-aspects
+      (
+        { host, ... }:
+        {
+          includes =
+            (with den.aspects; [
+              zenBrowser
+              kakoune
+              vesktop
+            ])
+            ++ lib.optional (host.class == "nixos") nixosDesktop
+            ++ lib.optional (host.class == "darwin") macosDesktop;
+
+          homeManager =
+            { pkgs, ... }:
+            {
+              home.packages = with pkgs; [
+                obsidian
+                telegram-desktop
+              ];
+
+              mtn.programs = {
+                my-kakoune.enable-fish-session = true;
+              };
+            };
+        }
+      )
+    ];
+
+    nixos =
+      { pkgs, ... }:
       {
         # Default packages
         environment.systemPackages = with pkgs; [
@@ -65,78 +139,26 @@
         time.timeZone = "Europe/Paris";
 
         security.polkit.enable = true;
-      }
-    ];
-  };
+      };
 
-  flake.modules.darwin.system-desktop =
-    {
-      lib,
-      config,
-      pkgs,
-      ...
-    }:
-    {
-      services.tailscale.enable = true;
+    darwin =
+      {
+        lib,
+        pkgs,
+        ...
+      }:
+      {
+        services.tailscale.enable = true;
 
-      system.activationScripts = {
-        postActivation = {
-          text = lib.mkOrder 1600 ''
-            echo "-----------------------------------------------"
-            echo "Permission required ..."
-            echo "rclone: Please enable Full Disk Access for ${pkgs.rclone}/bin/rclone"
-          '';
+        system.activationScripts = {
+          postActivation = {
+            text = lib.mkOrder 1600 ''
+              echo "-----------------------------------------------"
+              echo "Permission required ..."
+              echo "rclone: Please enable Full Disk Access for ${pkgs.rclone}/bin/rclone"
+            '';
+          };
         };
       };
-    };
-
-  flake.modules.homeManager.system-desktop = { pkgs, ... }: {
-    imports = with inputs.self.modules.homeManager; [
-      zenBrowser
-      kakoune
-      vesktop
-    ];
-
-    home.packages = with pkgs; [
-      obsidian
-      telegram-desktop
-    ];
-
-    mtn.programs = {
-      my-kakoune.enable-fish-session = true;
-    };
-
   };
-
-  flake.modules.homeManager.nixosDesktop =
-    {
-      pkgs,
-      ...
-    }:
-    {
-      imports = with inputs.self.modules.homeManager; [
-        copyPaste
-        nixosMime
-        nixosStartup
-        nixosGtk
-        nixosQt
-      ];
-
-      home.packages = with pkgs; [
-        ## GUI stuff
-        gparted
-        deluge # Torrent client
-        # Audio
-        vlc
-
-        onlyoffice-desktopeditors
-
-        karere
-        zoom-us
-
-        ## CLI stuff
-        dex # .desktop file management, startup
-      ];
-
-    };
 }

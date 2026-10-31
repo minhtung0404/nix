@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.sound = { ... }: {
+  den.aspects.sound.nixos = { ... }: {
     # Enable sound.
     services.pipewire = {
       enable = true;

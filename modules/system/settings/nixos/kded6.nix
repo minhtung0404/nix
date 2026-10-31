@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.kded6 =
+  den.aspects.kded6.nixos =
     {
       config,
       lib,

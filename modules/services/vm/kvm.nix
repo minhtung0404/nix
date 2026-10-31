@@ -1,16 +1,27 @@
+{ lib, ... }:
 {
-  flake.modules.nixos.vm = { pkgs, config, ... }: {
-    virtualisation.libvirtd.enable = true;
+  den.aspects.kvm = {
+    nixos =
+      { pkgs, ... }:
+      {
+        virtualisation.libvirtd.enable = true;
 
-    users.users.${config.mtn.constants.username}.extraGroups = [
-      "libvirtd"
-      "kvm"
-    ];
+        programs.virt-manager.enable = true;
 
-    programs.virt-manager.enable = true;
+        environment.systemPackages = with pkgs; [
+          qemu
+        ];
+      };
 
-    environment.systemPackages = with pkgs; [
-      qemu
-    ];
+    # every user of a host with kvm can manage the VMs (nix-darwin users have
+    # no extraGroups)
+    provides.to-users =
+      { host, ... }:
+      lib.optionalAttrs (host.class == "nixos") {
+        user.extraGroups = [
+          "libvirtd"
+          "kvm"
+        ];
+      };
   };
 }

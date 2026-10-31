@@ -1,3 +1,4 @@
+{ inputs, ... }:
 {
   flake-file.inputs = {
     sops-nix.url = "github:Mic92/sops-nix";
@@ -6,7 +7,6 @@
 
   den.aspects.sops.nixos =
     {
-      inputs,
       ...
     }:
     {
@@ -15,7 +15,7 @@
       ];
     };
 
-  den.aspects.sops.darwin = { inputs, ... }: {
+  den.aspects.sops.darwin = { ... }: {
     imports = [
       inputs.sops-nix.darwinModules.sops
     ];
@@ -24,7 +24,6 @@
   # shared by nixos and darwin
   den.aspects.sops.os =
     {
-      inputs,
       config,
       lib,
       ...

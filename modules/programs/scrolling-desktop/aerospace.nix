@@ -1,7 +1,10 @@
+{ config, self, ... }:
+let
+  inherit (config.mtn) workspaces nameToWorkspace;
+in
 {
-  flake.modules.homeManager.aerospace =
+  den.aspects.aerospace.homeManager =
     {
-      self,
       config,
       pkgs,
       lib,
@@ -12,7 +15,6 @@
     in
     {
       imports = [
-        self.modules.generic.workspaces
         self.wrappers.kitty.install
       ];
       options.mtn.services.my-aerospace = {
@@ -145,7 +147,7 @@
               map (workspace: {
                 name = workspace.id;
                 value = workspace.monitor;
-              }) (lib.filter (workspace: workspace.monitor != null) config.mtn.workspaces)
+              }) (lib.filter (workspace: workspace.monitor != null) workspaces)
             );
 
             on-window-detected =
@@ -158,7 +160,7 @@
                     "run" = action;
                   }
                 );
-                name_to_workspace = config.mtn.nameToWorkspace;
+                name_to_workspace = nameToWorkspace;
               in
               map (f [ "layout floating" ]) [ "com.apple.systempreferences" ]
               ++ map (f [ "move-node-to-workspace ${name_to_workspace.web}" ]) [

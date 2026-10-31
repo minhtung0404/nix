@@ -1,6 +1,7 @@
+{ self, ... }:
 {
   # shared by nixos and darwin
-  den.aspects.nixpkgs.os = { self, ... }: {
+  den.aspects.nixpkgs.os = {
     nixpkgs = {
       config.allowUnfree = true;
       overlays = [ self.overlays.default ];

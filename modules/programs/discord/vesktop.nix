@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.vesktop =
+  den.aspects.vesktop.homeManager =
     { ... }:
     {
       programs.vesktop = {

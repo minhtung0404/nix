@@ -1,7 +1,10 @@
+{ config, self, ... }:
+let
+  inherit (config.mtn) images;
+in
 {
-  flake.modules.nixos.scrollingDesktop =
+  den.aspects.scrollingDesktop.nixos =
     {
-      self,
       config,
       lib,
       ...
@@ -20,7 +23,7 @@
       };
       services.displayManager.defaultSession = lib.mkForce "niri";
       wrappers.niri = {
-        wallpaper = config.mtn.constants.mirai;
+        wallpaper = images.mirai;
         runtimePkgs = [
           config.wrappers.noctalia-shell.wrapper
           config.wrappers.kitty.wrapper
@@ -38,11 +41,4 @@
 
       wrappers.kitty.fontSize = 16;
     };
-
-  flake.modules.homeManager.scrollingDesktop = { self, ... }: {
-    imports = [
-      self.modules.homeManager.niri
-      self.modules.generic.workspaces
-    ];
-  };
 }

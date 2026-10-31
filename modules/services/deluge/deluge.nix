@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.deluge =
+  den.aspects.deluge.nixos =
     {
       pkgs,
       config,

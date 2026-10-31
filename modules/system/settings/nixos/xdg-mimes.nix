@@ -1,8 +1,5 @@
-{ config, ... }: {
-  flake.modules.homeManager.nixosMime =
-    let
-      inherit (config.flake.lib) mkPackageWithDesktopOption;
-    in
+{
+  den.aspects.nixosMime.homeManager =
     {
       lib,
       config,
@@ -11,6 +8,27 @@
     }:
     let
       cfg = config.mtn.linux.graphical;
+      mkPackageWithDesktopOption =
+        opts:
+        lib.mkOption (
+          {
+            type = lib.types.submodule {
+              options = {
+                package = lib.mkOption {
+                  type = lib.types.package;
+                  description = "The package for " + opts.description;
+                };
+                desktopFile = lib.mkOption {
+                  type = lib.types.nullOr lib.types.str;
+                  default = null;
+                  description =
+                    "The desktop file name for " + opts.description + ", defaults to [packagename].desktop";
+                };
+              };
+            };
+          }
+          // opts
+        );
       desktopFileOf =
         cfg:
         if cfg.desktopFile == null then

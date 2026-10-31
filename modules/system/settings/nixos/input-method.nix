@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.inputMethods = { pkgs, ... }: {
+  den.aspects.inputMethods.nixos = { pkgs, ... }: {
     # Input methods (only fcitx5 works reliably on Wayland)
     i18n.inputMethod = {
       enable = true;

@@ -1,5 +1,9 @@
+{ config, ... }:
+let
+  inherit (config.mtn) workspaces;
+in
 {
-  flake.modules.homeManager.sketchybar =
+  den.aspects.sketchybar.homeManager =
     {
       config,
       lib,
@@ -56,7 +60,7 @@
             # ---------------------------------------------------------
             ${import ./_items/spaces.nix {
               inherit pkgs;
-              spaces = config.mtn.workspaces;
+              spaces = workspaces;
             }}
 
             # ---------------------------------------------------------

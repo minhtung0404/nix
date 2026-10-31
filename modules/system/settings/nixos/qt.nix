@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.nixosQt = { pkgs, ... }: {
+  den.aspects.nixosQt.homeManager = { pkgs, ... }: {
     ## Qt
     qt.enable = true;
     qt.platformTheme.name = "kde";

@@ -1,19 +1,23 @@
-{ ... }: {
-  flake.modules.homeManager.rebuild = { lib, pkgs, ... }: {
-    programs.fish.functions.rebuild = lib.mkMerge [
-      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
-        body = ''
-          sudo nixos-rebuild switch --flake /etc/nixos
-        '';
-        wraps = "nixos-rebuild";
-      })
+{
+  den.aspects.rebuild =
+    { host, ... }:
+    {
+      homeManager.programs.fish.functions.rebuild =
+        {
+          nixos = {
+            body = ''
+              sudo nixos-rebuild switch --flake /etc/nixos
+            '';
+            wraps = "nixos-rebuild";
+          };
 
-      (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
-        body = ''
-          sudo darwin-rebuild switch --flake ~/.config/nix/
-        '';
-        wraps = "darwin-rebuild";
-      })
-    ];
-  };
+          darwin = {
+            body = ''
+              sudo darwin-rebuild switch --flake ~/.config/nix/
+            '';
+            wraps = "darwin-rebuild";
+          };
+        }
+        .${host.class};
+    };
 }

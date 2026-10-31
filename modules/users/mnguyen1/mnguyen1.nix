@@ -12,21 +12,18 @@ in
       den.batteries.primary-user
       (den.batteries.user-shell "fish")
       den.aspects.gsync
+      den.aspects.tex
+      # home config of the host aspects (desktop, …)
+      den.batteries.host-aspects
     ];
 
     homeManager =
       {
-        self,
         pkgs,
         config,
         ...
       }:
       {
-        imports = with self.modules.homeManager; [
-          system-desktop
-          nixosDesktop
-          tex
-        ];
         mtn = {
           linux.graphical = {
             startup = [

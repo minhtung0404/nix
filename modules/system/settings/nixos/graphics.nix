@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.graphics =
+  den.aspects.graphics.nixos =
     { ... }:
     {
       hardware.graphics.enable = true;

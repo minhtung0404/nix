@@ -1,15 +1,16 @@
-{ self, ... }: {
-  flake.wrappers.niri = { config, lib, ... }: {
-    imports = [
-      self.modules.generic.workspaces
-    ];
+{ config, ... }:
+let
+  inherit (config.mtn) workspaces nameToWorkspace;
+in
+{
+  flake.wrappers.niri = { lib, ... }: {
     settings.workspaces =
       let
         workspaceConfig = lib.listToAttrs (
           map (w: {
             name = "${w.id} - ${w.name}";
             value = { };
-          }) config.mtn.workspaces
+          }) workspaces
         );
       in
       workspaceConfig;
@@ -23,13 +24,13 @@
           name = "Mod+Shift+${w.id}";
           value.move-column-to-workspace = "${w.id} - ${w.name}";
         }
-      ]) config.mtn.workspaces
+      ]) workspaces
     );
 
     settings.window-rules = [
       # Workspace assignments
       {
-        open-on-workspace = "${config.mtn.nameToWorkspace.web} - web";
+        open-on-workspace = "${nameToWorkspace.web} - web";
         open-maximized = true;
         matches = [
           {
@@ -52,7 +53,7 @@
         ];
       }
       {
-        open-on-workspace = "${config.mtn.nameToWorkspace.chat} - chat";
+        open-on-workspace = "${nameToWorkspace.chat} - chat";
         open-maximized = true;
         matches = [
           { title = "^((d|D)iscord|((A|a)rm(c|C)ord))$"; }
@@ -66,7 +67,7 @@
         ];
       }
       {
-        open-on-workspace = "${config.mtn.nameToWorkspace.notes} - notes";
+        open-on-workspace = "${nameToWorkspace.notes} - notes";
         open-maximized = true;
         matches = [
           { app-id = "md.Obsidian"; }

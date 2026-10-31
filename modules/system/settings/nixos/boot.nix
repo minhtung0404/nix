@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.boot =
+  den.aspects.boot.nixos =
     {
       config,
       lib,

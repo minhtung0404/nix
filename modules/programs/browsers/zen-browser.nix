@@ -1,3 +1,4 @@
+{ inputs, ... }:
 {
   flake-file.inputs = {
     zen-browser = {
@@ -15,9 +16,8 @@
     };
   };
 
-  flake.modules.homeManager.zenBrowser =
+  den.aspects.zenBrowser.homeManager =
     {
-      inputs,
       pkgs,
       lib,
       config,

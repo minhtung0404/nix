@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.xserver = {
+  den.aspects.xserver.nixos = {
     # Enable the X11 windowing system.
     services.xserver.enable = true;
   };

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.macosDock =
+  den.aspects.macosDock.homeManager =
     {
       lib,
       pkgs,

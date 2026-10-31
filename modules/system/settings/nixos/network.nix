@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.network =
+  den.aspects.network.nixos =
     {
       config,
       lib,
@@ -8,10 +8,6 @@
     }:
     {
       options.mtn.nixos.networking = {
-        hostname = lib.mkOption {
-          type = lib.types.str;
-          description = "Host name for your machine";
-        };
         dnsServers = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           description = "DNS server list";
@@ -61,7 +57,6 @@
             dhcpcd.enable = lib.mkForce false;
             useDHCP = false;
             useNetworkd = true;
-            hostName = cfg.hostname;
             networkmanager.enable = true;
           };
 

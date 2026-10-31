@@ -1,7 +1,7 @@
+{ self, ... }:
 {
   den.aspects.kanata.nixos =
     {
-      self,
       config,
       pkgs,
       lib,

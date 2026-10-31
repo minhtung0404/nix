@@ -1,8 +1,7 @@
+{ self, ... }:
 {
   den.aspects.kanata.darwin =
     {
-      self,
-      kanata,
       config,
       pkgs,
       lib,

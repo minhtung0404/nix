@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.nixosGtk = { pkgs, config, ... }: {
+  den.aspects.nixosGtk.homeManager = { pkgs, config, ... }: {
     # Theming
     ## GTK
     gtk.enable = true;

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.nixosStartup =
+  den.aspects.nixosStartup.homeManager =
     {
       lib,
       pkgs,

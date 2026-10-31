@@ -1,5 +1,6 @@
 {
-  flake.modules.nixos.noRGB =
+  # not included by any host yet
+  den.aspects.noRGB.nixos =
     { pkgs, lib, ... }:
     let
       no-rgb = pkgs.writeScriptBin "no-rgb" ''

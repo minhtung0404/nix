@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.macosDefaultApps =
+  den.aspects.macosDefaultApps.homeManager =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
@@ -8,12 +8,5 @@
         raycast
         skimpdf
       ];
-
-      mtn = {
-        services = {
-          my-sketchybar.enable = true;
-          my-aerospace.enable = true;
-        };
-      };
     };
 }

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.zram = {
+  den.aspects.zram.nixos = {
     zramSwap.enable = true;
   };
 }

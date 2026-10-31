@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.ssh =
+  den.aspects.ssh.homeManager =
     { ... }:
     {
       programs.ssh = {

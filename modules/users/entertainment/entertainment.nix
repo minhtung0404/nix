@@ -10,20 +10,13 @@ in
     includes = [
       den.batteries.define-user
       (den.batteries.user-shell "fish")
+      # home config of the host aspects (desktop, …)
+      den.batteries.host-aspects
     ];
 
     homeManager =
-      { config, self, ... }:
+      { config, ... }:
       {
-        imports = with self.modules.homeManager; [
-          system-desktop
-          macosDefaults
-          macosDock
-          aerospace
-          sketchybar
-          hammerspoon
-
-        ];
         mtn = {
           programs = {
             my-zenbrowser = {

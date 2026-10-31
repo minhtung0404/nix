@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.monitorBacklight =
+  den.aspects.monitorBacklight.nixos =
     { pkgs, ... }:
     {
       # Monitor backlight

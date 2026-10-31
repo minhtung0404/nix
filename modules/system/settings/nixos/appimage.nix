@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.appimage = {
+  den.aspects.appimage.nixos = {
     # AppImages should run
     programs.appimage = {
       enable = true;

@@ -11,7 +11,7 @@
 
   };
 
-  flake.modules.homeManager.kakoune =
+  den.aspects.kakoune.homeManager =
     {
       config,
       lib,

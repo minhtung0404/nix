@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.copyPaste = { pkgs, ... }: {
+  den.aspects.copyPaste.homeManager = { pkgs, ... }: {
     home.packages = [
       # Mimic the clipboard stuff in MacOS
       (pkgs.writeShellScriptBin "pbcopy" ''

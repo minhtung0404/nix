@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.openssh = {
+  den.aspects.openssh.nixos = {
     # openssh
     services.openssh.enable = true;
   };

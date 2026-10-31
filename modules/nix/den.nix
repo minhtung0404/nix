@@ -1,6 +1,6 @@
 {
+  den,
   inputs,
-  self,
   lib,
   ...
 }:
@@ -8,8 +8,6 @@
   imports = [
     inputs.flake-file.flakeModules.dendritic
     (inputs.den.flakeModules.dendritic or { })
-    # still needed while flake.modules.* is being migrated to den.aspects
-    inputs.flake-parts.flakeModules.modules
   ];
 
   flake-file.inputs = {
@@ -30,31 +28,17 @@
   # every user gets a home-manager environment, nested in its host
   den.schema.user.classes = lib.mkDefault [ "homeManager" ];
 
-  # Migration bridge: class modules still reach `self.modules.*` through their
-  # `self` argument (often inside `imports`), which only works as a specialArg.
-  # Drop this once everything is a den aspect.
+  # networking.hostName = den.hosts.<system>.<name>.hostName (defaults to the
+  # host name) on every host
+  den.schema.host.includes = [ den.batteries.hostname ];
+
+  # den builds darwin hosts with inputs.darwin by default; this flake calls the
+  # input nix-darwin
   den.schema.host.imports = [
     (
       { config, ... }:
-      {
-        instantiate =
-          let
-            builder =
-              {
-                nixos = inputs.nixpkgs.lib.nixosSystem;
-                darwin = inputs.nix-darwin.lib.darwinSystem;
-              }
-              .${config.class};
-          in
-          args:
-          builder (
-            args
-            // {
-              specialArgs = (args.specialArgs or { }) // {
-                inherit self inputs;
-              };
-            }
-          );
+      lib.mkIf (config.class == "darwin") {
+        instantiate = inputs.nix-darwin.lib.darwinSystem;
       }
     )
   ];

@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.git =
+  den.aspects.git.homeManager =
     { config, ... }:
     {
       programs.git = {

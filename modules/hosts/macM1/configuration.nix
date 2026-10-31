@@ -11,21 +11,14 @@
     {
       pkgs,
       config,
-      self,
       ...
     }:
     {
-      imports = [
-        self.modules.darwin.system-desktop
-      ];
-
-      system.primaryUser = "minhtung0404";
       wrappers.kanata.configFile = [
         "apple"
         "gm610"
       ];
       mtn = {
-        constants.username = "minhtung0404";
         services = {
           edns = {
             ipv6 = true;

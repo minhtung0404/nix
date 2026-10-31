@@ -1,4 +1,8 @@
-{ self, ... }: {
+{ config, ... }:
+let
+  inherit (config.mtn) workspaces;
+in
+{
   flake.wrappers.kanshi =
     {
       config,
@@ -10,7 +14,6 @@
     {
       imports = [
         wlib.modules.default
-        self.modules.generic.workspaces
       ];
 
       options =
@@ -130,7 +133,7 @@
           };
           constructFiles.moveWorkspaceToMonitor =
             let
-              rev = lib.lists.reverseList config.mtn.workspaces;
+              rev = lib.lists.reverseList workspaces;
             in
             {
               relPath = "move-workspace-to-monitor.sh";

@@ -1,3 +1,4 @@
+{ den, ... }:
 {
   den.aspects.cliTools.nixos = { pkgs, ... }: {
     environment.systemPackages = with pkgs; [
@@ -21,12 +22,12 @@
   };
   # homeManager on a host-included aspect is dropped by den; to-users routes it
   # to every user of the host
-  den.aspects.cliTools.provides.to-users.homeManager = { self, pkgs, ... }: {
-    imports = [
-      self.modules.homeManager.git
-      self.modules.homeManager.ssh
-      self.modules.homeManager.rebuild
-    ];
+  den.aspects.cliTools.provides.to-users.includes = with den.aspects; [
+    git
+    ssh
+    rebuild
+  ];
+  den.aspects.cliTools.provides.to-users.homeManager = { pkgs, ... }: {
     home.packages = with pkgs; [
       ## Core / shell utilities
       coreutils
