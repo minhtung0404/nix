@@ -1,5 +1,4 @@
 {
-  den,
   inputs,
   lib,
   ...
@@ -12,6 +11,8 @@
 
   flake-file.inputs = {
     den.url = "github:denful/den";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-file.url = "github:vic/flake-file";
     import-tree.url = "github:vic/import-tree";
@@ -27,10 +28,6 @@
 
   # every user gets a home-manager environment, nested in its host
   den.schema.user.classes = lib.mkDefault [ "homeManager" ];
-
-  # networking.hostName = den.hosts.<system>.<name>.hostName (defaults to the
-  # host name) on every host
-  den.schema.host.includes = [ den.batteries.hostname ];
 
   # den builds darwin hosts with inputs.darwin by default; this flake calls the
   # input nix-darwin

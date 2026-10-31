@@ -8,7 +8,6 @@ in
 {
   den.aspects.${user} = {
     includes = [
-      den.batteries.define-user
       (den.batteries.user-shell "fish")
       # home config of the host aspects (desktop, …)
       den.batteries.host-aspects
