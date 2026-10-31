@@ -5,17 +5,13 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  den.aspects.sops.nixos =
-    {
-      ...
-    }:
-    {
-      imports = [
-        inputs.sops-nix.nixosModules.sops
-      ];
-    };
+  den.aspects.sops.nixos = {
+    imports = [
+      inputs.sops-nix.nixosModules.sops
+    ];
+  };
 
-  den.aspects.sops.darwin = { ... }: {
+  den.aspects.sops.darwin = {
     imports = [
       inputs.sops-nix.darwinModules.sops
     ];
@@ -28,14 +24,13 @@
       lib,
       ...
     }:
-    with { inherit (lib) types mkOption mkEnableOption; };
     let
       cfg = config.mtn.programs.sops;
     in
     {
       options.mtn.programs.sops = {
-        file = mkOption {
-          type = types.path;
+        file = lib.mkOption {
+          type = lib.types.path;
           description = "Path to the default sops file";
         };
       };

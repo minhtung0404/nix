@@ -1,15 +1,13 @@
 {
-  den.aspects.vesktop.homeManager =
-    { ... }:
-    {
-      programs.vesktop = {
-        enable = true;
-        vencord = {
-          themes = {
-            chillax = ./chillax.theme.css;
-          };
-          # settings.enabledThemes = "chillax.css";
+  den.aspects.vesktop.homeManager = {
+    programs.vesktop = {
+      enable = true;
+      vencord = {
+        themes = {
+          chillax = ./chillax.theme.css;
         };
+        # settings.enabledThemes = "chillax.css";
       };
     };
+  };
 }

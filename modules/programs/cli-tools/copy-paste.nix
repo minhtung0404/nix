@@ -1,13 +1,19 @@
 {
-  den.aspects.copyPaste.homeManager = { pkgs, ... }: {
-    home.packages = [
-      # Mimic the clipboard stuff in MacOS
-      (pkgs.writeShellScriptBin "pbcopy" ''
-        exec ${pkgs.wl-clipboard}/bin/wl-copy "$@"
-      '')
-      (pkgs.writeShellScriptBin "pbpaste" ''
-        exec ${pkgs.wl-clipboard}/bin/wl-paste "$@"
-      '')
-    ];
-  };
+  den.aspects.copyPaste =
+    { host, ... }:
+    {
+      homeManager =
+        { lib, pkgs, ... }:
+        {
+          # Mimic the clipboard stuff in MacOS (wayland only)
+          home.packages = lib.mkIf (host.class == "nixos") [
+            (pkgs.writeShellScriptBin "pbcopy" ''
+              exec ${pkgs.wl-clipboard}/bin/wl-copy "$@"
+            '')
+            (pkgs.writeShellScriptBin "pbpaste" ''
+              exec ${pkgs.wl-clipboard}/bin/wl-paste "$@"
+            '')
+          ];
+        };
+    };
 }

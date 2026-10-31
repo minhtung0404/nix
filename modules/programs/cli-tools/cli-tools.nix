@@ -1,10 +1,15 @@
 { den, ... }:
 {
+  den.aspects.cliTools.os = { pkgs, ... }: {
+    environment.systemPackages = with pkgs; [
+      # An editor
+      kakoune
+      wget # A simple fetcher
+    ];
+  };
+
   den.aspects.cliTools.nixos = { pkgs, ... }: {
     environment.systemPackages = with pkgs; [
-      kakoune # An editor
-      wget # A simple fetcher
-
       ## System monitoring tools
       usbutils # lsusb and friends
       pciutils # lspci and friends
@@ -13,13 +18,6 @@
     ];
   };
 
-  den.aspects.cliTools.darwin = { pkgs, ... }: {
-    environment.systemPackages = with pkgs; [
-      # An editor
-      kakoune
-      wget # A simple fetcher
-    ];
-  };
   # homeManager on a host-included aspect is dropped by den; to-users routes it
   # to every user of the host
   den.aspects.cliTools.provides.to-users.includes = with den.aspects; [
