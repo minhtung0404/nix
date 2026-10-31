@@ -1,10 +1,9 @@
 { den, ... }:
 let
   hostname = "mtnWork";
-  username = "mnguyen1";
 in
 {
-  den.hosts.x86_64-linux.${hostname}.users.${username} = { };
+  den.hosts.x86_64-linux.${hostname}.users.mnguyen1 = { };
 
   den.aspects.${hostname} = {
     includes = with den.aspects; [
