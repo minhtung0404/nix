@@ -12,7 +12,6 @@ in
   den.aspects.${hostname} = {
     includes = with den.aspects; [
       system-desktop
-      plasma
       deluge
     ];
 

@@ -108,6 +108,8 @@ in
       inputMethods
       dbus
       kded6
+      dolphin
+      polkit-agent
 
       desktop-home
     ];
