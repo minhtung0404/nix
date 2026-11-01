@@ -49,6 +49,33 @@ let
   };
 in
 {
+  # desktop home: reaches the users that include den.batteries.host-aspects
+  den.aspects.desktop-home =
+    { host, ... }:
+    {
+      includes =
+        (with den.aspects; [
+          zenBrowser
+          kakoune
+          vesktop
+        ])
+        ++ lib.optional (host.class == "nixos") nixosDesktop
+        ++ lib.optional (host.class == "darwin") macosDesktop;
+
+      homeManager =
+        { pkgs, ... }:
+        {
+          home.packages = with pkgs; [
+            obsidian
+            telegram-desktop
+          ];
+
+          mtn.programs = {
+            my-kakoune.enable-fish-session = true;
+          };
+        };
+    };
+
   # expansion of cli system for desktop use
 
   den.aspects.system-desktop = {
@@ -80,36 +107,9 @@ in
       xserver
       inputMethods
       dbus
-      plasma
       kded6
 
-      # desktop home: reaches the users that include den.batteries.host-aspects
-      (
-        { host, ... }:
-        {
-          includes =
-            (with den.aspects; [
-              zenBrowser
-              kakoune
-              vesktop
-            ])
-            ++ lib.optional (host.class == "nixos") nixosDesktop
-            ++ lib.optional (host.class == "darwin") macosDesktop;
-
-          homeManager =
-            { pkgs, ... }:
-            {
-              home.packages = with pkgs; [
-                obsidian
-                telegram-desktop
-              ];
-
-              mtn.programs = {
-                my-kakoune.enable-fish-session = true;
-              };
-            };
-        }
-      )
+      desktop-home
     ];
 
     nixos =

@@ -15,6 +15,7 @@ let
   vms = {
     mtnWork = "mnguyen1";
     mtnPC = "minhtung0404";
+    test = "tester";
   };
 in
 {

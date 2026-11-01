@@ -10,6 +10,7 @@ in
       system-desktop
       kvm
       steam
+      dolphin
     ];
 
     nixos = {
