@@ -159,6 +159,8 @@ in
             margin_ends = 0;
             margin_edge = 0;
             radius = 0;
+            # bigger icons, spacing and text (the bar height is `thickness`, not scaled)
+            scale = 1.5;
             start = [
               "control-center"
               "workspaces"
