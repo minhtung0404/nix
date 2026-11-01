@@ -70,12 +70,6 @@ in
         device = "/dev/null";
         fsType = "auto";
       };
-
-      # straight into niri
-      virtualisation.vmVariant.services.displayManager.autoLogin = {
-        enable = true;
-        user = username;
-      };
     };
   };
 }
