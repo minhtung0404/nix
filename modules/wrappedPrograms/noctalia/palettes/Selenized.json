@@ -1,0 +1,94 @@
+{
+  "light": {
+    "terminal": {
+      "background": "#fbf3db",
+      "bright": {
+        "black": "#d5cdb6",
+        "blue": "#006dce",
+        "cyan": "#00978a",
+        "green": "#428b00",
+        "magenta": "#c44392",
+        "red": "#cc1729",
+        "white": "#3a4d53",
+        "yellow": "#a78300"
+      },
+      "cursor": "#3a4d53",
+      "cursorText": "#fbf3db",
+      "foreground": "#53676d",
+      "normal": {
+        "black": "#ece3cc",
+        "blue": "#0072d4",
+        "cyan": "#009c8f",
+        "green": "#489100",
+        "magenta": "#ca4898",
+        "red": "#d2212d",
+        "white": "#909995",
+        "yellow": "#ad8900"
+      },
+      "selectionBg": "#d5cdb6",
+      "selectionFg": "#3a4d53"
+    },
+    "mError": "#d2212d",
+    "mHover": "#d5cdb6",
+    "mOnError": "#fbf3db",
+    "mOnHover": "#3a4d53",
+    "mOnPrimary": "#fbf3db",
+    "mOnSecondary": "#fbf3db",
+    "mOnSurface": "#53676d",
+    "mOnSurfaceVariant": "#909995",
+    "mOnTertiary": "#fbf3db",
+    "mOutline": "#d5cdb6",
+    "mPrimary": "#0072d4",
+    "mSecondary": "#009c8f",
+    "mShadow": "#3a4d53",
+    "mSurface": "#fbf3db",
+    "mSurfaceVariant": "#ece3cc",
+    "mTertiary": "#8762c6"
+  },
+  "dark": {
+    "terminal": {
+      "background": "#103c48",
+      "bright": {
+        "black": "#2d5b69",
+        "blue": "#58a3ff",
+        "cyan": "#53d6c7",
+        "green": "#84c747",
+        "magenta": "#ff84cd",
+        "red": "#ff665c",
+        "white": "#cad8d9",
+        "yellow": "#ebc13d"
+      },
+      "cursor": "#cad8d9",
+      "cursorText": "#103c48",
+      "foreground": "#adbcbc",
+      "normal": {
+        "black": "#184956",
+        "blue": "#4695f7",
+        "cyan": "#41c7b9",
+        "green": "#75b938",
+        "magenta": "#f275be",
+        "red": "#fa5750",
+        "white": "#72898f",
+        "yellow": "#dbb32d"
+      },
+      "selectionBg": "#2d5b69",
+      "selectionFg": "#cad8d9"
+    },
+    "mError": "#fa5750",
+    "mHover": "#2d5b69",
+    "mOnError": "#103c48",
+    "mOnHover": "#cad8d9",
+    "mOnPrimary": "#103c48",
+    "mOnSecondary": "#103c48",
+    "mOnSurface": "#adbcbc",
+    "mOnSurfaceVariant": "#72898f",
+    "mOnTertiary": "#103c48",
+    "mOutline": "#2d5b69",
+    "mPrimary": "#4695f7",
+    "mSecondary": "#41c7b9",
+    "mShadow": "#000000",
+    "mSurface": "#103c48",
+    "mSurfaceVariant": "#184956",
+    "mTertiary": "#af88eb"
+  }
+}

@@ -3,468 +3,187 @@ let
   inherit (config.mtn) images;
 in
 {
-  flake.wrappers.noctalia-shell =
+  # noctalia v5: config is TOML, read from $NOCTALIA_CONFIG_HOME/noctalia/*.toml.
+  # GUI changes go to ~/.local/state/noctalia/settings.toml and override this.
+  # Reference: https://docs.noctalia.dev/noctalia/configuration/
+  flake.wrappers.noctalia =
     {
       config,
+      lib,
       pkgs,
       wlib,
       ...
     }:
+    let
+      # the config dir is built into the wrapper's own output (constructFiles) and passed
+      # as NOCTALIA_CONFIG_HOME; noctalia reads <it>/noctalia/*.toml and palettes/
+      configDir = "noctalia-config/noctalia";
+    in
     {
-      imports = [
-        wlib.wrapperModules.noctalia-shell
-      ];
+      imports = [ wlib.modules.default ];
 
-      env = {
-        "NOCTALIA_CACHE_DIR" = "/tmp/mtn-noctalia-cache/";
+      options = {
+        settings = lib.mkOption {
+          type = (pkgs.formats.toml { }).type;
+          default = { };
+          description = "noctalia config.toml, as a Nix attrset";
+        };
+
+        palettes = lib.mkOption {
+          type = lib.types.nullOr lib.types.path;
+          default = null;
+          description = ''
+            Directory of custom palette JSON files, installed as palettes/; <name>.json is
+            selected with theme.source = "custom" and theme.custom_palette = "<name>"
+          '';
+        };
       };
-      colors = {
-        mError = "#fb4934";
-        mHover = "#83a598";
-        mOnError = "#282828";
-        mOnHover = "#282828";
-        mOnPrimary = "#282828";
-        mOnSecondary = "#282828";
-        mOnSurface = "#fbf1c7";
-        mOnSurfaceVariant = "#ebdbb2";
-        mOnTertiary = "#282828";
-        mOutline = "#57514e";
-        mPrimary = "#b8bb26";
-        mSecondary = "#fabd2f";
-        mShadow = "#282828";
-        mSurface = "#282828";
-        mSurfaceVariant = "#3c3836";
-        mTertiary = "#83a598";
-      };
-      settings = {
-        appLauncher = {
-          customLaunchPrefix = "";
-          customLaunchPrefixEnabled = false;
-          enableClipPreview = true;
-          enableClipboardHistory = false;
-          iconMode = "tabler";
-          pinnedExecs = [ ];
-          position = "center";
-          showCategories = true;
-          sortByMostUsed = true;
-          terminalCommand = "kitty -e";
-          useApp2Unit = false;
-          viewMode = "list";
+
+      config = {
+        package = pkgs.noctalia;
+        env.NOCTALIA_CONFIG_HOME = lib.removeSuffix "/noctalia/config.toml" config.constructFiles.noctaliaConfig.path;
+
+        constructFiles = {
+          # settings as JSON, turned into TOML and validated at build time;
+          # `config validate` only warns (exit 0) about unknown settings, so
+          # warnings fail the build too
+          noctaliaConfig = {
+            relPath = "${configDir}/config.toml";
+            content = builtins.toJSON config.settings;
+            builder = ''
+              ${lib.getExe pkgs.remarshal} --from json --to toml "$1" "$2"
+              result=$(${lib.getExe pkgs.noctalia} config validate "$2" 2>&1) || { echo "$result"; exit 1; }
+              echo "$result"
+              if grep -q WARN <<< "$result"; then exit 1; fi
+            '';
+          };
+        }
+        // lib.optionalAttrs (config.palettes != null) {
+          # the whole palettes directory; the builder ignores $1 and copies the folder
+          noctaliaPalettes = {
+            relPath = "${configDir}/palettes";
+            content = "";
+            # noctalia silently falls back to its builtin palette for a palette whose
+            # dark (or light, if present) variant has no `terminal` object
+            builder = ''
+              mkdir -p "$2"
+              for palette in ${config.palettes}/*.json; do
+                ${lib.getExe pkgs.jq} -e '
+                  (.dark.terminal | type) == "object"
+                  and ((has("light") | not) or (.light.terminal | type) == "object")
+                ' "$palette" > /dev/null \
+                  || { echo "$(basename "$palette"): every variant needs a terminal block"; exit 1; }
+                cp "$palette" "$2/"
+              done
+            '';
+          };
         };
-        audio = {
-          cavaFrameRate = 30;
-          externalMixer = "pwvucontrol || pavucontrol";
-          mprisBlacklist = [ ];
-          preferredPlayer = "";
-          visualizerType = "linear";
-          volumeOverdrive = false;
-          volumeStep = 5;
-        };
-        bar = {
-          capsuleOpacity = 1;
-          density = "spacious";
-          exclusive = true;
-          floating = false;
-          marginHorizontal = 0.25;
-          marginVertical = 0.25;
-          monitors = [ ];
-          outerCorners = false;
-          position = "top";
-          showCapsule = false;
-          showOutline = false;
-          transparent = false;
-          widgets = {
-            center = [
+
+        # every *.json in ./palettes, e.g. Selenized.json (https://github.com/jan-warchol/selenized;
+        # light colors as in kakoune's selenized-light.kak). noctalia 5.2.1 needs a
+        # `terminal` block in every variant, or it falls back to its builtin palette.
+        palettes = ./palettes;
+
+        settings = {
+          shell = {
+            font_family = "Sans Serif";
+            # config comes from Nix: the first-run wizard would save its own theme
+            # choice to ~/.local/state/noctalia/settings.toml, which overrides this
+            setup_wizard_enabled = false;
+            avatar_path = "${images.amira_squared}";
+
+            launcher = {
+              categories = true;
+              sort_by_usage = true;
+            };
+            panel.launcher_position = "center";
+
+            # v4 session menu: these six, 10 s countdown each (v5 has no
+            # built-in hibernate, so it is a command entry)
+            session.actions = map (a: a // { countdown_seconds = 10; }) [
+              { action = "lock"; }
+              { action = "suspend"; }
               {
-                customFont = "";
-                formatHorizontal = "ddd, MMM dd HH:mm";
-                formatVertical = "HH mm - dd MM";
-                id = "Clock";
-                useCustomFont = false;
-                usePrimaryColor = true;
+                action = "command";
+                label = "Hibernate";
+                glyph = "snowflake";
+                command = "systemctl hibernate";
               }
-            ];
-            left = [
+              { action = "reboot"; }
+              { action = "logout"; }
               {
-                colorizeDistroLogo = true;
-                colorizeSystemIcon = "tertiary";
-                customIconPath = "";
-                enableColorization = true;
-                id = "ControlCenter";
-                useDistroLogo = true;
-              }
-              {
-                characterCount = 10;
-                colorizeIcons = false;
-                enableScrollWheel = true;
-                followFocusedScreen = false;
-                hideUnoccupied = true;
-                id = "Workspace";
-                labelMode = "name";
-                showApplications = false;
-                showLabelsOnlyWhenOccupied = true;
-              }
-            ];
-            right = [
-              {
-                hideWhenZero = false;
-                id = "NotificationHistory";
-                showUnreadBadge = true;
-              }
-              {
-                displayMode = "alwaysHide";
-                id = "Volume";
-              }
-              {
-                deviceNativePath = "";
-                displayMode = "alwaysShow";
-                hideIfNotDetected = true;
-                id = "Battery";
-                showNoctaliaPerformance = false;
-                showPowerProfiles = false;
-                warningThreshold = 20;
-              }
-              {
-                displayMode = "alwaysHide";
-                id = "Microphone";
-              }
-              {
-                displayMode = "forceOpen";
-                id = "KeyboardLayout";
-              }
-              {
-                blacklist = [ ];
-                colorizeIcons = false;
-                drawerEnabled = true;
-                hidePassive = false;
-                id = "Tray";
-                pinned = [ ];
+                action = "shutdown";
+                variant = "destructive";
               }
             ];
           };
-        };
-        brightness = {
-          brightnessStep = 5;
-          enableDdcSupport = false;
-          enforceMinimum = true;
-        };
-        calendar = {
-          cards = [
-            {
-              enabled = true;
-              id = "calendar-header-card";
-            }
-            {
-              enabled = true;
-              id = "calendar-month-card";
-            }
-            {
-              enabled = true;
-              id = "timer-card";
-            }
-            {
-              enabled = true;
-              id = "weather-card";
-            }
-          ];
-        };
-        # colorSchemes = {
-        #   darkMode = true;
-        #   generateTemplatesForPredefined = true;
-        #   manualSunrise = "06:30";
-        #   manualSunset = "18:30";
-        #   matugenSchemeType = "scheme-fruit-salad";
-        #   predefinedScheme = "Gruvbox";
-        #   schedulingMode = "off";
-        #   useWallpaperColors = false;
-        # };
-        controlCenter = {
-          cards = [
-            {
-              enabled = true;
-              id = "profile-card";
-            }
-            {
-              enabled = true;
-              id = "shortcuts-card";
-            }
-            {
-              enabled = true;
-              id = "audio-card";
-            }
-            {
-              enabled = true;
-              id = "brightness-card";
-            }
-            {
-              enabled = true;
-              id = "weather-card";
-            }
-            {
-              enabled = true;
-              id = "media-sysmon-card";
-            }
-          ];
-          position = "close_to_bar_button";
-          shortcuts = {
-            left = [
-              { id = "WiFi"; }
-              { id = "Bluetooth"; }
-              { id = "ScreenRecorder"; }
-            ];
-            right = [
-              { id = "Notifications"; }
-              { id = "PowerProfile"; }
+
+          osd = {
+            position = "bottom_center";
+            hide_delay_ms = 3000;
+          };
+
+          battery.warning_threshold = 20;
+
+          # Selenized Light (palettes/Selenized.json)
+          theme = {
+            mode = "light";
+            source = "custom";
+            custom_palette = "Selenized";
+
+            # recolor other apps with the palette (written to ~/.config at runtime):
+            # gtk3/gtk4 add an @import to gtk-{3,4}.0/gtk.css; kcolorscheme merges into
+            # kdeglobals, which Qt reads through the KDE platform theme (the qt5ct/qt6ct
+            # "qt" template would be ignored); kitty keeps its own theme
+            templates.builtin_ids = [
+              "gtk3"
+              "gtk4"
+              "kcolorscheme"
             ];
           };
-        };
-        desktopWidgets = {
-          enabled = false;
-          gridSnap = false;
-          monitorWidgets = [
-            {
-              name = "HDMI-A-1";
-              widgets = [
-                {
-                  hideMode = "visible";
-                  id = "MediaPlayer";
-                  showBackground = true;
-                  showButtons = true;
-                  visualizerType = "linear";
-                  x = 100;
-                  y = 200;
-                }
-              ];
-            }
-          ];
-        };
-        dock = {
-          animationSpeed = 2;
-          backgroundOpacity = 1;
-          colorizeIcons = false;
-          deadOpacity = 0.6;
-          displayMode = "auto_hide";
-          enabled = false;
-          floatingRatio = 1;
-          inactiveIndicators = false;
-          monitors = [ ];
-          onlySameOutput = true;
-          pinnedApps = [ ];
-          pinnedStatic = false;
-          size = 1;
-        };
-        general = {
-          allowPanelsOnScreenWithoutBar = true;
-          animationDisabled = false;
-          animationSpeed = 1;
-          avatarImage = images.amira_squared;
-          boxRadiusRatio = 1;
-          compactLockScreen = false;
-          dimmerOpacity = 0.15;
-          enableShadows = true;
-          forceBlackScreenCorners = false;
-          iRadiusRatio = 1;
-          language = "";
-          lockOnSuspend = true;
-          radiusRatio = 1;
-          scaleRatio = 1;
-          screenRadiusRatio = 1;
-          shadowDirection = "bottom_right";
-          shadowOffsetX = 2;
-          shadowOffsetY = 3;
-          showHibernateOnLockScreen = false;
-          showScreenCorners = false;
-          showSessionButtonsOnLockScreen = true;
-        };
-        hooks = {
-          darkModeChange = "";
-          enabled = false;
-          performanceModeDisabled = "";
-          performanceModeEnabled = "";
-          screenLock = "";
-          screenUnlock = "";
-          wallpaperChange = "";
-        };
-        location = {
-          analogClockInCalendar = false;
-          firstDayOfWeek = -1;
-          showCalendarEvents = true;
-          showCalendarWeather = true;
-          showWeekNumberInCalendar = false;
-          use12hourFormat = false;
-          useFahrenheit = false;
-          weatherEnabled = true;
-          weatherShowEffects = true;
-        };
-        network = {
-          wifiEnabled = true;
-        };
-        nightLight = {
-          autoSchedule = true;
-          dayTemp = "6500";
-          enabled = false;
-          forced = false;
-          manualSunrise = "06:30";
-          manualSunset = "18:30";
-          nightTemp = "4000";
-        };
-        notifications = {
-          backgroundOpacity = 1;
-          criticalUrgencyDuration = 15;
-          enableKeyboardLayoutToast = true;
-          enabled = true;
-          location = "top_right";
-          lowUrgencyDuration = 8;
-          monitors = [ ];
-          normalUrgencyDuration = 8;
-          overlayLayer = true;
-          respectExpireTimeout = false;
-          sounds = {
-            criticalSoundFile = "";
-            enabled = false;
-            excludedApps = "discord,firefox,chrome,chromium,edge";
-            lowSoundFile = "";
-            normalSoundFile = "";
-            separateSounds = false;
-            volume = 0.5;
+
+          # also the lock screen background ([lockscreen] wallpaper left empty)
+          wallpaper = {
+            enabled = true;
+            fill_mode = "crop";
+            default.path = "${images.mirai}";
           };
-        };
-        osd = {
-          autoHideMs = 3000;
-          backgroundOpacity = 1;
-          enabled = true;
-          enabledTypes = [
-            0
-            1
-            2
-            4
-          ];
-          location = "bottom";
-          monitors = [ ];
-          overlayLayer = true;
-        };
-        screenRecorder = {
-          audioCodec = "opus";
-          audioSource = "default_output";
-          colorRange = "limited";
-          directory = "/home/yurii/Videos";
-          frameRate = 60;
-          quality = "very_high";
-          showCursor = true;
-          videoCodec = "h264";
-          videoSource = "portal";
-        };
-        sessionMenu = {
-          countdownDuration = 10000;
-          enableCountdown = true;
-          largeButtonsStyle = false;
-          position = "center";
-          powerOptions = [
-            {
-              action = "lock";
-              command = "";
-              countdownEnabled = true;
-              enabled = true;
-            }
-            {
-              action = "suspend";
-              command = "";
-              countdownEnabled = true;
-              enabled = true;
-            }
-            {
-              action = "hibernate";
-              command = "";
-              countdownEnabled = true;
-              enabled = true;
-            }
-            {
-              action = "reboot";
-              command = "";
-              countdownEnabled = true;
-              enabled = true;
-            }
-            {
-              action = "logout";
-              command = "";
-              countdownEnabled = true;
-              enabled = true;
-            }
-            {
-              action = "shutdown";
-              command = "";
-              countdownEnabled = true;
-              enabled = true;
-            }
-          ];
-          showHeader = true;
-        };
-        settingsVersion = 32;
-        systemMonitor = {
-          cpuCriticalThreshold = 90;
-          cpuPollingInterval = 3000;
-          cpuWarningThreshold = 80;
-          criticalColor = "";
-          diskCriticalThreshold = 90;
-          diskPollingInterval = 3000;
-          diskWarningThreshold = 80;
-          enableDgpuMonitoring = false;
-          gpuCriticalThreshold = 90;
-          gpuPollingInterval = 3000;
-          gpuWarningThreshold = 80;
-          memCriticalThreshold = 90;
-          memPollingInterval = 3000;
-          memWarningThreshold = 80;
-          networkPollingInterval = 3000;
-          tempCriticalThreshold = 90;
-          tempPollingInterval = 3000;
-          tempWarningThreshold = 80;
-          useCustomColors = false;
-          warningColor = "";
-        };
-        templates = {
-          alacritty = false;
-          cava = false;
-          code = false;
-          discord = false;
-          emacs = false;
-          enableUserTemplates = false;
-          foot = false;
-          fuzzel = false;
-          ghostty = false;
-          gtk = false;
-          helix = false;
-          hyprland = false;
-          kcolorscheme = false;
-          kitty = false;
-          mango = false;
-          niri = false;
-          pywalfox = false;
-          qt = false;
-          spicetify = false;
-          telegram = false;
-          vicinae = false;
-          walker = false;
-          wezterm = false;
-          yazi = false;
-          zed = false;
-        };
-        ui = {
-          bluetoothDetailsViewMode = "grid";
-          bluetoothHideUnnamedDevices = false;
-          fontDefault = "Sans Serif";
-          fontDefaultScale = 1;
-          fontFixed = "monospace";
-          fontFixedScale = 1;
-          panelBackgroundOpacity = 1;
-          panelsAttachedToBar = true;
-          settingsPanelMode = "attached";
-          tooltipsEnabled = true;
-          wifiDetailsViewMode = "grid";
-        };
-        wallpaper = {
-          enabled = false;
-          default.path = images.mirai;
+
+          lockscreen = {
+            enabled = true;
+            lock_before_suspend = true;
+          };
+
+          bar.main = {
+            position = "top";
+            margin_ends = 0;
+            margin_edge = 0;
+            radius = 0;
+            start = [
+              "control-center"
+              "workspaces"
+            ];
+            center = [ "clock" ];
+            end = [
+              "notifications"
+              "volume"
+              "battery"
+              "keyboard_layout"
+              "tray"
+            ];
+          };
+
+          widget = {
+            clock.format = "{:%a, %b %d %H:%M}";
+            # v4: workspace names, hide unoccupied ones
+            workspaces = {
+              label_source = "name";
+              max_label_chars = 10;
+              hide_when_empty = true;
+            };
+            # v4: volume shown as an icon only
+            volume.show_label = false;
+          };
         };
       };
     };

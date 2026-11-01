@@ -2,20 +2,19 @@
   flake.wrappers.niri = {
     settings.binds =
       let
-        nocFn = type: action: {
+        # noctalia v5 IPC: noctalia msg <command> [args…]
+        nocFn = args: {
           spawn = [
-            "noctalia-shell"
-            "ipc"
-            "call"
-            type
-            action
-          ];
+            "noctalia"
+            "msg"
+          ]
+          ++ args;
         };
-        audioFn = type: action: _: {
+        audioFn = args: _: {
           props = {
             allow-when-locked = true;
           };
-          content = nocFn type action;
+          content = nocFn args;
         };
       in
       {
@@ -25,25 +24,43 @@
 
         # Some basic spawns
         "Mod+Return".spawn = "kitty";
-        "Mod+Space" = nocFn "launcher" "toggle";
-        "Mod+Semicolon" = nocFn "lockScreen" "lock";
+        "Mod+Space" = nocFn [
+          "panel-toggle"
+          "launcher"
+        ];
+        "Mod+Semicolon" = nocFn [
+          "session"
+          "lock"
+        ];
 
         # Audio and Volume
-        "XF86AudioPrev" = audioFn "media" "previous";
-        "XF86AudioPlay" = audioFn "media" "playPause";
-        "Shift+XF86AudioPlay" = audioFn "media" "play";
-        "XF86AudioNext" = audioFn "media" "next";
+        "XF86AudioPrev" = audioFn [
+          "media"
+          "previous"
+        ];
+        "XF86AudioPlay" = audioFn [
+          "media"
+          "toggle"
+        ];
+        "Shift+XF86AudioPlay" = audioFn [
+          "media"
+          "play"
+        ];
+        "XF86AudioNext" = audioFn [
+          "media"
+          "next"
+        ];
         # "XF86AudioRecord" = audioFn "{
         #   action = spawn amixer "-q" "set" "Capture" "toggle";
         #   allow-when-locked = true;
         # };
-        "XF86AudioMute" = audioFn "volume" "muteOutput";
-        "XF86AudioLowerVolume" = audioFn "volume" "decrease";
-        "XF86AudioRaiseVolume" = audioFn "volume" "increase";
+        "XF86AudioMute" = audioFn [ "volume-mute" ];
+        "XF86AudioLowerVolume" = audioFn [ "volume-down" ];
+        "XF86AudioRaiseVolume" = audioFn [ "volume-up" ];
 
         # Backlight
-        "XF86MonBrightnessDown" = nocFn "brightness" "decrease";
-        "XF86MonBrightnessUp" = nocFn "brightness" "increase";
+        "XF86MonBrightnessDown" = nocFn [ "brightness-down" ];
+        "XF86MonBrightnessUp" = nocFn [ "brightness-up" ];
         # "Shift+XF86MonBrightnessDown".action = spawn brightnessctl "-d" "kbd_backlight" "s" "25%-";
         # "Shift+XF86MonBrightnessUp".action = spawn brightnessctl "-d" "kbd_backlight" "s" "25%+";
 

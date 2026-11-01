@@ -15,7 +15,7 @@
     packages.niri = self.wrappers.niri.wrap {
       inherit pkgs;
       runtimePkgs = [
-        self.packages.${system}.noctalia-shell
+        self.packages.${system}.noctalia
         self.packages.${system}.kitty
       ];
     };
@@ -64,7 +64,7 @@
     };
     wrappers.control_type = "build";
     wrappers.packages = {
-      noctalia-shell = true;
+      noctalia = true;
       kanata = true;
       kitty = true;
       kak-lsp = true;

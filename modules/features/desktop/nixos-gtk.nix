@@ -28,6 +28,10 @@
         gtk-icon-theme-name="breeze"
       '';
     };
+    # noctalia's gtk3 template recolors GTK 3 through libadwaita color names, which
+    # only the adw-gtk3 theme reads; noctalia selects adw-gtk3 / adw-gtk3-dark itself
+    # (gsettings), so gtk.theme stays unset
+    home.packages = [ pkgs.adw-gtk3 ];
     gtk.gtk3.extraConfig.gtk-im-module = "fcitx";
     gtk.gtk4.extraConfig.gtk-im-module = "fcitx";
   };

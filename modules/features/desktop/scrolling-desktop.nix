@@ -1,7 +1,4 @@
-{ config, self, ... }:
-let
-  inherit (config.mtn) images;
-in
+{ self, ... }:
 {
   den.aspects.scrollingDesktop.nixos =
     {
@@ -12,7 +9,7 @@ in
     {
       imports = [
         self.wrappers.niri.install
-        self.wrappers.noctalia-shell.install
+        self.wrappers.noctalia.install
         self.wrappers.kitty.install
         self.wrappers.kanshi.install
       ];
@@ -23,9 +20,8 @@ in
       };
       services.displayManager.defaultSession = lib.mkForce "niri";
       wrappers.niri = {
-        wallpaper = images.mirai;
         runtimePkgs = [
-          config.wrappers.noctalia-shell.wrapper
+          config.wrappers.noctalia.wrapper
           config.wrappers.kitty.wrapper
         ];
       };

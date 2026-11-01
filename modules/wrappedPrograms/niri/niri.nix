@@ -18,15 +18,6 @@
           default = false;
           description = "Enable laptop options";
         };
-
-        wallpaper = lib.mkOption {
-          type = lib.types.oneOf [
-            lib.types.str
-            lib.types.path
-          ];
-          description = "Path to the wallpaper file";
-          default = "";
-        };
       };
 
       config = {
@@ -64,14 +55,7 @@
           };
 
           spawn-at-startup = [
-            "noctalia-shell"
-            [
-              "${lib.getExe pkgs.swaybg}"
-              "-i"
-              "${config.wallpaper}"
-              "-m"
-              "fill"
-            ]
+            "noctalia"
             [
               "dbus-update-activation-environment"
               "--systemd"
@@ -170,7 +154,27 @@
               excludes = [ { is-focused = true; } ];
               opacity = 0.95;
             }
+
+            # noctalia settings window floats
+            {
+              matches = [ { app-id = "^dev\\.noctalia\\.Noctalia$"; } ];
+              open-floating = true;
+              default-column-width.fixed = 1080;
+              default-window-height.fixed = 920;
+            }
           ];
+
+          # noctalia's wallpaper on niri's backdrop: stationary, and visible behind the
+          # overview (layout.background-color is transparent)
+          layer-rules = [
+            {
+              matches = [ { namespace = "^noctalia-wallpaper"; } ];
+              place-within-backdrop = true;
+            }
+          ];
+
+          # lets noctalia activate windows from notification actions
+          debug.honor-xdg-activation-with-invalid-serial = _: { };
         };
       };
     };
