@@ -28,7 +28,5 @@
       USB_AUTOSUSPEND = 0;
     };
     services.power-profiles-daemon.enable = false;
-    services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
-    systemd.sleep.settings.Sleep.HibernateDelaySec = "4h";
   };
 }
