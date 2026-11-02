@@ -149,11 +149,6 @@ in
             default.path = "${images.mirai}";
           };
 
-          lockscreen = {
-            enabled = true;
-            lock_before_suspend = true;
-          };
-
           bar.main = {
             position = "top";
             margin_ends = 0;
