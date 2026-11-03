@@ -85,7 +85,6 @@ in
 
       scrollingDesktop
       displayManager
-      battery
       ios
       graphics
       monitorBacklight
@@ -107,7 +106,6 @@ in
       xserver
       inputMethods
       dbus
-      kded6
       dolphin
       polkit-agent
 
@@ -128,13 +126,6 @@ in
           rtkit
           jetbrains.idea
         ];
-
-        ## Environment
-        environment.variables = {
-          # Set default editor
-          EDITOR = "kak";
-          VISUAL = "kak";
-        };
 
         # default settings
         # Set your time zone.

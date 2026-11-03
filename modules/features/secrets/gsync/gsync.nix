@@ -43,12 +43,13 @@ in
       includes = [ den.aspects.gsync-secrets ];
 
       homeManager =
-        { pkgs, ... }:
+        { ... }:
         {
           # rclone remotes only on nixos hosts
           imports = lib.optional (host.class == "nixos") rcloneRemotes;
 
-          home.packages = with pkgs; [ rclone ];
+          # installs rclone everywhere; the remotes above are nixos-only
+          programs.rclone.enable = true;
           programs.fish = {
             functions = {
               gsync = {

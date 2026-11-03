@@ -67,7 +67,6 @@
       noctalia = true;
       kanata = true;
       kitty = true;
-      kak-lsp = true;
     };
   };
 }

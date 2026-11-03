@@ -10,6 +10,7 @@ in
       system-desktop
       kvm
       steam
+      battery # laptop power management (tlp, upower)
     ];
 
     nixos = {
