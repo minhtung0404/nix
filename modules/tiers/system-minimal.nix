@@ -1,5 +1,5 @@
 {
-  den.aspects.system-minimal = {
+  den.aspects.systemMinimal = {
     # shared by nixos and darwin
     os = {
       nix.settings = {

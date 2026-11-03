@@ -4,9 +4,13 @@
     {
       config,
       lib,
+      pkgs,
       ...
     }:
     {
+      # Qt's wayland plugin: niri sets QT_QPA_PLATFORM=wayland
+      environment.systemPackages = [ pkgs.kdePackages.qtwayland ];
+
       imports = [
         self.wrappers.niri.install
         self.wrappers.noctalia.install

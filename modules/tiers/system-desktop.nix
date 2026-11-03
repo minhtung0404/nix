@@ -1,86 +1,10 @@
+{ den, ... }:
 {
-  den,
-  lib,
-  ...
-}:
-let
-  # desktop home on nixos hosts
-  nixosDesktop = {
-    includes = with den.aspects; [
-      copyPaste
-      nixosMime
-      nixosStartup
-      nixosGtk
-      nixosQt
-    ];
-
-    homeManager =
-      { pkgs, ... }:
-      {
-        home.packages = with pkgs; [
-          ## GUI stuff
-          gparted
-          deluge # Torrent client
-          # Audio
-          vlc
-
-          onlyoffice-desktopeditors
-
-          karere
-          zoom-us
-
-          ## CLI stuff
-          dex # .desktop file management, startup
-        ];
-      };
-  };
-
-  # desktop home on darwin hosts
-  macosDesktop = {
-    includes = with den.aspects; [
-      macosDefaults
-      macosDock
-      aerospace
-      sketchybar
-      hammerspoon
-      macosDefaultApps
-      lctl
-    ];
-  };
-in
-{
-  # desktop home: reaches the users that include den.batteries.host-aspects
-  den.aspects.desktop-home =
-    { host, ... }:
-    {
-      includes =
-        (with den.aspects; [
-          zenBrowser
-          kakoune
-          vesktop
-        ])
-        ++ lib.optional (host.class == "nixos") nixosDesktop
-        ++ lib.optional (host.class == "darwin") macosDesktop;
-
-      homeManager =
-        { pkgs, ... }:
-        {
-          home.packages = with pkgs; [
-            obsidian
-            telegram-desktop
-          ];
-
-          mtn.programs = {
-            my-kakoune.enable-fish-session = true;
-          };
-        };
-    };
-
   # expansion of cli system for desktop use
 
-  den.aspects.system-desktop = {
+  den.aspects.systemDesktop = {
     includes = with den.aspects; [
-      system-cli
+      systemCli
       kanata
 
       scrollingDesktop
@@ -107,51 +31,12 @@ in
       inputMethods
       dbus
       dolphin
-      polkit-agent
+      polkitAgent
+      okular
+      intellij
+      timezone
 
-      desktop-home
+      desktopHome
     ];
-
-    nixos =
-      { pkgs, ... }:
-      {
-        # Default packages
-        environment.systemPackages = with pkgs; [
-          ## Security stuff
-          libsForQt5.qtkeychain
-
-          ## Wayland
-          kdePackages.qtwayland
-          kdePackages.okular
-          rtkit
-          jetbrains.idea
-        ];
-
-        # default settings
-        # Set your time zone.
-        time.timeZone = "Europe/Paris";
-
-        security.polkit.enable = true;
-      };
-
-    darwin =
-      {
-        lib,
-        pkgs,
-        ...
-      }:
-      {
-        services.tailscale.enable = true;
-
-        system.activationScripts = {
-          postActivation = {
-            text = lib.mkOrder 1600 ''
-              echo "-----------------------------------------------"
-              echo "Permission required ..."
-              echo "rclone: Please enable Full Disk Access for ${pkgs.rclone}/bin/rclone"
-            '';
-          };
-        };
-      };
   };
 }

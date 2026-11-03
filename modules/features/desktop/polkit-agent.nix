@@ -1,9 +1,11 @@
 {
   # polkit authentication agent for the niri session (password prompts for
   # udisks, NetworkManager, …); under Plasma, plasma-polkit-agent does this
-  den.aspects.polkit-agent.nixos =
+  den.aspects.polkitAgent.nixos =
     { pkgs, ... }:
     {
+      security.polkit.enable = true;
+
       systemd.user.services.polkit-kde-agent = {
         description = "KDE PolicyKit Authentication Agent";
         partOf = [ "graphical-session.target" ];

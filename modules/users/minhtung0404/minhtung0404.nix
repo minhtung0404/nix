@@ -25,7 +25,7 @@ let
 
   # home config on darwin hosts
   darwinHome =
-    { pkgs, config, ... }:
+    { config, ... }:
     {
       mtn = {
         programs = {
@@ -39,10 +39,6 @@ let
           };
         };
       };
-
-      home.packages = with pkgs; [
-        sops
-      ];
     };
 in
 {

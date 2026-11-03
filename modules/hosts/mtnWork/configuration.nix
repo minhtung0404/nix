@@ -7,7 +7,7 @@ in
 
   den.aspects.${hostname} = {
     includes = with den.aspects; [
-      system-desktop
+      systemDesktop
       kvm
       steam
       battery # laptop power management (tlp, upower)

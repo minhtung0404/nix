@@ -24,6 +24,10 @@
     git
     ssh
     rebuild
+    devTools
+    secretTools
+    fonts
+    vscode
   ];
   den.aspects.cliTools.provides.to-users.homeManager = { pkgs, ... }: {
     home.packages = with pkgs; [
@@ -45,38 +49,12 @@
       ## System monitoring
       btop
 
-      ## Git
-      lazygit
-
       ## Networking
       curl
-
-      ## Formatters
-      nixfmt
-
-      ## Build tools
-      gnumake
 
       ## Archives
       unzip
       zip
-
-      ## Editors
-      vscode
-
-      ## Secrets & security
-      sops
-      bitwarden-cli
-
-      ## Dev environments / containers
-      devenv
-      podman
-
-      ## Fonts
-      nerd-fonts.fira-code
-
-      ## AI
-      claude-code
     ];
 
     home.shell.enableFishIntegration = true;

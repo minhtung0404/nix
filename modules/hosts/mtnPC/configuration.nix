@@ -11,8 +11,9 @@ in
 
   den.aspects.${hostname} = {
     includes = with den.aspects; [
-      system-desktop
+      systemDesktop
       deluge
+      tailscale
     ];
 
     nixos = { pkgs, ... }: {
@@ -116,9 +117,6 @@ in
           server.port = 25600;
         };
       };
-
-      # tailscale
-      services.tailscale.enable = true;
 
       # caddy
       services.caddy = {

@@ -1,7 +1,7 @@
 { lib, ... }:
 {
   # rclone secrets, owned by the user that includes gsync
-  den.aspects.gsync-secrets =
+  den.aspects.gsyncSecrets =
     { user, ... }:
     {
       provides.to-hosts.os = {

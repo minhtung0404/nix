@@ -22,6 +22,9 @@
       };
 
       config = {
+        # .desktop file management, startup
+        home.packages = [ pkgs.dex ];
+
         xdg.configFile =
           let
             f = pkg: {

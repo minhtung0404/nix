@@ -16,7 +16,7 @@ in
       den.batteries.primary-user
       (den.batteries.user-shell "fish")
       den.aspects.tex
-      # home config of the host aspects (desktop-home)
+      # home config of the host aspects (desktopHome)
       den.batteries.host-aspects
     ];
 
@@ -41,7 +41,7 @@ in
 
   den.aspects.${hostname} = {
     includes = with den.aspects; [
-      system-minimal
+      systemMinimal
       scrollingDesktop
       displayManager
       graphics
@@ -58,9 +58,9 @@ in
       udisk2
       zram
       appimage
-      desktop-home
+      desktopHome
       dolphin
-      polkit-agent
+      polkitAgent
     ];
 
     nixos = {

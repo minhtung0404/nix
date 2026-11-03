@@ -40,7 +40,18 @@ in
   den.aspects.gsync =
     { host, ... }:
     {
-      includes = [ den.aspects.gsync-secrets ];
+      includes = [ den.aspects.gsyncSecrets ];
+
+      # macOS only lets rclone read ~/Documents with Full Disk Access
+      provides.to-hosts.darwin =
+        { lib, pkgs, ... }:
+        {
+          system.activationScripts.postActivation.text = lib.mkOrder 1600 ''
+            echo "-----------------------------------------------"
+            echo "Permission required ..."
+            echo "rclone: Please enable Full Disk Access for ${pkgs.rclone}/bin/rclone"
+          '';
+        };
 
       homeManager =
         { ... }:

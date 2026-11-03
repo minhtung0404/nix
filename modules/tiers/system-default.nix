@@ -2,9 +2,9 @@
 {
   # import all essential nix-tools which are used in all hosts
 
-  den.aspects.system-default = {
+  den.aspects.systemDefault = {
     includes = [
-      den.aspects.system-minimal
+      den.aspects.systemMinimal
       den.aspects.homebrew
     ];
   };

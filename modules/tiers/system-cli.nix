@@ -1,9 +1,9 @@
 { den, ... }:
 {
   # import all essential nix-tools which are used in all hosts
-  den.aspects.system-cli = {
+  den.aspects.systemCli = {
     includes = with den.aspects; [
-      system-default
+      systemDefault
 
       fish
       cliTools

@@ -5,7 +5,10 @@
     entertainment = { };
   };
 
-  den.aspects.mtnM1.includes = [ den.aspects.system-desktop ];
+  den.aspects.mtnM1.includes = with den.aspects; [
+    systemDesktop
+    tailscale
+  ];
 
   den.aspects.mtnM1.darwin = {
     wrappers.kanata.configFile = [
