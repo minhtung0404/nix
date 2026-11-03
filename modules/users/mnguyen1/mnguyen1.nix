@@ -33,7 +33,7 @@ in
             defaults = {
               webBrowser = {
                 package = config.programs.zen-browser.finalPackage;
-                desktopFile = "zen.desktop";
+                desktopFile = "zen-beta.desktop";
               };
             };
           };

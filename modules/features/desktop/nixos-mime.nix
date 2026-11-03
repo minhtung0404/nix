@@ -31,10 +31,8 @@
         );
       desktopFileOf =
         cfg:
-        if cfg.desktopFile == null then
-          "${cfg.package}/share/applications/${cfg.package.pname}.desktop"
-        else
-          cfg.desktopFile;
+        # mimeapps.list wants a desktop file name (id), not a path
+        if cfg.desktopFile == null then "${cfg.package.pname}.desktop" else cfg.desktopFile;
 
     in
     {
@@ -47,7 +45,7 @@
           };
           discord = mkPackageWithDesktopOption {
             description = "Discord client";
-            default.package = pkgs.discord-canary;
+            default.package = pkgs.vesktop;
           };
         };
       };
@@ -98,7 +96,7 @@
           "application/pdf" = [ "okularApplication_pdf.desktop" ];
 
           # Files
-          "inode/directory" = [ "dolphin.desktop" ];
+          "inode/directory" = [ "org.kde.dolphin.desktop" ];
 
           # Telegram
           "x-scheme-handler/tg2" = "org.telegram.desktop.desktop";
