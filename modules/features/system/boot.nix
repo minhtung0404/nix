@@ -16,6 +16,5 @@
         loader.efi.canTouchEfiVariables = true;
         supportedFilesystems.ntfs = true;
       };
-      boot.initrd.systemd.enable = true;
     };
 }
