@@ -1,5 +1,8 @@
-{ self, ... }:
+{ den, self, ... }:
 {
+  # niri + noctalia, logged into through noctalia's greeter
+  den.aspects.scrollingDesktop.includes = [ den.aspects.noctaliaGreeter ];
+
   den.aspects.scrollingDesktop.nixos =
     {
       config,

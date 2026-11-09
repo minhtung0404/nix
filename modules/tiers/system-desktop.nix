@@ -8,7 +8,6 @@
       kanata
 
       scrollingDesktop
-      displayManager
       ios
       graphics
       monitorBacklight

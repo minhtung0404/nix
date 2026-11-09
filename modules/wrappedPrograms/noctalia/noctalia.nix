@@ -92,6 +92,10 @@ in
             setup_wizard_enabled = false;
             avatar_path = "${images.amira_squared}";
 
+            # push wallpaper, colors and monitor layout to Noctalia Greeter; inert on
+            # hosts without the greeter (noctalia then keeps sync off)
+            greeter_sync.auto_sync = true;
+
             launcher = {
               categories = true;
               sort_by_usage = true;

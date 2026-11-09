@@ -43,7 +43,6 @@ in
     includes = with den.aspects; [
       systemMinimal
       scrollingDesktop
-      displayManager
       graphics
       bluetooth
       sound
