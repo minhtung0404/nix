@@ -35,6 +35,7 @@
       okular
       intellij
       timezone
+      zerotier
 
       desktopHome
     ];
