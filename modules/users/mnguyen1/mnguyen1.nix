@@ -12,6 +12,7 @@ in
       (den.batteries.user-shell "fish")
       den.aspects.gsync
       den.aspects.tex
+      den.aspects.obsidianCalendar
       # home config of the host aspects (desktop, …)
       den.batteries.host-aspects
     ];
