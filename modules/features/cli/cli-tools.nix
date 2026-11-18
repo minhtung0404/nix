@@ -25,6 +25,7 @@
     ssh
     rebuild
     devTools
+    claudeCode
     secretTools
     fonts
     vscode

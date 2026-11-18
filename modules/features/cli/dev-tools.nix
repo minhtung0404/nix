@@ -1,5 +1,5 @@
 {
-  # development tooling: git UI, formatters, build tools, environments, AI
+  # development tooling: git UI, formatters, build tools, environments
   den.aspects.devTools.homeManager =
     { pkgs, ... }:
     {
@@ -10,8 +10,6 @@
         ## Dev environments / containers
         devenv
         podman
-        ## AI
-        claude-code
       ];
     };
 }
